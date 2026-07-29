@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whiteleaf Interiors | Exhibition Stands, Events & Luxury Fit-out</title>
+  <meta name="description" content="Whiteleaf Interiors is an international experience design studio specializing in bespoke exhibition stand design, luxury corporate events, and turnkey interior fit-outs in Dubai and globally.">
+  <meta name="keywords" content="Whiteleaf Interiors, Exhibition Stand Dubai, Event Management, Interior Fit-out, Exhibition Pavilion, Luxury Interiors">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=20260729_v15">
+  
+  <!-- Three.js 3D Engine CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Main JavaScript -->
+  <script src="js/main.js?v=20260729_v15" defer></script>
+</head>
+<body>
+
+  <!-- 1. NAVIGATION HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="#home" class="navbar-brand">
+        <img src="assets/logo.png" alt="Whiteleaf Interiors Logo" class="logo-img">
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#process" class="nav-link">Process</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="navbar-actions">
+        <a href="#contact" class="btn-pill-sketch">Start Project →</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer Overlay -->
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About Us</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#contact" class="btn-pill-sketch" style="background: var(--accent-green); color: #FFF; width: 100%; margin-top: 10px;">Start Project →</a>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION - INTERACTIVE -->
+  <section class="hero-interactive" id="home">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="interactive-content">
+      <div class="glass-badge" data-i18n="hero-badge">Next-Gen Spatial Architecture</div>
+      <h1 class="interactive-title">
+        Design Beyond<br>
+        <span class="highlight-glow">Dimensions</span>
+      </h1>
+      <p class="interactive-desc" data-i18n="hero-desc">
+        We engineer immersive, award-winning exhibition stands and premium interior fit-outs that redefine spatial experiences.
+      </p>
+      <div class="interactive-actions">
+        <a href="#contact" class="btn-glow">Start a Project</a>
+        <a href="#projects" class="btn-outline-glow">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ABOUT & DESIGN PHILOSOPHY SECTION -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <h2 class="section-title">
+        We Design Experiences <span class="highlight-pen">Beyond Spaces</span>
+      </h2>
+      <p class="section-subtitle">
+        Whiteleaf merges architectural precision, structural engineering, and brand storytelling into three specialized practice areas.
+      </p>
+    </div>
+
+    <div class="philosophy-grid">
+      <!-- Pillar 1 -->
+      <div class="philosophy-card">
+        <div>
+          <span class="philosophy-num">01 / SPATIAL ARCHITECTURE</span>
+          <h3 class="philosophy-title">Exhibition Stand Design</h3>
+          <p class="philosophy-desc">
+            Custom-engineered trade show pavilions and double-deck exhibition stands built to maximize commercial impact at major international congresses.
+          </p>
+        </div>
+        <div style="margin-top: 24px;">
+          <a href="#projects" style="font-size:0.85rem; font-weight:700; color:var(--accent-green); text-decoration:none;">View Exhibitions →</a>
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="philosophy-card">
+        <div>
+          <span class="philosophy-num">02 / EXPERIENTIAL EVENTS</span>
+          <h3 class="philosophy-title">Event Production & Staging</h3>
+          <p class="philosophy-desc">
+            Immersive product launches, high-end corporate summits, and award galas executed with dynamic staging, lighting, and audio-visual styling.
+          </p>
+        </div>
+        <div style="margin-top: 24px;">
+          <a href="#projects" style="font-size:0.85rem; font-weight:700; color:var(--accent-green); text-decoration:none;">View Events →</a>
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="philosophy-card">
+        <div>
+          <span class="philosophy-num">03 / LUXURY FIT-OUT</span>
+          <h3 class="philosophy-title">Commercial & Retail Fit-Out</h3>
+          <p class="philosophy-desc">
+            Turnkey executive corporate headquarters, luxury retail boutiques, and VIP hospitality lounges built with custom brass, marble, and joinery.
+          </p>
+        </div>
+        <div style="margin-top: 24px;">
+          <a href="#projects" style="font-size:0.85rem; font-weight:700; color:var(--accent-green); text-decoration:none;">View Fit-outs →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SERVICES SECTION -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <h2 class="section-title">
+        From Concept to <span class="highlight-pen">Execution.</span>
+      </h2>
+      <p class="section-subtitle">
+        End-to-end spatial experience services delivered with architectural precision and turnkey fabrication.
+      </p>
+    </div>
+
+    <div class="service-cards-grid">
+      <!-- Service 1 -->
+      <div class="service-card">
+        <div class="service-card-header">
+          <span class="service-card-num">CAPABILITY 01</span>
+          <h3 class="service-card-title">Exhibition Stand Design</h3>
+        </div>
+        <div class="service-3d-showcase">
+          <div id="service-3d-exhibition" class="service-3d-canvas"></div>
+          <div class="service-3d-badge">3D EXHIBITION STAND • DRAG TO ROTATE</div>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-desc">Turnkey custom trade show stands, double-deck pavilions, and 3D visualization for global congresses.</p>
+          <ul class="service-item-list">
+            <li>Custom Exhibition Booths</li>
+            <li>3D Ray-traced Renders</li>
+            <li>In-House Fabrication</li>
+            <li>On-Site Installation</li>
+          </ul>
+        </div>
+        <div class="service-card-footer">
+          <span style="font-size:0.8rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Trade Show Pavilions</span>
+          <a href="#contact" class="btn-pill-sketch" style="padding: 6px 16px; font-size: 0.8rem;">Inquire →</a>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card">
+        <div class="service-card-header">
+          <span class="service-card-num">CAPABILITY 02</span>
+          <h3 class="service-card-title">Event Experiences</h3>
+        </div>
+        <div class="service-3d-showcase">
+          <div id="service-3d-events" class="service-3d-canvas"></div>
+          <div class="service-3d-badge">3D EVENT STAGE • DRAG TO ROTATE</div>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-desc">High-impact brand launch events, stage design, award galas, and complete event production management.</p>
+          <ul class="service-item-list">
+            <li>Corporate Summits</li>
+            <li>Product Launch Reveals</li>
+            <li>Custom Stage Staging</li>
+            <li>AV & Lighting Control</li>
+          </ul>
+        </div>
+        <div class="service-card-footer">
+          <span style="font-size:0.8rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Brand Activations</span>
+          <a href="#contact" class="btn-pill-sketch" style="padding: 6px 16px; font-size: 0.8rem;">Inquire →</a>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card">
+        <div class="service-card-header">
+          <span class="service-card-num">CAPABILITY 03</span>
+          <h3 class="service-card-title">Interior Fit-Out</h3>
+        </div>
+        <div class="service-3d-showcase">
+          <div id="service-3d-interior" class="service-3d-canvas"></div>
+          <div class="service-3d-badge">3D OFFICE FIT-OUT • DRAG TO ROTATE</div>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-desc">Luxury commercial offices, retail showrooms, VIP hospitality lounges, and complete interior fit-out execution.</p>
+          <ul class="service-item-list">
+            <li>Commercial Office Suites</li>
+            <li>Retail Showroom Spaces</li>
+            <li>Hospitality Interiors</li>
+            <li>Bespoke Joinery</li>
+          </ul>
+        </div>
+        <div class="service-card-footer">
+          <span style="font-size:0.8rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Turnkey Real Estate</span>
+          <a href="#contact" class="btn-pill-sketch" style="padding: 6px 16px; font-size: 0.8rem;">Inquire →</a>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card">
+        <div class="service-card-header">
+          <span class="service-card-num">CAPABILITY 04</span>
+          <h3 class="service-card-title">Brand Activation</h3>
+        </div>
+        <div class="service-3d-showcase">
+          <div id="service-3d-activation" class="service-3d-canvas"></div>
+          <div class="service-3d-badge">3D BRAND ACTIVATION • DRAG TO ROTATE</div>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-desc">Experiential marketing pop-ups, physical installations, interactive displays, and temporary structures.</p>
+          <ul class="service-item-list">
+            <li>Experiential Pop-ups</li>
+            <li>Creative Installations</li>
+            <li>Interactive Displays</li>
+            <li>Consumer Engagements</li>
+          </ul>
+        </div>
+        <div class="service-card-footer">
+          <span style="font-size:0.8rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Experiential Marketing</span>
+          <a href="#contact" class="btn-pill-sketch" style="padding: 6px 16px; font-size: 0.8rem;">Inquire →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PROJECTS PORTFOLIO SECTION -->
+  <section class="projects-section" id="projects">
+    <div class="section-header">
+      <h2 class="section-title">
+        Featured <span class="highlight-pen">Projects</span>
+      </h2>
+      <p class="section-subtitle">
+        Explore our architecture-grade case studies across international exhibitions, events, and interiors.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Project 01 -->
+      <div class="project-card">
+        <div class="project-img-wrapper">
+          <img src="assets/exhibitions.png" alt="International Exhibition Stand" class="project-img">
+        </div>
+        <div class="project-info">
+          <span class="project-num">PROJECT 01</span>
+          <h3 class="project-title">International Exhibition Stand</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">GITEX Dubai Pavilion • 600 SQM Custom Stand</p>
+        </div>
+      </div>
+
+      <!-- Project 02 -->
+      <div class="project-card">
+        <div class="project-img-wrapper">
+          <img src="assets/events.png" alt="Luxury Corporate Event" class="project-img">
+        </div>
+        <div class="project-info">
+          <span class="project-num">PROJECT 02</span>
+          <h3 class="project-title">Luxury Corporate Event</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Armani Hotel Dubai • Stage & AV Staging</p>
+        </div>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="project-card">
+        <div class="project-img-wrapper">
+          <img src="assets/interiors.png" alt="Retail Interior Experience" class="project-img">
+        </div>
+        <div class="project-info">
+          <span class="project-num">PROJECT 03</span>
+          <h3 class="project-title">Retail Interior Experience</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">DIFC Corporate Office & Boutique Lounge</p>
+        </div>
+      </div>
+
+      <!-- Project 04 -->
+      <div class="project-card">
+        <div class="project-img-wrapper">
+          <img src="assets/events.png" alt="Custom Brand Installation" class="project-img">
+        </div>
+        <div class="project-info">
+          <span class="project-num">PROJECT 04</span>
+          <h3 class="project-title">Custom Brand Installation</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Experiential Consumer Pop-Up Structure</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. PROCESS SECTION -->
+  <section class="process-section" id="process">
+    <div class="section-header">
+      <h2 class="section-title">
+        Our Design <span class="highlight-pen">Process</span>
+      </h2>
+      <p class="section-subtitle">
+        From Concept to Execution.
+      </p>
+    </div>
+
+    <div class="process-container">
+      <div class="process-left">
+        <div class="process-grid">
+          <div class="process-card active" data-step="1">
+            <div class="process-num">01</div>
+            <h3 class="process-title">Discover</h3>
+            <p class="process-desc">Understanding brand goals, spatial requirements, target audience, and engineering constraints.</p>
+          </div>
+
+          <div class="process-card" data-step="2">
+            <div class="process-num">02</div>
+            <h3 class="process-title">Design</h3>
+            <p class="process-desc">Creative spatial concepts, hyper-realistic 3D renderings, material samples, and technical blueprints.</p>
+          </div>
+
+          <div class="process-card" data-step="3">
+            <div class="process-num">03</div>
+            <h3 class="process-title">Build</h3>
+            <p class="process-desc">Precision fabrication in our Dubai and Mumbai facilities, joinery, metalwork, and AV integration.</p>
+          </div>
+
+          <div class="process-card" data-step="4">
+            <div class="process-num">04</div>
+            <h3 class="process-title">Experience</h3>
+            <p class="process-desc">On-site structural installation, lighting calibration, turnkey project delivery, and total quality assurance.</p>
+          </div>
+        </div>
+      </div>
+      <div class="process-right">
+        <div class="process-3d-wrapper">
+          <div id="process-3d-canvas" class="process-3d-canvas"></div>
+          <div class="process-3d-overlay">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="process-3d-step-num">STEP 01</span>
+              <h4 class="process-3d-step-title">Concept Discovery</h4>
+            </div>
+            <span class="process-3d-hint">👆 DRAG 3D</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. WHY CHOOSE US SECTION -->
+  <section class="why-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        Why Choose <span class="highlight-pen">Whiteleaf</span>
+      </h2>
+      <p class="section-subtitle">
+        Core pillars that make us the preferred spatial design partner globally.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <h3 class="why-title">Creative Excellence</h3>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚙️</div>
+        <h3 class="why-title">Technical Expertise</h3>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌍</div>
+        <h3 class="why-title">Global Execution</h3>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔍</div>
+        <h3 class="why-title">Attention To Detail</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PROJECT INQUIRY CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <!-- Left Info Side -->
+      <div class="contact-left">
+        <span class="contact-tag">PROJECT INQUIRY</span>
+        <h3 style="font-size:clamp(1.5rem, 3vw, 2.2rem); font-weight:800; margin-bottom:16px;">Let's Create Something Extraordinary</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:28px;">Tell us about your upcoming exhibition stand, luxury corporate event, or interior fit-out project. Our spatial architects will respond within 24 hours.</p>
+        
+        <div style="margin-top: 24px; font-size: 0.9rem; color: var(--text-dark);">
+          <p style="margin-bottom: 8px;"><strong>DUBAI STUDIO:</strong> Business Bay & Design District, Dubai, UAE</p>
+          <p style="margin-bottom: 8px;"><strong>EMAIL:</strong> contact@whiteleafinteriors.com</p>
+          <p><strong>PHONE:</strong> +971 4 000 0000 / +971 50 000 0000</p>
+        </div>
+      </div>
+
+      <!-- Right Contact Form -->
+      <form class="contact-form" id="blueprint-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-name">Full Name *</label>
+            <input type="text" id="form-name" class="form-input" placeholder="Your Full Name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-company">Company Name</label>
+            <input type="text" id="form-company" class="form-input" placeholder="Company Name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-email">Email Address *</label>
+            <input type="email" id="form-email" class="form-input" placeholder="email@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-phone">Phone Number</label>
+            <input type="tel" id="form-phone" class="form-input" placeholder="+971 50 000 0000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-project">Project Type *</label>
+          <select id="form-project" class="form-select" required>
+            <option value="Exhibition Stand Design">Exhibition Stand Design</option>
+            <option value="Event Experiences">Event Experiences & Staging</option>
+            <option value="Interior Fit-Out">Interior Fit-Out (Corporate / Retail)</option>
+            <option value="Brand Activation">Brand Activation & Pop-Up</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-message">Message / Project Scope *</label>
+          <textarea id="form-message" class="form-textarea" rows="3" placeholder="Tell us about your upcoming exhibition stand size, venue, or interior space..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pill-sketch" style="background: var(--accent-green); color: #FFFFFF; border-color: #121212; justify-content: center; width: 100%; font-size: 0.95rem; padding: 14px;">
+          Submit Project Specification →
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 9. FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="#home">
+          <img src="assets/logo.png" alt="Whiteleaf Logo" class="logo-img" style="height:42px;">
+        </a>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px; max-width:320px;">
+          Global experience design studio specializing in exhibition stands, events, and luxury interior fit-outs in Dubai and worldwide.
+        </p>
+      </div>
+
+      <div style="display:flex; gap:40px; flex-wrap:wrap;">
+        <div>
+          <h4 style="font-size:0.8rem; font-weight:800; text-transform:uppercase; margin-bottom:12px;">Quick Links</h4>
+          <ul style="list-style:none; font-size:0.85rem; space-y:6px;">
+            <li><a href="#home" style="color:var(--text-dark); text-decoration:none;">Home</a></li>
+            <li><a href="#about" style="color:var(--text-dark); text-decoration:none;">About Us</a></li>
+            <li><a href="#services" style="color:var(--text-dark); text-decoration:none;">Services</a></li>
+            <li><a href="#projects" style="color:var(--text-dark); text-decoration:none;">Projects</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.8rem; font-weight:800; text-transform:uppercase; margin-bottom:12px;">Studios</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Dubai, UAE</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Mumbai, India</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">London, UK</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-copy">
+      <p>© 2026 Whiteleaf Interiors LLC. All rights reserved.</p>
+      <a href="#home" style="color:var(--text-dark); font-weight:700; text-decoration:none;">Back to top ↑</a>
+    </div>
+  </footer>
+  <script src="js/particles.js"></script>
+</body>
+</html>

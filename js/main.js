@@ -5,19 +5,49 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Whiteleaf Interiors - Infya Replica Experience Ready.');
 
-  // Lenis Smooth Scroll Initialization
+  // Lenis Smooth Scroll Initialization & GSAP Ticker Sync
+  let lenisInstance = null;
   if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
+    lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      touchMultiplier: 1.5,
     });
-    function raf(time) {
-      lenis.raf(time);
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      lenisInstance.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => {
+        lenisInstance.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) {
+        lenisInstance.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
   }
+
+  // Smooth Inertia Scroll for all Anchor Links (#contact, #services, #projects, #about, #home)
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          if (lenisInstance) {
+            lenisInstance.scrollTo(targetEl, { offset: -40, duration: 1.4 });
+          } else {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    });
+  });
 
   // Custom Cursor Follower Logic
   const cursor = document.getElementById('custom-cursor');
@@ -67,36 +97,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // GSAP ScrollTrigger Reveal Animations
+  // Comprehensive Master Scroll Reveal Suite across all site sections
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.utils.toArray('.gsap-reveal').forEach((el) => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          onEnter: () => {
-            if (el.classList.contains('unboxed-stats-strip') || el.querySelector('.unboxed-stat-number')) {
-              if (typeof window.triggerStatAnimation === 'function') window.triggerStatAnimation();
+    // 1. Generic .gsap-reveal and .reveal elements (fade up + subtle scale)
+    gsap.utils.toArray('.gsap-reveal, .reveal, .bsl-hero-main, .bsl-hero-footer, .bsl-about-container, .infya-contact-grid').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 65, scale: 0.98 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+            onEnter: () => {
+              el.classList.add('is-inview', 'revealed');
+              if (el.classList.contains('unboxed-stats-strip') || el.querySelector('.unboxed-stat-number')) {
+                if (typeof window.triggerStatAnimation === 'function') window.triggerStatAnimation();
+              }
             }
           }
-        },
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-      });
+        }
+      );
     });
 
-    // Liquid-smooth hardware-accelerated parallax scroll
+    // 2. Liquid Parallax Scroll on Showcase Cards
     gsap.utils.toArray('.fullscreen-project-card').forEach((card) => {
       const img = card.querySelector('.parallax-img');
+      const caption = card.querySelector('.fullscreen-caption');
+
       if (img) {
         gsap.fromTo(img, 
-          { yPercent: -15 },
+          { yPercent: -16, scale: 1.12 },
           {
-            yPercent: 15,
+            yPercent: 16,
+            scale: 1,
             ease: 'none',
             scrollTrigger: {
               trigger: card,
@@ -107,7 +147,43 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         );
       }
+
+      if (caption) {
+        gsap.fromTo(caption,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 78%'
+            }
+          }
+        );
+      }
     });
+
+    // 3. Staggered Entrance for Horizontal Service Cards
+    const hServices = gsap.utils.toArray('.horizontal-service-item');
+    if (hServices.length > 0) {
+      gsap.fromTo(hServices,
+        { opacity: 0, y: 80, rotateX: -6, transformPerspective: 1000 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 1.3,
+          stagger: 0.15,
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: '.horizontal-services-row',
+            start: 'top 82%'
+          }
+        }
+      );
+    }
   }
 
   // 1. Mobile Navigation Drawer Toggle

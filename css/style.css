@@ -52,6 +52,36 @@ html, body {
   color: var(--text-dark);
 }
 
+/* --- High-Performance Hardware-Accelerated Scroll Reveal CSS --- */
+.gsap-reveal,
+.reveal-up {
+  opacity: 0;
+  transform: translateY(60px);
+  will-change: transform, opacity;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gsap-reveal.is-inview,
+.reveal-up.is-inview,
+.gsap-reveal.revealed,
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94) translateY(40px);
+  will-change: transform, opacity;
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.is-inview,
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
 /* Responsive Fluid Container Utility */
 .container {
   width: 100%;

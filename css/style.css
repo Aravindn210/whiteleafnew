@@ -2972,9 +2972,37 @@ html[dir="rtl"] .btn-cta-large {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
+}
+
+.unboxed-stats-strip::before,
+.unboxed-stats-strip::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(157,203,71,0.75) 50%, rgba(255,255,255,0) 100%);
+  transform: scaleX(0);
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(157, 203, 71, 0.35);
+}
+
+.unboxed-stats-strip::before {
+  top: 0;
+}
+
+.unboxed-stats-strip::after {
+  bottom: 0;
+}
+
+.unboxed-stats-strip.is-inview::before,
+.unboxed-stats-strip.is-inview::after,
+.unboxed-stats-strip.revealed::before,
+.unboxed-stats-strip.revealed::after {
+  transform: scaleX(1);
 }
 
 .unboxed-stat-item {
@@ -3039,7 +3067,19 @@ html[dir="rtl"] .btn-cta-large {
 .unboxed-stat-divider {
   width: 1px;
   height: 60px;
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(157,203,71,0.3) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(157,203,71,0.8) 50%, rgba(255,255,255,0) 100%);
+  transform: scaleY(0);
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(157, 203, 71, 0.3);
+}
+
+.unboxed-stats-strip.is-inview .unboxed-stat-divider,
+.unboxed-stats-strip.revealed .unboxed-stat-divider,
+.unboxed-stat-divider.is-inview,
+.unboxed-stat-divider.revealed {
+  transform: scaleY(1);
 }
 
 @media (max-width: 768px) {

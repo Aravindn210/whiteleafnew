@@ -137,22 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    // 2. Animated Section Line Loaders (Laser Draw Effect)
-    gsap.utils.toArray('.section-line-loader').forEach((line) => {
-      gsap.fromTo(line,
-        { scaleX: 0, opacity: 0 },
-        {
-          scaleX: 1,
-          opacity: 1,
-          duration: 1.5,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: line,
-            start: 'top 92%',
-            onEnter: () => line.classList.add('is-inview', 'revealed')
-          }
-        }
-      );
+    // 2. Existing Section Divider Lines & Borders Animated Loading Drawing
+    gsap.utils.toArray('.unboxed-stats-strip, .unboxed-stat-divider, .grid-line-h, .grid-line-v').forEach((line) => {
+      ScrollTrigger.create({
+        trigger: line,
+        start: 'top 92%',
+        onEnter: () => line.classList.add('is-inview', 'revealed')
+      });
     });
 
     // 3. Generic .gsap-reveal and .reveal elements (3D Unfold + Subtle Scale)

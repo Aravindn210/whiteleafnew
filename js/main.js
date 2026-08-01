@@ -2206,51 +2206,69 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     }
-  // --- Rapid Scramble & Decoding Digit Animation for Track Record Strip ---
-  function runStatScramble(el) {
-    if (el.dataset.scrambling === 'true') return;
-    el.dataset.scrambling = 'true';
+  // --- Smooth Scroll-Triggered Count Up Animation for Track Record Strip ---
+  function animateStatNumber(el) {
+    if (el.dataset.animating === 'true') return;
+    el.dataset.animating = 'true';
 
     const targetVal = parseInt(el.getAttribute('data-target'), 10);
     const suffix = el.getAttribute('data-suffix') || '';
 
     if (!isNaN(targetVal)) {
-      let count = 0;
-      const max = 25;
-      const timer = setInterval(() => {
-        count++;
-        if (count < max) {
-          const rand = Math.floor(Math.random() * (targetVal * 1.15));
-          el.textContent = rand + suffix;
+      const duration = 1800; // 1.8 seconds for smooth ease-out count
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Smooth easeOutCubic easing function
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(targetVal * easeProgress);
+
+        el.textContent = currentVal + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
         } else {
-          clearInterval(timer);
           el.textContent = targetVal + suffix;
-          el.dataset.scrambling = 'false';
+          el.dataset.animating = 'false';
         }
-      }, 50);
+      }
+
+      requestAnimationFrame(step);
     } else {
-      const originalText = "UAE & KSA";
+      // Decode animation for non-numeric text like "UAE & KSA"
+      const originalText = el.dataset.originalText || el.textContent.trim();
+      el.dataset.originalText = originalText;
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      let count = 0;
-      const max = 22;
-      const timer = setInterval(() => {
-        count++;
-        if (count < max) {
-          let str = "";
-          for (let i = 0; i < originalText.length; i++) {
-            if (originalText[i] === ' ' || originalText[i] === '&') {
-              str += originalText[i];
-            } else {
-              str += chars[Math.floor(Math.random() * chars.length)];
-            }
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function stepText(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const revealedCount = Math.floor(progress * originalText.length);
+
+        let result = "";
+        for (let i = 0; i < originalText.length; i++) {
+          if (i < revealedCount || originalText[i] === ' ' || originalText[i] === '&') {
+            result += originalText[i];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
           }
-          el.textContent = str;
-        } else {
-          clearInterval(timer);
-          el.textContent = originalText;
-          el.dataset.scrambling = 'false';
         }
-      }, 55);
+
+        el.textContent = result;
+
+        if (progress < 1) {
+          requestAnimationFrame(stepText);
+        } else {
+          el.textContent = originalText;
+          el.dataset.animating = 'false';
+        }
+      }
+
+      requestAnimationFrame(stepText);
     }
   }
 
@@ -2259,21 +2277,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          runStatScramble(entry.target);
+          animateStatNumber(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 });
 
     statElements.forEach(el => {
       observer.observe(el);
       el.closest('.unboxed-stat-item')?.addEventListener('mouseenter', () => {
-        runStatScramble(el);
+        if (el.dataset.animating !== 'true') {
+          animateStatNumber(el);
+        }
       });
     });
-
-    setTimeout(() => {
-      statElements.forEach(el => runStatScramble(el));
-    }, 600);
   }
 
   // Initialize scroll reveals

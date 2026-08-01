@@ -92,6 +92,48 @@ html, body {
   transform: perspective(1200px) rotateX(-2deg) translateY(-8px) scale(1.02);
 }
 
+/* --- Animated Section Divider Line Loader --- */
+.section-line-loader {
+  width: 100%;
+  max-width: 1350px;
+  height: 2px;
+  margin: 60px auto;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(157, 203, 71, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: scaleX(0);
+  transform-origin: center center;
+  box-shadow: 0 0 15px rgba(157, 203, 71, 0.4);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-line-loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #FFFFFF, rgba(255, 255, 255, 0));
+  opacity: 0.9;
+}
+
+.section-line-loader.is-inview,
+.section-line-loader.revealed {
+  transform: scaleX(1);
+}
+
+.section-line-loader.is-inview::after,
+.section-line-loader.revealed::after {
+  animation: lineLaserSweep 2s ease-in-out infinite;
+}
+
+@keyframes lineLaserSweep {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
 /* Responsive Fluid Container Utility */
 .container {
   width: 100%;

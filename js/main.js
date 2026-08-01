@@ -137,7 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    // 2. Generic .gsap-reveal and .reveal elements (3D Unfold + Subtle Scale)
+    // 2. Animated Section Line Loaders (Laser Draw Effect)
+    gsap.utils.toArray('.section-line-loader').forEach((line) => {
+      gsap.fromTo(line,
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 1.5,
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: line,
+            start: 'top 92%',
+            onEnter: () => line.classList.add('is-inview', 'revealed')
+          }
+        }
+      );
+    });
+
+    // 3. Generic .gsap-reveal and .reveal elements (3D Unfold + Subtle Scale)
     gsap.utils.toArray('.gsap-reveal, .reveal, .bsl-hero-footer, .bsl-about-container, .infya-contact-grid').forEach((el) => {
       gsap.fromTo(el,
         { opacity: 0, y: 75, rotateX: 12, transformPerspective: 1200, scale: 0.96 },

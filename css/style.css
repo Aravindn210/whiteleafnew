@@ -53,19 +53,6 @@ html, body {
 }
 
 /* --- High-Performance Hardware-Accelerated Scroll Reveal CSS --- */
-.scroll-progress-laser {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, #9DCB47 0%, #D4FE72 50%, #FFFFFF 100%);
-  box-shadow: 0 0 15px #9DCB47, 0 0 30px #D4FE72;
-  z-index: 9999;
-  pointer-events: none;
-  transition: width 0.05s ease-out;
-}
-
 .gsap-reveal,
 .reveal-up {
   opacity: 0;

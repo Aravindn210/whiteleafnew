@@ -97,34 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Laser Scroll Progress Line & Velocity Tracking ---
-  const laserBar = document.getElementById('scroll-laser');
-  let lastScrollY = window.scrollY;
-
-  function updateLaserProgress() {
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (totalHeight > 0) {
-      const scrollPercent = (window.scrollY / totalHeight) * 100;
-      if (laserBar) {
-        laserBar.style.width = scrollPercent + '%';
-        const velocity = Math.abs(window.scrollY - lastScrollY);
-        if (velocity > 15) {
-          laserBar.style.height = '5px';
-          laserBar.style.boxShadow = '0 0 25px #9DCB47, 0 0 50px #D4FE72';
-        } else {
-          laserBar.style.height = '3px';
-          laserBar.style.boxShadow = '0 0 15px #9DCB47, 0 0 30px #D4FE72';
-        }
-      }
-    }
-    lastScrollY = window.scrollY;
-  }
-
-  window.addEventListener('scroll', updateLaserProgress, { passive: true });
-  if (lenisInstance) {
-    lenisInstance.on('scroll', updateLaserProgress);
-  }
-
   // --- Interactive 3D Cursor Tilt Effect on Showcase & Service Cards ---
   const tiltCards = document.querySelectorAll('.fullscreen-project-card, .horizontal-service-item');
   tiltCards.forEach((card) => {

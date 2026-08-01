@@ -3,7 +3,107 @@
    ------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Whiteleaf Interiors - Fully Responsive Website Ready.');
+  console.log('Whiteleaf Interiors - Infya Replica Experience Ready.');
+
+  // Lenis Smooth Scroll Initialization
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+
+  // Custom Cursor Follower Logic
+  const cursor = document.getElementById('custom-cursor');
+  const cursorText = document.getElementById('cursor-text');
+  if (cursor) {
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    const hoverItems = document.querySelectorAll('[data-cursor]');
+    hoverItems.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+        if (cursorText) cursorText.textContent = item.getAttribute('data-cursor') || 'VIEW';
+      });
+      item.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        if (cursorText) cursorText.textContent = '';
+      });
+    });
+  }
+
+  // Minimal Rotating Service Hover Popup Listener
+  const popup = document.getElementById('service-hover-popup');
+  const popupImg = document.getElementById('service-popup-img');
+  const serviceRows = document.querySelectorAll('.infya-service-row[data-popup-img]');
+
+  if (popup && popupImg && serviceRows.length > 0) {
+    document.addEventListener('mousemove', (e) => {
+      popup.style.left = (e.clientX + 20) + 'px';
+      popup.style.top = (e.clientY + 20) + 'px';
+    });
+
+    serviceRows.forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        const imgSrc = row.getAttribute('data-popup-img');
+        if (imgSrc) {
+          popupImg.src = imgSrc;
+          popup.classList.add('active');
+        }
+      });
+
+      row.addEventListener('mouseleave', () => {
+        popup.classList.remove('active');
+      });
+    });
+  }
+
+  // GSAP ScrollTrigger Reveal Animations
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.gsap-reveal').forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+      });
+    });
+
+    // Liquid-smooth hardware-accelerated parallax scroll
+    gsap.utils.toArray('.fullscreen-project-card').forEach((card) => {
+      const img = card.querySelector('.parallax-img');
+      if (img) {
+        gsap.fromTo(img, 
+          { yPercent: -15 },
+          {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.2
+            }
+          }
+        );
+      }
+    });
+  }
 
   // 1. Mobile Navigation Drawer Toggle
   const mobileToggle = document.getElementById('mobile-toggle');
@@ -79,6 +179,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // 5. Portfolio Category Filter Handler
+  const filterBtns = document.querySelectorAll('.project-filters .filter-btn');
+  const projectCards = document.querySelectorAll('.projects-grid .project-card');
+
+  if (filterBtns.length > 0 && projectCards.length > 0) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        projectCards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
 });
 
 /* -------------------------------------------------------------
@@ -305,39 +431,51 @@ function init3DSmallBooth() {
    ------------------------------------------------------------- */
 function initService3DModels() {
   try {
-    
-  if (typeof THREE === 'undefined') return;
-  createServiceScene('service-3d-exhibition', buildExhibitionScene);
-  createServiceScene('service-3d-events', buildEventsScene);
-  createServiceScene('service-3d-interior', buildInteriorScene);
-  createServiceScene('service-3d-activation', buildActivationScene);
-
+    if (typeof THREE === 'undefined') return;
+    createServiceScene('service-3d-exhibition', buildExhibitionScene);
+    createServiceScene('service-3d-events', buildEventsScene);
+    createServiceScene('service-3d-interior', buildInteriorScene);
+    createServiceScene('service-3d-activation', buildActivationScene);
   } catch (e) {
     console.error("Error in initService3DModels:", e);
   }
 }
 
+// Window load fallback to ensure 3D canvases render even if DOM layout is delayed
+window.addEventListener('load', () => {
+  initService3DModels();
+});
+
 function createServiceScene(containerId, buildSceneFn) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
+  const getWidth = () => Math.max(container.clientWidth, container.parentElement?.clientWidth || 240);
+  const getHeight = () => Math.max(container.clientHeight, 270);
+
+  container.innerHTML = ''; // Clear stale elements
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
-    40,
-    container.clientWidth / container.clientHeight,
+    42,
+    getWidth() / getHeight(),
     0.1,
     1000
   );
 
   const setResponsiveCamera = () => {
+    const w = getWidth();
+    const h = getHeight();
     if (window.innerWidth <= 600) {
-      camera.position.set(0, 1.6, 5.2);
+      camera.position.set(0, 0.2, 6.2);
     } else if (window.innerWidth <= 1024) {
-      camera.position.set(0, 1.8, 5.8);
+      camera.position.set(0, 0.2, 5.8);
     } else {
-      camera.position.set(0, 1.9, 6.2);
+      camera.position.set(0, 0.2, 5.4);
     }
-    camera.lookAt(0, 0.1, 0);
+    camera.lookAt(0, 0.05, 0);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
   };
   setResponsiveCamera();
 
@@ -350,47 +488,46 @@ function createServiceScene(containerId, buildSceneFn) {
   }
   if (!renderer) return;
 
-  renderer.domElement?.addEventListener('webglcontextlost', (e) => {
-    e.preventDefault();
-  }, false);
-
-  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setSize(getWidth(), getHeight(), false);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.domElement.style.width = '100%';
+  renderer.domElement.style.height = '100%';
+  renderer.domElement.style.display = 'block';
   container.appendChild(renderer.domElement);
 
   const standGroup = new THREE.Group();
   scene.add(standGroup);
 
-  // Materials
+  // Robust, high-compatibility materials
   const materials = {
-    green: new THREE.MeshStandardMaterial({ color: 0x7c8d4c, metalness: 0.4, roughness: 0.3 }),
-    dark: new THREE.MeshStandardMaterial({ color: 0x1f1f1f, metalness: 0.6, roughness: 0.4 }),
-    wall: new THREE.MeshStandardMaterial({ color: 0x121212, metalness: 0.1, roughness: 0.6 }), // premium black walls
+    green: new THREE.MeshStandardMaterial({ color: 0x7c8d4c, metalness: 0.3, roughness: 0.3 }),
+    dark: new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.5, roughness: 0.4 }),
+    wall: new THREE.MeshStandardMaterial({ color: 0x1a1a1a, metalness: 0.1, roughness: 0.6 }),
     wood: new THREE.MeshStandardMaterial({ color: 0xc1a179, metalness: 0.1, roughness: 0.6 }),
-    glass: new THREE.MeshPhysicalMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.05, clearcoat: 1.0 }),
-    screen: new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0x2b3818, metalness: 0.8, roughness: 0.2 }),
-    metal: new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.8, roughness: 0.2 }),
+    glass: new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.1 }),
+    screen: new THREE.MeshStandardMaterial({ color: 0x9dcb47, emissive: 0x7c8d4c, emissiveIntensity: 0.8 }),
+    metal: new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.8, roughness: 0.2 }),
     gold: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.85, roughness: 0.2 }),
     glowGreen: new THREE.MeshBasicMaterial({ color: 0x9dcb47 }),
-    screenGlow: new THREE.MeshStandardMaterial({ color: 0x1a2b10, emissive: 0x7c8d4c, emissiveIntensity: 0.7, roughness: 0.2 }),
-    glassClear: new THREE.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: 0.35, metalness: 0.1, roughness: 0.1, clearcoat: 1.0 }),
+    screenGlow: new THREE.MeshStandardMaterial({ color: 0x9dcb47, emissive: 0x7c8d4c, emissiveIntensity: 0.8 }),
+    glassClear: new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 }),
     plantGreen: new THREE.MeshStandardMaterial({ color: 0x3d6e35, roughness: 0.6 }),
     whiteMarble: new THREE.MeshStandardMaterial({ color: 0xf5f4f0, roughness: 0.2, metalness: 0.1 })
   };
 
   buildSceneFn(scene, standGroup, materials);
 
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  // Bright, error-free dual directional & ambient lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2.2);
-  directionalLight.position.set(2, 5, 3);
-  scene.add(directionalLight);
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.5);
+  dirLight1.position.set(5, 10, 7);
+  scene.add(dirLight1);
 
-  const spotLight = new THREE.SpotLight(0x7c8d4c, 4);
-  spotLight.position.set(-2, 4, 3);
-  scene.add(spotLight);
+  const dirLight2 = new THREE.DirectionalLight(0x9dcb47, 1.5);
+  dirLight2.position.set(-5, 5, -3);
+  scene.add(dirLight2);
 
   // Interaction
   let mouseX = 0;
@@ -411,428 +548,421 @@ function createServiceScene(containerId, buildSceneFn) {
   function animate() {
     requestAnimationFrame(animate);
 
-    standGroup.rotation.y += (mouseX * 0.4 - standGroup.rotation.y) * 0.05;
-    standGroup.rotation.x += (mouseY * 0.2 - standGroup.rotation.x) * 0.05;
+    // Oscillate smoothly back and forth by exactly 180 degrees (Math.PI total range) and return (reduced speed)
+    standGroup.rotation.y = Math.sin(Date.now() * 0.0003) * (Math.PI / 2);
+
+    // Mouse interaction interpolation
+    standGroup.rotation.x += (mouseY * 0.15 - standGroup.rotation.x) * 0.02;
 
     renderer.render(scene, camera);
   }
   animate();
 
   const handleResize = () => {
-    if (!container) return;
+    if (!container || !renderer) return;
     setResponsiveCamera();
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(getWidth(), getHeight(), false);
   };
   window.addEventListener('resize', handleResize);
   window.addEventListener('orientationchange', handleResize);
+
+  setTimeout(handleResize, 100);
+  setTimeout(handleResize, 500);
 }
 
 function buildExhibitionScene(scene, group, mats) {
-  // 1. Raised Main Deck Floor & LED Edge Strip
-  const floor = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.1, 3.0), mats.dark);
-  floor.position.set(0, -0.8, 0);
+  // 1. Raised Main Deck Floor & LED Edge Strip (Unified to 3.6 x 2.6 footprint)
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.08, 2.6), mats.dark);
+  floor.position.set(0, -0.65, 0);
   group.add(floor);
 
-  const ledEdge = new THREE.Mesh(new THREE.BoxGeometry(4.22, 0.025, 0.04), mats.glowGreen);
-  ledEdge.position.set(0, -0.75, 1.48);
+  const ledEdge = new THREE.Mesh(new THREE.BoxGeometry(3.62, 0.02, 0.03), mats.glowGreen);
+  ledEdge.position.set(0, -0.61, 1.28);
   group.add(ledEdge);
 
   // Raised Wood Section (VIP Zone Floor)
-  const vipDeck = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.04, 1.5), mats.wood);
-  vipDeck.position.set(1.0, -0.73, -0.4);
+  const vipDeck = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 1.2), mats.wood);
+  vipDeck.position.set(0.8, -0.58, -0.3);
   group.add(vipDeck);
 
   // 2. Architectural L-Back Wall (Dark Matte + Gold Accent Trim)
-  const backWall = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.4, 0.08), mats.wall);
-  backWall.position.set(-0.7, 0.4, -1.1);
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(2.0, 2.0, 0.06), mats.wall);
+  backWall.position.set(-0.5, 0.35, -0.9);
   group.add(backWall);
 
-  const sideWall = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.4, 1.6), mats.wall);
-  sideWall.position.set(-1.86, 0.4, -0.3);
+  const sideWall = new THREE.Mesh(new THREE.BoxGeometry(0.06, 2.0, 1.3), mats.wall);
+  sideWall.position.set(-1.5, 0.35, -0.25);
   group.add(sideWall);
 
   // Vertical Acoustic Slats on Back Wall
-  const slatGeo = new THREE.BoxGeometry(0.04, 2.4, 0.03);
+  const slatGeo = new THREE.BoxGeometry(0.03, 2.0, 0.02);
   for (let i = 0; i < 7; i++) {
     const slat = new THREE.Mesh(slatGeo, mats.wood);
-    slat.position.set(0.6 + i * 0.22, 0.4, -1.06);
+    slat.position.set(0.5 + i * 0.18, 0.35, -0.86);
     group.add(slat);
   }
 
   // 3. Cantilevered Overhead Canopy & Downlights
-  const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.08, 1.6), mats.wall);
-  canopy.position.set(-0.6, 1.56, -0.3);
+  const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.06, 1.3), mats.wall);
+  canopy.position.set(-0.5, 1.35, -0.25);
   group.add(canopy);
 
   // Canopy Downlights (Spotlight Mesh Fixtures)
   for (let i = 0; i < 3; i++) {
-    const lightSpot = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 16), mats.gold);
-    lightSpot.position.set(-1.4 + i * 0.8, 1.51, 0.2);
+    const lightSpot = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.02, 16), mats.gold);
+    lightSpot.position.set(-1.1 + i * 0.65, 1.31, 0.15);
     group.add(lightSpot);
 
-    const lightGlow = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), mats.glowGreen);
-    lightGlow.position.set(-1.4 + i * 0.8, 1.50, 0.2);
+    const lightGlow = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 8), mats.glowGreen);
+    lightGlow.position.set(-1.1 + i * 0.65, 1.30, 0.15);
     group.add(lightGlow);
   }
 
   // Metallic Support Column for Canopy
-  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.3, 16), mats.gold);
-  column.position.set(0.65, 0.38, 0.45);
+  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 1.95, 16), mats.gold);
+  column.position.set(0.55, 0.32, 0.35);
   group.add(column);
 
   // 4. Large Digital LED Widescreen Video Wall
-  const ledFrame = new THREE.Mesh(new THREE.BoxGeometry(1.64, 0.94, 0.02), mats.gold);
-  ledFrame.position.set(-0.7, 0.65, -1.04);
+  const ledFrame = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.02), mats.gold);
+  ledFrame.position.set(-0.5, 0.55, -0.85);
   group.add(ledFrame);
 
-  const screen = new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.88, 0.02), mats.screenGlow);
-  screen.position.set(-0.7, 0.65, -1.02);
+  const screen = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.75, 0.02), mats.screenGlow);
+  screen.position.set(-0.5, 0.55, -0.83);
   group.add(screen);
 
-  // 5. Single-Level VIP Executive Ground Lounge Seating (Single Level - No 2nd floor layer)
-  const loungeTable = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.45, 24), mats.whiteMarble);
-  loungeTable.position.set(1.0, -0.48, -0.3);
+  // 5. Single-Level VIP Executive Ground Lounge Seating
+  const loungeTable = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.36, 24), mats.whiteMarble);
+  loungeTable.position.set(0.8, -0.4, -0.25);
   group.add(loungeTable);
 
-  const loungeTop = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.03, 24), mats.gold);
-  loungeTop.position.set(1.0, -0.25, -0.3);
+  const loungeTop = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.02, 24), mats.gold);
+  loungeTop.position.set(0.8, -0.21, -0.25);
   group.add(loungeTop);
 
   // 6. Modern Reception Desk & Brand Lighting Strip
-  const deskBody = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.65, 0.4), mats.whiteMarble);
-  deskBody.position.set(-0.6, -0.42, 0.6);
+  const deskBody = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.52, 0.3), mats.whiteMarble);
+  deskBody.position.set(-0.5, -0.38, 0.45);
   group.add(deskBody);
 
-  const deskGreenAccent = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.66, 0.41), mats.green);
-  deskGreenAccent.position.set(-0.8, -0.42, 0.6);
+  const deskGreenAccent = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.53, 0.31), mats.green);
+  deskGreenAccent.position.set(-0.66, -0.38, 0.45);
   group.add(deskGreenAccent);
 
-  const deskTop = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.04, 0.44), mats.wood);
-  deskTop.position.set(-0.6, -0.08, 0.6);
+  const deskTop = new THREE.Mesh(new THREE.BoxGeometry(0.84, 0.03, 0.34), mats.wood);
+  deskTop.position.set(-0.5, -0.11, 0.45);
   group.add(deskTop);
 
-  const deskLed = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.02, 0.02), mats.glowGreen);
-  deskLed.position.set(-0.6, -0.73, 0.81);
-  group.add(deskLed);
-
   // 7. Showcase Display Pedestal with Floating Kinetic Gem
-  const pedestal = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.7, 0.35), mats.whiteMarble);
-  pedestal.position.set(0.65, -0.4, 0.8);
+  const pedestal = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.55, 0.28), mats.whiteMarble);
+  pedestal.position.set(0.55, -0.36, 0.65);
   group.add(pedestal);
 
-  const displayGem = new THREE.Mesh(new THREE.OctahedronGeometry(0.12, 0), mats.gold);
-  displayGem.position.set(0.65, 0.08, 0.8);
+  const displayGem = new THREE.Mesh(new THREE.OctahedronGeometry(0.1, 0), mats.gold);
+  displayGem.position.set(0.55, 0.05, 0.65);
   group.add(displayGem);
 
-  const gemGlow = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), mats.glowGreen);
-  gemGlow.position.set(0.65, 0.08, 0.8);
-  group.add(gemGlow);
-
   // 8. Interactive Touchscreen Totem / Kiosk
-  const totemBase = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.04, 0.25), mats.dark);
-  totemBase.position.set(-1.5, -0.73, 0.5);
+  const totemBase = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.03, 0.2), mats.dark);
+  totemBase.position.set(-1.2, -0.61, 0.4);
   group.add(totemBase);
 
-  const totemBody = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.1, 0.08), mats.wall);
-  totemBody.position.set(-1.5, -0.18, 0.5);
+  const totemBody = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.9, 0.06), mats.wall);
+  totemBody.position.set(-1.2, -0.18, 0.4);
   totemBody.rotation.x = -0.1;
   group.add(totemBody);
 
-  const totemScreen = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.5, 0.01), mats.screenGlow);
-  totemScreen.position.set(-1.5, 0.05, 0.54);
-  totemScreen.rotation.x = -0.1;
-  group.add(totemScreen);
-
   // 10. Architectural Plant Pot & Foliage Accent
-  const plantPot = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.1, 0.35, 16), mats.whiteMarble);
-  plantPot.position.set(1.6, -0.6, 1.1);
+  const plantPot = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.08, 0.28, 16), mats.whiteMarble);
+  plantPot.position.set(1.3, -0.5, 0.9);
   group.add(plantPot);
 
-  const plantLeaves1 = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 8), mats.plantGreen);
-  plantLeaves1.position.set(1.6, -0.38, 1.1);
+  const plantLeaves1 = new THREE.Mesh(new THREE.SphereGeometry(0.16, 8, 8), mats.plantGreen);
+  plantLeaves1.position.set(1.3, -0.32, 0.9);
   group.add(plantLeaves1);
 
-  const plantLeaves2 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), mats.plantGreen);
-  plantLeaves2.position.set(1.52, -0.26, 1.15);
+  const plantLeaves2 = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), mats.plantGreen);
+  plantLeaves2.position.set(1.24, -0.22, 0.94);
   group.add(plantLeaves2);
 }
 
 function buildEventsScene(scene, group, mats) {
-  // 1. Curved Multi-Tier Stage Platform
-  const mainStage = new THREE.Mesh(new THREE.CylinderGeometry(2.3, 2.5, 0.12, 32), mats.dark);
-  mainStage.position.set(0, -0.74, 0.2);
-  group.add(mainStage);
+  // 1. Sleek Rectangular Stage Deck (Footprint unified to 3.6 x 2.6)
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.08, 2.6), mats.dark);
+  floor.position.set(0, -0.65, 0);
+  group.add(floor);
 
-  const stageLedEdge = new THREE.Mesh(new THREE.CylinderGeometry(2.32, 2.32, 0.025, 32, 1, true), mats.glowGreen);
-  stageLedEdge.position.set(0, -0.7, 0.2);
+  const stageBase = new THREE.Mesh(new THREE.BoxGeometry(3.0, 0.12, 1.6), mats.dark);
+  stageBase.position.set(0, -0.55, -0.15);
+  group.add(stageBase);
+
+  const stageLedEdge = new THREE.Mesh(new THREE.BoxGeometry(3.02, 0.02, 1.62), mats.glowGreen);
+  stageLedEdge.position.set(0, -0.49, -0.15);
   group.add(stageLedEdge);
 
-  const centerRiser = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.95, 0.06, 24), mats.whiteMarble);
-  centerRiser.position.set(0, -0.65, 0.1);
-  group.add(centerRiser);
-
-  // 2. Triple Widescreen LED Curved Video Wall
-  const centerScreen = new THREE.Mesh(new THREE.BoxGeometry(2.0, 1.2, 0.04), mats.screenGlow);
-  centerScreen.position.set(0, 0.35, -1.0);
+  // 2. Large Flat Widescreen LED Wall (Realistic Backdrop Board)
+  const centerScreen = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.1, 0.04), mats.screenGlow);
+  centerScreen.position.set(0, 0.25, -0.7);
   group.add(centerScreen);
 
-  const leftScreen = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 0.04), mats.screenGlow);
-  leftScreen.position.set(-1.45, 0.3, -0.85);
-  leftScreen.rotation.y = Math.PI / 8;
-  group.add(leftScreen);
+  const ledFrame = new THREE.Mesh(new THREE.BoxGeometry(2.26, 1.16, 0.02), mats.gold);
+  ledFrame.position.set(0, 0.25, -0.72);
+  group.add(ledFrame);
 
-  const rightScreen = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 0.04), mats.screenGlow);
-  rightScreen.position.set(1.45, 0.3, -0.85);
-  rightScreen.rotation.y = -Math.PI / 8;
-  group.add(rightScreen);
+  // Symmetrical Side Graphic Branding Wings
+  const wingL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.9, 0.03), mats.wall);
+  wingL.position.set(-1.25, 0.1, -0.5);
+  wingL.rotation.y = 0.35;
+  group.add(wingL);
 
-  // LED Screen Gold Framing
-  const centerFrame = new THREE.Mesh(new THREE.BoxGeometry(2.06, 1.26, 0.02), mats.gold);
-  centerFrame.position.set(0, 0.35, -1.02);
-  group.add(centerFrame);
+  const wingR = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.9, 0.03), mats.wall);
+  wingR.position.set(1.25, 0.1, -0.5);
+  wingR.rotation.y = -0.35;
+  group.add(wingR);
 
-  // 3. Heavy Overhead Lighting Rig & Moving Head Spotlights
-  const trussBar = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.08, 0.08), mats.gold);
-  trussBar.position.set(0, 1.6, -0.4);
-  group.add(trussBar);
+  // 3. Ground-Supported Speaker Stands (Practical AV Setup)
+  const poleL = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.8, 12), mats.gold);
+  poleL.position.set(-1.3, -0.15, 0.3);
+  group.add(poleL);
 
-  for (let i = 0; i < 4; i++) {
-    const spotFixture = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.18, 12), mats.wall);
-    spotFixture.position.set(-1.35 + i * 0.9, 1.48, -0.4);
-    spotFixture.rotation.x = Math.PI / 6;
-    group.add(spotFixture);
+  const speakerBoxL = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.26, 0.18), mats.wall);
+  speakerBoxL.position.set(-1.3, 0.28, 0.3);
+  group.add(speakerBoxL);
 
-    const spotLens = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), mats.glowGreen);
-    spotLens.position.set(-1.35 + i * 0.9, 1.38, -0.36);
-    group.add(spotLens);
-  }
+  const poleR = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.8, 12), mats.gold);
+  poleR.position.set(1.3, -0.15, 0.3);
+  group.add(poleR);
 
-  // 4. Line Array Speaker Towers (Left & Right)
-  const speakerL = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.9, 0.25), mats.wall);
-  speakerL.position.set(-1.9, 0.2, -0.4);
-  group.add(speakerL);
+  const speakerBoxR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.26, 0.18), mats.wall);
+  speakerBoxR.position.set(1.3, 0.28, 0.3);
+  group.add(speakerBoxR);
 
-  const speakerR = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.9, 0.25), mats.wall);
-  speakerR.position.set(1.9, 0.2, -0.4);
-  group.add(speakerR);
-
-  // 5. Angular Keynote Lectern & Digital Monitor
-  const lecternBase = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.75, 0.35), mats.wall);
-  lecternBase.position.set(-0.6, -0.28, 0.4);
+  // 4. Sleek Presentation Podium / Lectern
+  const lecternBase = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.55, 0.24), mats.wall);
+  lecternBase.position.set(-0.7, -0.21, 0.25);
   lecternBase.rotation.y = -0.2;
   group.add(lecternBase);
 
-  const lecternGoldPlate = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.4, 0.01), mats.gold);
-  lecternGoldPlate.position.set(-0.58, -0.28, 0.58);
-  lecternGoldPlate.rotation.y = -0.2;
-  group.add(lecternGoldPlate);
+  const lecternTop = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.02, 0.26), mats.gold);
+  lecternTop.position.set(-0.7, 0.07, 0.25);
+  lecternTop.rotation.y = -0.2;
+  group.add(lecternTop);
 
-  const lecternScreen = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.02, 0.22), mats.screenGlow);
-  lecternScreen.position.set(-0.6, 0.1, 0.4);
-  lecternScreen.rotation.x = -Math.PI / 6;
-  group.add(lecternScreen);
+  // 5. VIP Lounge Armchair on Stage (Realistic Event Furnishing)
+  const chairSeat = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 0.42), mats.green);
+  chairSeat.position.set(0.6, -0.38, 0.1);
+  group.add(chairSeat);
 
-  // 6. VIP Audience Lounge Seating
-  const chair1 = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.2, 0.3, 16), mats.green);
-  chair1.position.set(0.6, -0.5, 0.8);
-  group.add(chair1);
+  const chairBack = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.48, 0.08), mats.green);
+  chairBack.position.set(0.6, -0.15, -0.1);
+  group.add(chairBack);
 
-  const chair2 = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.2, 0.3, 16), mats.green);
-  chair2.position.set(1.2, -0.5, 0.6);
-  group.add(chair2);
+  const table = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.25, 16), mats.whiteMarble);
+  table.position.set(1.1, -0.32, 0.25);
+  group.add(table);
 
-  const lowTable = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.2, 16), mats.gold);
-  lowTable.position.set(0.9, -0.55, 0.7);
-  group.add(lowTable);
+  const tableTop = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.02, 16), mats.gold);
+  tableTop.position.set(1.1, -0.18, 0.25);
+  group.add(tableTop);
 }
 
 function buildInteriorScene(scene, group, mats) {
   // 1. Luxury Parquet Flooring & Contrast Lounge Rug
-  const floor = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.1, 3.0), mats.dark);
-  floor.position.set(0, -0.8, 0);
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.08, 2.6), mats.dark);
+  floor.position.set(0, -0.65, 0);
   group.add(floor);
 
-  const accentRug = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.02, 1.8), mats.whiteMarble);
-  accentRug.position.set(-0.2, -0.74, 0.2);
+  const accentRug = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.02, 1.5), mats.whiteMarble);
+  accentRug.position.set(-0.1, -0.6, 0.15);
   group.add(accentRug);
 
   // 2. Feature Wall with Vertical Timber Louvers & LED Accent Strips
-  const backWall = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.4, 0.08), mats.wall);
-  backWall.position.set(0, 0.4, -1.1);
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(3.0, 2.0, 0.06), mats.wall);
+  backWall.position.set(0, 0.35, -0.9);
   group.add(backWall);
 
   // Vertical timber slats on left half of wall
-  for (let i = 0; i < 9; i++) {
-    const slat = new THREE.Mesh(new THREE.BoxGeometry(0.04, 2.4, 0.03), mats.wood);
-    slat.position.set(-1.6 + i * 0.2, 0.4, -1.06);
+  for (let i = 0; i < 8; i++) {
+    const slat = new THREE.Mesh(new THREE.BoxGeometry(0.035, 2.0, 0.025), mats.wood);
+    slat.position.set(-1.3 + i * 0.18, 0.35, -0.86);
     group.add(slat);
   }
 
-  // Recessed LED cove lighting strip behind slats
-  const coveLed = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.03, 0.02), mats.glowGreen);
-  coveLed.position.set(-0.8, 1.55, -1.04);
+  // Cove LED lighting strip behind slats
+  const coveLed = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.025, 0.02), mats.glowGreen);
+  coveLed.position.set(-0.6, 1.3, -0.84);
   group.add(coveLed);
 
   // Framed Modern Art Piece / Metallic Crest
-  const artFrame = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.1, 0.02), mats.gold);
-  artFrame.position.set(0.8, 0.65, -1.05);
+  const artFrame = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.9, 0.02), mats.gold);
+  artFrame.position.set(0.65, 0.55, -0.85);
   group.add(artFrame);
 
-  const artCanvas = new THREE.Mesh(new THREE.BoxGeometry(0.82, 1.02, 0.01), mats.green);
-  artCanvas.position.set(0.8, 0.65, -1.03);
+  const artCanvas = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.83, 0.01), mats.green);
+  artCanvas.position.set(0.65, 0.55, -0.83);
   group.add(artCanvas);
 
-  // Integrated Shelving Unit on Right
-  const shelfBack = new THREE.Mesh(new THREE.BoxGeometry(0.8, 2.2, 0.2), mats.wall);
-  shelfBack.position.set(1.6, 0.3, -0.9);
-  group.add(shelfBack);
-
-  for (let s = 0; s < 3; s++) {
-    const shelf = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.03, 0.22), mats.wood);
-    shelf.position.set(1.6, -0.3 + s * 0.6, -0.89);
-    group.add(shelf);
-
-    // Small decorative vase / object on shelf
-    const obj = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.15, 12), mats.gold);
-    obj.position.set(1.5 + (s % 2) * 0.18, -0.21 + s * 0.6, -0.85);
-    group.add(obj);
-  }
-
-  // 3. Executive Marble Desk & Ergonomic Leather Chair
-  const deskTop = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.06, 0.7), mats.whiteMarble);
-  deskTop.position.set(-0.4, -0.22, 0.2);
+  // 3. Executive Marble Desk & Chair
+  const deskTop = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.05, 0.6), mats.whiteMarble);
+  deskTop.position.set(-0.3, -0.22, 0.15);
   group.add(deskTop);
 
-  const deskModesty = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.5, 0.04), mats.wood);
-  deskModesty.position.set(-0.4, -0.48, -0.1);
+  const deskModesty = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.42, 0.03), mats.wood);
+  deskModesty.position.set(-0.3, -0.42, -0.1);
   group.add(deskModesty);
 
-  const deskLegR = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.52, 0.68), mats.gold);
-  deskLegR.position.set(0.32, -0.48, 0.2);
-  group.add(deskLegR);
-
-  // Desk Laptop
-  const laptop = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.02, 0.22), mats.metal);
-  laptop.position.set(-0.4, -0.18, 0.2);
-  group.add(laptop);
-
-  const laptopScreen = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.22, 0.01), mats.screenGlow);
-  laptopScreen.position.set(-0.4, -0.07, 0.1);
-  laptopScreen.rotation.x = -0.2;
-  group.add(laptopScreen);
-
-  // Executive Chair
-  const chairSeat = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.06, 0.42), mats.green);
-  chairSeat.position.set(-0.4, -0.45, -0.35);
-  group.add(chairSeat);
-
-  const chairBack = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.55, 0.05), mats.green);
-  chairBack.position.set(-0.4, -0.18, -0.54);
-  chairBack.rotation.x = -0.08;
-  group.add(chairBack);
-
-  const chairBase = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.3, 8), mats.metal);
-  chairBase.position.set(-0.4, -0.6, -0.35);
-  group.add(chairBase);
-
-  // 4. Designer Floor Lamp & Architectural Plant
-  const lampPole = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.8, 12), mats.gold);
-  lampPole.position.set(-1.6, 0.1, 0.7);
+  // Designer Floor Lamp
+  const lampPole = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.2, 12), mats.gold);
+  lampPole.position.set(-1.3, -0.05, 0.5);
   group.add(lampPole);
 
-  const lampShade = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), mats.whiteMarble);
-  lampShade.position.set(-1.6, 1.0, 0.7);
+  const lampShade = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 16), mats.whiteMarble);
+  lampShade.position.set(-1.3, 0.55, 0.5);
   group.add(lampShade);
-
-  const plantPot = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.12, 0.4, 16), mats.gold);
-  plantPot.position.set(0.9, -0.55, 0.9);
-  group.add(plantPot);
-
-  const plantTop = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8, 8), mats.plantGreen);
-  plantTop.position.set(0.9, -0.28, 0.9);
-  group.add(plantTop);
 }
 
 function buildActivationScene(scene, group, mats) {
-  // 1. Futuristic Raised Platform & LED Outer Strip
-  const floor = new THREE.Mesh(new THREE.CylinderGeometry(2.3, 2.4, 0.1, 32), mats.dark);
-  floor.position.set(0, -0.75, 0);
+  // 1. Sleek Rectangular Base (unified to 3.6 x 2.6 footprint)
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.08, 2.6), mats.dark);
+  floor.position.set(0, -0.65, 0);
   group.add(floor);
 
-  const ledEdge = new THREE.Mesh(new THREE.CylinderGeometry(2.32, 2.32, 0.025, 32, 1, true), mats.glowGreen);
-  ledEdge.position.set(0, -0.7, 0);
-  group.add(ledEdge);
+  // Recessed circular luxury car reveal turntable
+  const turntable = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.3, 0.06, 32), mats.dark);
+  turntable.position.set(0, -0.58, 0);
+  group.add(turntable);
 
-  // 2. Experiential Tunnel Portal Arches (Sleek Rectangular Gateway Frames)
-  for (let i = 0; i < 3; i++) {
-    const archTop = new THREE.Mesh(new THREE.BoxGeometry(2.2 - i * 0.3, 0.08, 0.08), mats.gold);
-    archTop.position.set(0, 1.2 - i * 0.1, -0.8 + i * 0.4);
-    group.add(archTop);
+  const turntableRim = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.02, 16, 48), mats.glowGreen);
+  turntableRim.position.set(0, -0.55, 0);
+  turntableRim.rotation.x = Math.PI / 2;
+  group.add(turntableRim);
 
-    const archL = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.9 - i * 0.1, 0.08), mats.gold);
-    archL.position.set(-1.06 + i * 0.15, 0.25 - i * 0.05, -0.8 + i * 0.4);
-    group.add(archL);
+  // 2. Curved Experiential Back Wall & Glowing Brand Ring
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(3.0, 1.8, 0.1), mats.wall);
+  backWall.position.set(0, 0.25, -0.85);
+  group.add(backWall);
 
-    const archR = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.9 - i * 0.1, 0.08), mats.gold);
-    archR.position.set(1.06 - i * 0.15, 0.25 - i * 0.05, -0.8 + i * 0.4);
-    group.add(archR);
+  const logoRing = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.04, 16, 48), mats.glowGreen);
+  logoRing.position.set(0, 0.45, -0.78);
+  group.add(logoRing);
 
-    const archGlow = new THREE.Mesh(new THREE.BoxGeometry(2.18 - i * 0.3, 0.02, 0.09), mats.glowGreen);
-    archGlow.position.set(0, 1.15 - i * 0.1, -0.8 + i * 0.4);
-    group.add(archGlow);
+  const logoCenter = new THREE.Mesh(new THREE.OctahedronGeometry(0.18, 0), mats.gold);
+  logoCenter.position.set(0, 0.45, -0.78);
+  group.add(logoCenter);
+
+  // Symmetrical gold vertical ribs accenting the back wall
+  for (let i = 0; i < 6; i++) {
+    const rib = new THREE.Mesh(new THREE.BoxGeometry(0.03, 1.8, 0.04), mats.gold);
+    rib.position.set(-1.3 + i * 0.52, 0.25, -0.8);
+    if (i !== 2 && i !== 3) {
+      group.add(rib);
+    }
   }
 
-  // 3. Central Multi-Tiered Hologram Activation Plinth
-  const plinthBase = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.7, 0.4, 24), mats.whiteMarble);
-  plinthBase.position.set(0, -0.5, 0.2);
-  group.add(plinthBase);
+  // 3. DETAILED 3D LUXURY SPORTS CAR MODEL (PERFECT GROUND ALIGNMENT)
+  const carGroup = new THREE.Group();
+  carGroup.position.set(0, -0.40, 0.05); // Bottom of wheels rests precisely at y = -0.55 turntable surface
+  carGroup.rotation.y = -0.35; // Angled 3/4 perspective view
 
-  const plinthTop = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.05, 24), mats.green);
-  plinthTop.position.set(0, -0.28, 0.2);
-  group.add(plinthTop);
+  // Main Car Lower Body Chassis (Aerodynamic Sports Car Shape with Ground Clearance)
+  const chassis = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.22, 0.74), mats.dark);
+  chassis.position.set(0, 0.10, 0);
+  carGroup.add(chassis);
 
-  // Central Floating Holographic Sculpture
-  const holoCore = new THREE.Mesh(new THREE.IcosahedronGeometry(0.2, 0), mats.gold);
-  holoCore.position.set(0, 0.1, 0.2);
-  group.add(holoCore);
+  // Metallic Gold Side Skirts & Accent Strips
+  const sideSkirtL = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.03), mats.gold);
+  sideSkirtL.position.set(0, 0.01, 0.375);
+  carGroup.add(sideSkirtL);
 
+  const sideSkirtR = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.03), mats.gold);
+  sideSkirtR.position.set(0, 0.01, -0.375);
+  carGroup.add(sideSkirtR);
 
-  // 4. Interactive VR Touchpoint & Pod (Left side)
-  const kioskL = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.85, 0.35), mats.wall);
-  kioskL.position.set(-1.2, -0.32, 0.4);
-  group.add(kioskL);
+  // Front Aerodynamic Bumper & Gold Splitter
+  const frontBumper = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.10, 0.72), mats.gold);
+  frontBumper.position.set(0.8, 0.05, 0);
+  carGroup.add(frontBumper);
 
-  const kioskScreenL = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.45, 0.01), mats.screenGlow);
-  kioskScreenL.position.set(-1.2, -0.15, 0.58);
-  group.add(kioskScreenL);
+  // Slanted Front Hood Slope
+  const hood = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.12, 0.70), mats.dark);
+  hood.position.set(0.45, 0.17, 0);
+  hood.rotation.z = -0.08;
+  carGroup.add(hood);
 
-  // Floating VR Headset Model on Pod
-  const vrHeadset = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.12), mats.gold);
-  vrHeadset.position.set(-1.2, 0.16, 0.4);
-  group.add(vrHeadset);
+  // Glass Cabin & Roof (Greenhouse)
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(0.80, 0.20, 0.60), mats.glass);
+  cabin.position.set(-0.15, 0.28, 0);
+  carGroup.add(cabin);
 
-  // 5. Digital Product Showcase Pod (Right side)
-  const kioskR = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.85, 0.35), mats.wall);
-  kioskR.position.set(1.2, -0.32, 0.4);
-  group.add(kioskR);
+  // Slanted Front Windshield
+  const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.16, 0.58), mats.glassClear);
+  windshield.position.set(0.18, 0.26, 0);
+  windshield.rotation.z = -0.45;
+  carGroup.add(windshield);
 
-  const kioskScreenR = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.45, 0.01), mats.screenGlow);
-  kioskScreenR.position.set(1.2, -0.15, 0.58);
-  group.add(kioskScreenR);
+  // Rear Wing Spoiler & Gold Supports
+  const wing = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.03, 0.76), mats.gold);
+  wing.position.set(-0.80, 0.36, 0);
+  carGroup.add(wing);
 
-  const productGem = new THREE.Mesh(new THREE.OctahedronGeometry(0.1, 0), mats.glowGreen);
-  productGem.position.set(1.2, 0.16, 0.4);
-  group.add(productGem);
+  const wingSupportL = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.12, 0.04), mats.gold);
+  wingSupportL.position.set(-0.80, 0.29, 0.24);
+  carGroup.add(wingSupportL);
 
-  // 6. Orbital Satellites / Floating Ambient Globes
-  for (let g = 0; g < 4; g++) {
-    const angle = (g / 4) * Math.PI * 2;
-    const globe = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 12), mats.gold);
-    globe.position.set(Math.cos(angle) * 1.5, 0.7 + Math.sin(angle * 3) * 0.15, Math.sin(angle) * 1.0 - 0.2);
-    group.add(globe);
-  }
+  const wingSupportR = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.12, 0.04), mats.gold);
+  wingSupportR.position.set(-0.80, 0.29, -0.24);
+  carGroup.add(wingSupportR);
+
+  // Dual Glowing Xenon LED Headlights
+  const headlightL = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.06, 0.16), mats.glowGreen);
+  headlightL.position.set(0.93, 0.08, 0.25);
+  carGroup.add(headlightL);
+
+  const headlightR = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.06, 0.16), mats.glowGreen);
+  headlightR.position.set(0.93, 0.08, -0.25);
+  carGroup.add(headlightR);
+
+  // Rear LED Taillight Bar
+  const taillight = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.05, 0.68), mats.glowGreen);
+  taillight.position.set(-0.82, 0.08, 0);
+  carGroup.add(taillight);
+
+  // 4 Sport Alloy Wheels Resting Exactly on Turntable Surface
+  const wheelPositions = [
+    [0.48, 0, 0.37],
+    [0.48, 0, -0.37],
+    [-0.48, 0, 0.37],
+    [-0.48, 0, -0.37]
+  ];
+
+  wheelPositions.forEach((pos) => {
+    // Outer Rubber Tire (Radius 0.15)
+    const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.08, 24), mats.dark);
+    tire.position.set(pos[0], pos[1], pos[2]);
+    tire.rotation.x = Math.PI / 2;
+    carGroup.add(tire);
+
+    // Inner Gold Alloy Rim
+    const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.09, 16), mats.gold);
+    rim.position.set(pos[0], pos[1], pos[2]);
+    rim.rotation.x = Math.PI / 2;
+    carGroup.add(rim);
+  });
+
+  group.add(carGroup);
+
+  // 4. Interactive Touchscreen Console (Right side)
+  const consoleBase = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.3), mats.whiteMarble);
+  consoleBase.position.set(1.1, -0.31, 0.4);
+  consoleBase.rotation.y = -0.4;
+  group.add(consoleBase);
+
+  const consoleScreen = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.02, 0.24), mats.screenGlow);
+  consoleScreen.position.set(1.1, -0.01, 0.4);
+  consoleScreen.rotation.y = -0.4;
+  consoleScreen.rotation.x = -Math.PI / 6;
+  group.add(consoleScreen);
 }
 
 /* -------------------------------------------------------------
@@ -1133,10 +1263,11 @@ function initProcess3DModel() {
   // Handle active step changes (hover & click/tap on cards)
   const cards = document.querySelectorAll('.process-card');
   const stepTitles = {
-    1: 'Concept Discovery',
-    2: 'Holographic Layout',
-    3: 'Material Fabrication',
-    4: 'Spatial Experience'
+    1: 'Vision Collaboration',
+    2: 'Spatial Analysis',
+    3: 'Transparent Timeline',
+    4: 'Precision Production',
+    5: 'Seamless Installation'
   };
 
   cards.forEach(card => {
@@ -1160,7 +1291,7 @@ function initProcess3DModel() {
       const stepTitleOverlay = overlay ? overlay.querySelector('.process-3d-step-title') : null;
 
       if (stepNumOverlay) stepNumOverlay.textContent = `STEP 0${step}`;
-      if (stepTitleOverlay) stepTitleOverlay.textContent = stepTitles[step];
+      if (stepTitleOverlay) stepTitleOverlay.textContent = stepTitles[step] || 'Strategy Step';
 
       // On mobile devices, smoothly scroll to bring the 3D canvas viewer into full view!
       if (window.innerWidth <= 1024) {
@@ -1196,7 +1327,7 @@ function initProcess3DModel() {
             const stepTitleOverlay = overlay ? overlay.querySelector('.process-3d-step-title') : null;
 
             if (stepNumOverlay) stepNumOverlay.textContent = `STEP 0${step}`;
-            if (stepTitleOverlay) stepTitleOverlay.textContent = stepTitles[step];
+            if (stepTitleOverlay) stepTitleOverlay.textContent = stepTitles[step] || 'Strategy Step';
           }
         }
       });
@@ -1220,7 +1351,7 @@ function initProcess3DModel() {
     const scale1 = activeStep === 1 ? 1 : 0.001;
     const scale2 = activeStep === 2 ? 1 : 0.001;
     const scale3 = activeStep === 3 ? 1 : 0.001;
-    const scale4 = activeStep === 4 ? 1 : 0.001;
+    const scale4 = (activeStep === 4 || activeStep === 5) ? 1 : 0.001;
 
     step1Group.scale.x += (scale1 - step1Group.scale.x) * 0.08;
     step1Group.scale.y += (scale1 - step1Group.scale.y) * 0.08;
@@ -2075,6 +2206,76 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     }
+  // --- Rapid Scramble & Decoding Digit Animation for Track Record Strip ---
+  function runStatScramble(el) {
+    if (el.dataset.scrambling === 'true') return;
+    el.dataset.scrambling = 'true';
+
+    const targetVal = parseInt(el.getAttribute('data-target'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+
+    if (!isNaN(targetVal)) {
+      let count = 0;
+      const max = 25;
+      const timer = setInterval(() => {
+        count++;
+        if (count < max) {
+          const rand = Math.floor(Math.random() * (targetVal * 1.15));
+          el.textContent = rand + suffix;
+        } else {
+          clearInterval(timer);
+          el.textContent = targetVal + suffix;
+          el.dataset.scrambling = 'false';
+        }
+      }, 50);
+    } else {
+      const originalText = "UAE & KSA";
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let count = 0;
+      const max = 22;
+      const timer = setInterval(() => {
+        count++;
+        if (count < max) {
+          let str = "";
+          for (let i = 0; i < originalText.length; i++) {
+            if (originalText[i] === ' ' || originalText[i] === '&') {
+              str += originalText[i];
+            } else {
+              str += chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+          el.textContent = str;
+        } else {
+          clearInterval(timer);
+          el.textContent = originalText;
+          el.dataset.scrambling = 'false';
+        }
+      }, 55);
+    }
+  }
+
+  const statElements = document.querySelectorAll('.unboxed-stat-number');
+  if (statElements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          runStatScramble(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    statElements.forEach(el => {
+      observer.observe(el);
+      el.closest('.unboxed-stat-item')?.addEventListener('mouseenter', () => {
+        runStatScramble(el);
+      });
+    });
+
+    setTimeout(() => {
+      statElements.forEach(el => runStatScramble(el));
+    }, 600);
+  }
+
   // Initialize scroll reveals
   if (typeof initScrollReveals === 'function') {
     initScrollReveals();

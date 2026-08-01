@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let y = (Math.random() * ((height - size * 2) - (size * 2)) + size * 2);
             let directionX = (Math.random() * 1) - 0.5;
             let directionY = (Math.random() * 1) - 0.5;
-            let color = Math.random() > 0.5 ? 'rgba(124, 141, 76, 0.7)' : 'rgba(212, 175, 55, 0.7)'; // Brand green or Gold
+            let color = Math.random() > 0.5 ? 'rgba(157, 203, 71, 0.85)' : 'rgba(255, 255, 255, 0.6)'; // Logo Green or Glowing White
 
             particles.push(new Particle(x, y, directionX, directionY, size, color));
         }
@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if (distance < (width/10) * (height/10)) {
                     opacityValue = 1 - (distance / 20000);
-                    ctx.strokeStyle = `rgba(43, 56, 24, ${opacityValue * 0.15})`; // Elegant dark olive architectural lines
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = `rgba(157, 203, 71, ${opacityValue * 0.25})`; // Vibrant logo lime green connections
+                    ctx.lineWidth = 1.2;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
                     ctx.lineTo(particles[b].x, particles[b].y);

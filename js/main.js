@@ -97,20 +97,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Comprehensive Master Scroll Reveal Suite across all site sections
+  // --- Laser Scroll Progress Line & Velocity Tracking ---
+  const laserBar = document.getElementById('scroll-laser');
+  let lastScrollY = window.scrollY;
+
+  function updateLaserProgress() {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0) {
+      const scrollPercent = (window.scrollY / totalHeight) * 100;
+      if (laserBar) {
+        laserBar.style.width = scrollPercent + '%';
+        const velocity = Math.abs(window.scrollY - lastScrollY);
+        if (velocity > 15) {
+          laserBar.style.height = '5px';
+          laserBar.style.boxShadow = '0 0 25px #9DCB47, 0 0 50px #D4FE72';
+        } else {
+          laserBar.style.height = '3px';
+          laserBar.style.boxShadow = '0 0 15px #9DCB47, 0 0 30px #D4FE72';
+        }
+      }
+    }
+    lastScrollY = window.scrollY;
+  }
+
+  window.addEventListener('scroll', updateLaserProgress, { passive: true });
+  if (lenisInstance) {
+    lenisInstance.on('scroll', updateLaserProgress);
+  }
+
+  // --- Interactive 3D Cursor Tilt Effect on Showcase & Service Cards ---
+  const tiltCards = document.querySelectorAll('.fullscreen-project-card, .horizontal-service-item');
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = (-y / rect.height) * 10;
+      const rotateY = (x / rect.width) * 10;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  });
+
+  // Master 3D Kinetic Scroll Reveal Suite across all site sections
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Generic .gsap-reveal and .reveal elements (fade up + subtle scale)
-    gsap.utils.toArray('.gsap-reveal, .reveal, .bsl-hero-main, .bsl-hero-footer, .bsl-about-container, .infya-contact-grid').forEach((el) => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 65, scale: 0.98 },
+    // 1. Hero Title 3D Flip Unfold
+    const heroTitle = document.querySelector('.bsl-hero-title');
+    if (heroTitle) {
+      gsap.fromTo(heroTitle,
+        { opacity: 0, y: 80, rotateX: 35, transformPerspective: 1200 },
         {
           opacity: 1,
           y: 0,
+          rotateX: 0,
+          duration: 1.5,
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: heroTitle,
+            start: 'top 92%'
+          }
+        }
+      );
+    }
+
+    // 2. Generic .gsap-reveal and .reveal elements (3D Unfold + Subtle Scale)
+    gsap.utils.toArray('.gsap-reveal, .reveal, .bsl-hero-footer, .bsl-about-container, .infya-contact-grid').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 75, rotateX: 12, transformPerspective: 1200, scale: 0.96 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
           scale: 1,
-          duration: 1.2,
-          ease: 'power3.out',
+          duration: 1.3,
+          ease: 'power4.out',
           scrollTrigger: {
             trigger: el,
             start: 'top 88%',
@@ -126,16 +191,31 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
 
-    // 2. Liquid Parallax Scroll on Showcase Cards
+    // 3. Liquid Parallax & 3D Perspective Shift on Showcase Cards
     gsap.utils.toArray('.fullscreen-project-card').forEach((card) => {
       const img = card.querySelector('.parallax-img');
       const caption = card.querySelector('.fullscreen-caption');
 
+      gsap.fromTo(card,
+        { opacity: 0, y: 100, rotateX: -10, transformPerspective: 1200 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 1.4,
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 82%'
+          }
+        }
+      );
+
       if (img) {
         gsap.fromTo(img, 
-          { yPercent: -16, scale: 1.12 },
+          { yPercent: -18, scale: 1.15 },
           {
-            yPercent: 16,
+            yPercent: 18,
             scale: 1,
             ease: 'none',
             scrollTrigger: {
@@ -150,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (caption) {
         gsap.fromTo(caption,
-          { opacity: 0, y: 50 },
+          { opacity: 0, y: 60 },
           {
             opacity: 1,
             y: 0,
@@ -165,21 +245,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 3. Staggered Entrance for Horizontal Service Cards
+    // 4. Staggered 3D Perspective Elevation for Horizontal Service Cards
     const hServices = gsap.utils.toArray('.horizontal-service-item');
     if (hServices.length > 0) {
       gsap.fromTo(hServices,
-        { opacity: 0, y: 80, rotateX: -6, transformPerspective: 1000 },
+        { opacity: 0, y: 90, rotateX: -12, transformPerspective: 1200 },
         {
           opacity: 1,
           y: 0,
           rotateX: 0,
-          duration: 1.3,
+          duration: 1.4,
           stagger: 0.15,
           ease: 'power4.out',
           scrollTrigger: {
             trigger: '.horizontal-services-row',
-            start: 'top 82%'
+            start: 'top 80%'
           }
         }
       );

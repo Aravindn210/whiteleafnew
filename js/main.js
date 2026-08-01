@@ -76,6 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
+          onEnter: () => {
+            if (el.classList.contains('unboxed-stats-strip') || el.querySelector('.unboxed-stat-number')) {
+              if (typeof window.triggerStatAnimation === 'function') window.triggerStatAnimation();
+            }
+          }
         },
         y: 50,
         opacity: 0,
@@ -2206,7 +2211,12 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     }
-  // --- Smooth Scroll-Triggered Count Up Animation for Track Record Strip ---
+  // --- 100% Reliable Smooth Scroll-Triggered Count Up Animation ---
+  window.triggerStatAnimation = function() {
+    const statElements = document.querySelectorAll('.unboxed-stat-number');
+    statElements.forEach(el => animateStatNumber(el));
+  };
+
   function animateStatNumber(el) {
     if (el.dataset.animating === 'true') return;
     el.dataset.animating = 'true';
@@ -2215,14 +2225,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const suffix = el.getAttribute('data-suffix') || '';
 
     if (!isNaN(targetVal)) {
-      const duration = 1800; // 1.8 seconds for smooth ease-out count
+      const duration = 2000; // 2 seconds
       const startTime = performance.now();
 
       function step(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        // Smooth easeOutCubic easing function
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        // Exponential ease-out for ultra smooth digit progression
+        const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         const currentVal = Math.floor(targetVal * easeProgress);
 
         el.textContent = currentVal + suffix;
@@ -2235,9 +2245,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      // Reset to 0 before starting count up
+      el.textContent = '0' + suffix;
       requestAnimationFrame(step);
     } else {
-      // Decode animation for non-numeric text like "UAE & KSA"
+      // Decode matrix animation for non-numeric text like "UAE & KSA"
       const originalText = el.dataset.originalText || el.textContent.trim();
       el.dataset.originalText = originalText;
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -2272,25 +2284,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const statElements = document.querySelectorAll('.unboxed-stat-number');
-  if (statElements.length > 0) {
+  function initStatCounters() {
+    const statElements = document.querySelectorAll('.unboxed-stat-number');
+    if (!statElements.length) return;
+
+    // IntersectionObserver with threshold: 0 for instant scroll detection
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateStatNumber(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0, rootMargin: '0px 0px -10px 0px' });
 
     statElements.forEach(el => {
       observer.observe(el);
+
+      // Re-trigger count up on hover
       el.closest('.unboxed-stat-item')?.addEventListener('mouseenter', () => {
-        if (el.dataset.animating !== 'true') {
-          animateStatNumber(el);
-        }
+        el.dataset.animating = 'false';
+        animateStatNumber(el);
       });
     });
+
+    // Fallback scroll position check
+    function checkScroll() {
+      const strip = document.querySelector('.unboxed-stats-strip');
+      if (strip) {
+        const rect = strip.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+          window.triggerStatAnimation();
+        }
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    if (typeof lenis !== 'undefined') {
+      lenis.on('scroll', checkScroll);
+    }
+
+    // Initial check in case elements are already visible
+    setTimeout(checkScroll, 200);
+    setTimeout(checkScroll, 800);
   }
+
+  initStatCounters();
 
   // Initialize scroll reveals
   if (typeof initScrollReveals === 'function') {

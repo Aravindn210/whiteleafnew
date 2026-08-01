@@ -278,5 +278,71 @@
   </footer>
 
   <script src="js/particles.js"></script>
+  <script>
+    // Embedded 100% Reliable Stat Counter Scroll Animation
+    (function() {
+      function triggerStats() {
+        var statNums = document.querySelectorAll('.unboxed-stat-number');
+        statNums.forEach(function(el) {
+          if (el.dataset.inlineAnimated === 'true') return;
+          var targetVal = parseInt(el.getAttribute('data-target'), 10);
+          var suffix = el.getAttribute('data-suffix') || '';
+          if (!isNaN(targetVal)) {
+            el.dataset.inlineAnimated = 'true';
+            var startTime = performance.now();
+            var duration = 1800;
+            function animate(currentTime) {
+              var elapsed = currentTime - startTime;
+              var progress = Math.min(elapsed / duration, 1);
+              var ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+              var val = Math.floor(targetVal * ease);
+              el.textContent = val + suffix;
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                el.textContent = targetVal + suffix;
+              }
+            }
+            el.textContent = '0' + suffix;
+            requestAnimationFrame(animate);
+          }
+        });
+      }
+
+      function initObserver() {
+        var strip = document.querySelector('.unboxed-stats-strip');
+        if (!strip) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              triggerStats();
+            }
+          });
+        }, { threshold: 0 });
+
+        observer.observe(strip);
+
+        function checkPos() {
+          var rect = strip.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+            triggerStats();
+          }
+        }
+
+        window.addEventListener('scroll', checkPos, { passive: true });
+        checkPos();
+        setTimeout(checkPos, 400);
+        setTimeout(checkPos, 1200);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initObserver);
+      } else {
+        initObserver();
+      }
+      window.addEventListener('load', initObserver);
+    })();
+  </script>
 </body>
 </html>

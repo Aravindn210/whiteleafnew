@@ -2285,47 +2285,57 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initStatCounters() {
-    const statElements = document.querySelectorAll('.unboxed-stat-number');
-    if (!statElements.length) return;
+    function setup() {
+      const statElements = document.querySelectorAll('.unboxed-stat-number');
+      if (!statElements.length) return;
 
-    // IntersectionObserver with threshold: 0 for instant scroll detection
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateStatNumber(entry.target);
-        }
+      // IntersectionObserver with threshold: 0 for instant scroll detection
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStatNumber(entry.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -10px 0px' });
+
+      statElements.forEach(el => {
+        observer.observe(el);
+
+        // Re-trigger count up on hover
+        el.closest('.unboxed-stat-item')?.addEventListener('mouseenter', () => {
+          el.dataset.animating = 'false';
+          animateStatNumber(el);
+        });
       });
-    }, { threshold: 0, rootMargin: '0px 0px -10px 0px' });
 
-    statElements.forEach(el => {
-      observer.observe(el);
-
-      // Re-trigger count up on hover
-      el.closest('.unboxed-stat-item')?.addEventListener('mouseenter', () => {
-        el.dataset.animating = 'false';
-        animateStatNumber(el);
-      });
-    });
-
-    // Fallback scroll position check
-    function checkScroll() {
-      const strip = document.querySelector('.unboxed-stats-strip');
-      if (strip) {
-        const rect = strip.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
-          window.triggerStatAnimation();
+      // Fallback scroll position check
+      function checkScroll() {
+        const strip = document.querySelector('.unboxed-stats-strip');
+        if (strip) {
+          const rect = strip.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+            window.triggerStatAnimation();
+          }
         }
       }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      if (typeof lenis !== 'undefined') {
+        lenis.on('scroll', checkScroll);
+      }
+
+      // Initial check in case elements are already visible
+      checkScroll();
+      setTimeout(checkScroll, 300);
+      setTimeout(checkScroll, 1000);
     }
 
-    window.addEventListener('scroll', checkScroll, { passive: true });
-    if (typeof lenis !== 'undefined') {
-      lenis.on('scroll', checkScroll);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
     }
-
-    // Initial check in case elements are already visible
-    setTimeout(checkScroll, 200);
-    setTimeout(checkScroll, 800);
+    window.addEventListener('load', setup);
   }
 
   initStatCounters();

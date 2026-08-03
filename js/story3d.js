@@ -14,7 +14,7 @@
     // 1. SCENE, CAMERA & UNREAL ENGINE RENDERER SETUP
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x040507);
-    scene.fog = new THREE.FogExp2(0x040507, 0.01);
+    scene.fog = new THREE.FogExp2(0x040507, 0.009);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 14, 46);
@@ -30,13 +30,13 @@
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.3;
 
     // 2. CINEMATIC TRADE SHOW SPOTLIGHT LIGHTING RIG
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
     scene.add(ambientLight);
 
-    const mainKeyLight = new THREE.DirectionalLight(0xffffff, 1.7);
+    const mainKeyLight = new THREE.DirectionalLight(0xffffff, 1.8);
     mainKeyLight.position.set(25, 45, 30);
     mainKeyLight.castShadow = true;
     mainKeyLight.shadow.mapSize.width = 2048;
@@ -45,57 +45,57 @@
     scene.add(mainKeyLight);
 
     // Lime Green Brand Spotlight (#A6CE39)
-    const accentSpot = new THREE.SpotLight(0xa6ce39, 5, 60, Math.PI / 4, 0.35, 1);
+    const accentSpot = new THREE.SpotLight(0xa6ce39, 5.5, 65, Math.PI / 4, 0.35, 1);
     accentSpot.position.set(-18, 28, 15);
     scene.add(accentSpot);
 
     // Warm Interior VIP Lounge Point Light
-    const warmLoungeLight = new THREE.PointLight(0xffd194, 3, 35);
-    warmLoungeLight.position.set(-6, 7, -4);
+    const warmLoungeLight = new THREE.PointLight(0xffd194, 3.5, 35);
+    warmLoungeLight.position.set(-8, 7, -4);
     scene.add(warmLoungeLight);
 
     // Cool White Showcase Spot
-    const showcaseSpot = new THREE.SpotLight(0xf8fafc, 4, 45, Math.PI / 5, 0.3);
-    showcaseSpot.position.set(12, 22, 10);
+    const showcaseSpot = new THREE.SpotLight(0xf8fafc, 4.5, 50, Math.PI / 5, 0.3);
+    showcaseSpot.position.set(12, 24, 10);
     scene.add(showcaseSpot);
 
     // 3. ARCHITECTURAL MATERIAL PALETTE
     const materials = {
       hallFloorMat: new THREE.MeshPhysicalMaterial({
         color: 0x05070a,
-        roughness: 0.05,
+        roughness: 0.04,
         metalness: 0.95,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.03
+        clearcoatRoughness: 0.02
       }),
       raisedDeckMat: new THREE.MeshPhysicalMaterial({
         color: 0xf8fafc,
-        roughness: 0.08,
-        metalness: 0.05,
-        clearcoat: 0.9
+        roughness: 0.06,
+        metalness: 0.08,
+        clearcoat: 0.95
       }),
       blackAcrylicMat: new THREE.MeshPhysicalMaterial({
-        color: 0x050608,
-        roughness: 0.05,
-        metalness: 0.5,
+        color: 0x040507,
+        roughness: 0.04,
+        metalness: 0.6,
         clearcoat: 1.0
       }),
       woodWallMat: new THREE.MeshStandardMaterial({
-        color: 0x925a2b,
-        roughness: 0.3,
+        color: 0x965c2e,
+        roughness: 0.28,
         metalness: 0.05
       }),
       steelTrussMat: new THREE.MeshStandardMaterial({
         color: 0x1e2229,
-        metalness: 0.92,
-        roughness: 0.25
+        metalness: 0.94,
+        roughness: 0.2
       }),
       glassWallMat: new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: 0.35,
-        transmission: 0.9,
-        roughness: 0.04,
+        transmission: 0.92,
+        roughness: 0.03,
         ior: 1.52
       }),
       ledScreenMat: new THREE.MeshBasicMaterial({
@@ -109,21 +109,21 @@
       goldBrassMat: new THREE.MeshStandardMaterial({
         color: 0xd4af37,
         metalness: 0.95,
-        roughness: 0.18
+        roughness: 0.15
       }),
       plantLeafMat: new THREE.MeshStandardMaterial({
-        color: 0x15803d,
-        roughness: 0.4
+        color: 0x166534,
+        roughness: 0.35
       }),
       leatherSofaMat: new THREE.MeshStandardMaterial({
         color: 0x1e293b,
-        roughness: 0.5
+        roughness: 0.45
       }),
       visitorMat: new THREE.MeshStandardMaterial({
         color: 0x334155,
-        roughness: 0.7,
+        roughness: 0.65,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.82
       })
     };
 
@@ -202,6 +202,12 @@
     headerStrip.position.set(0, 13, -6.5);
     boothGroup.add(headerStrip);
 
+    // Illuminated 3D Acrylic Brand Logo Emblem Badge on Header Canopy
+    const brandBadgeGeo = new THREE.BoxGeometry(10, 1.2, 0.2);
+    const brandBadge = new THREE.Mesh(brandBadgeGeo, materials.neonSkirtingMat);
+    brandBadge.position.set(0, 14.1, -2.9);
+    boothGroup.add(brandBadge);
+
     // 4. Structural Quad Steel Columns (8 Pillars)
     const pillarGeo = new THREE.BoxGeometry(0.8, 14, 0.8);
     const pillarPositions = [
@@ -222,7 +228,7 @@
     const vipSuiteGroup = new THREE.Group();
     boothGroup.add(vipSuiteGroup);
 
-    // Glass Enclosure Walls
+    // Glass Enclosure Walls & Stainless Steel Frame
     const glassWallGeo = new THREE.BoxGeometry(10, 7, 0.2);
     const glassBack = new THREE.Mesh(glassWallGeo, materials.glassWallMat);
     glassBack.position.set(-8, 3.7, -4);
@@ -258,6 +264,12 @@
     const deskNeon = new THREE.Mesh(deskNeonGeo, materials.neonSkirtingMat);
     deskNeon.position.set(0, 0.3, 5);
     deskGroup.add(deskNeon);
+
+    // Illuminated Front Desk Logo Badge
+    const deskBadgeGeo = new THREE.BoxGeometry(6, 0.8, 0.1);
+    const deskBadge = new THREE.Mesh(deskBadgeGeo, materials.neonSkirtingMat);
+    deskBadge.position.set(0, 1.5, 6.45);
+    deskGroup.add(deskBadge);
 
     // 7. TWO ILLUMINATED VERTICAL SHOWCASE TOWERS (Right Zone)
     const showcaseGroup = new THREE.Group();
@@ -345,7 +357,6 @@
 
         gridHelper.material.opacity = gsap.utils.interpolate(0.9, 0.2, t);
 
-        // Hide ALL 3D booth elements in Scene 1 so it is a clean blueprint base
         deckMesh.scale.set(0.001, 0.001, 0.001);
         deckNeon.scale.set(0.001, 0.001, 0.001);
         pillars.forEach(col => col.scale.y = 0.001);
@@ -356,10 +367,12 @@
 
         canopyHeader.position.y = 40;
         headerStrip.position.y = 40;
+        brandBadge.position.y = 40;
 
         vipSuiteGroup.position.y = -30;
         receptionDesk.position.y = -30;
         deskNeon.position.y = -30;
+        deskBadge.position.y = -30;
         showcaseGroup.position.y = -30;
 
         planter1.position.y = -30;
@@ -370,7 +383,6 @@
         visitors.forEach(v => v.material.opacity = 0);
       }
       // --- SCENE 2: 3D TRANSFORMATION (0.20 - 0.40) ---
-      // Floor platform expands, pillars erect, back wall and overhead canopy lock in
       else if (p < 0.40) {
         const t = (p - 0.20) / 0.20;
         camera.position.x = gsap.utils.interpolate(-10, 18, t);
@@ -396,10 +408,12 @@
 
         canopyHeader.position.y = gsap.utils.interpolate(40, 14.1, t);
         headerStrip.position.y = gsap.utils.interpolate(40, 13, t);
+        brandBadge.position.y = gsap.utils.interpolate(40, 14.1, t);
 
         vipSuiteGroup.position.y = -30;
         receptionDesk.position.y = -30;
         deskNeon.position.y = -30;
+        deskBadge.position.y = -30;
         showcaseGroup.position.y = -30;
 
         planter1.position.y = -30;
@@ -409,7 +423,6 @@
         visitors.forEach(v => v.material.opacity = 0);
       }
       // --- SCENE 3: EXHIBITION BUILD PROCESS (0.40 - 0.60) ---
-      // Reception counter, VIP glass suite, vertical showcase towers glide into place
       else if (p < 0.60) {
         const t = (p - 0.40) / 0.20;
         camera.position.x = gsap.utils.interpolate(18, 0, t);
@@ -429,11 +442,14 @@
         ledScreen.material.opacity = 0.95;
         canopyHeader.position.y = 14.1;
         headerStrip.position.y = 13;
+        brandBadge.position.y = 14.1;
 
         receptionDesk.position.y = 1.5;
         receptionDesk.position.z = gsap.utils.interpolate(18, 5, t);
         deskNeon.position.y = 0.3;
         deskNeon.position.z = gsap.utils.interpolate(18, 5, t);
+        deskBadge.position.y = 1.5;
+        deskBadge.position.z = gsap.utils.interpolate(19.45, 6.45, t);
 
         vipSuiteGroup.position.y = gsap.utils.interpolate(-20, 0, t);
         showcaseGroup.position.y = gsap.utils.interpolate(-20, 0, t);
@@ -446,7 +462,6 @@
         visitors.forEach(v => v.material.opacity = 0);
       }
       // --- SCENE 4: FINAL EXHIBITION EXPERIENCE (0.60 - 0.80) ---
-      // Planters, greenery, visitors populate, spotlights activate
       else if (p < 0.80) {
         const t = (p - 0.60) / 0.20;
         camera.position.x = gsap.utils.interpolate(0, -22, t);
@@ -466,10 +481,13 @@
         ledScreen.material.opacity = 0.95;
         canopyHeader.position.y = 14.1;
         headerStrip.position.y = 13;
+        brandBadge.position.y = 14.1;
         receptionDesk.position.y = 1.5;
         receptionDesk.position.z = 5;
         deskNeon.position.y = 0.3;
         deskNeon.position.z = 5;
+        deskBadge.position.y = 1.5;
+        deskBadge.position.z = 6.45;
         vipSuiteGroup.position.y = 0;
         showcaseGroup.position.y = 0;
 
@@ -483,7 +501,6 @@
         visitors.forEach(v => v.material.opacity = gsap.utils.interpolate(0, 0.85, t));
       }
       // --- SCENE 5: PREMIUM BRAND SHOWCASE (0.80 - 1.00) ---
-      // Wide cinematic camera rotation of completed booth
       else {
         const t = (p - 0.80) / 0.20;
         camera.position.x = gsap.utils.interpolate(-22, 0, t);
@@ -503,10 +520,13 @@
         ledScreen.material.opacity = 0.95;
         canopyHeader.position.y = 14.1;
         headerStrip.position.y = 13;
+        brandBadge.position.y = 14.1;
         receptionDesk.position.y = 1.5;
         receptionDesk.position.z = 5;
         deskNeon.position.y = 0.3;
         deskNeon.position.z = 5;
+        deskBadge.position.y = 1.5;
+        deskBadge.position.z = 6.45;
         vipSuiteGroup.position.y = 0;
         showcaseGroup.position.y = 0;
 

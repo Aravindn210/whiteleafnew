@@ -33,10 +33,10 @@
     renderer.toneMappingExposure = 1.25;
 
     // 2. CINEMATIC TRADE SHOW SPOTLIGHT LIGHTING RIG
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
-    const mainKeyLight = new THREE.DirectionalLight(0xffffff, 1.6);
+    const mainKeyLight = new THREE.DirectionalLight(0xffffff, 1.7);
     mainKeyLight.position.set(25, 45, 30);
     mainKeyLight.castShadow = true;
     mainKeyLight.shadow.mapSize.width = 2048;
@@ -62,26 +62,27 @@
     // 3. ARCHITECTURAL MATERIAL PALETTE
     const materials = {
       hallFloorMat: new THREE.MeshPhysicalMaterial({
-        color: 0x06080b,
-        roughness: 0.15,
-        metalness: 0.9,
-        clearcoat: 0.8,
-        clearcoatRoughness: 0.05
+        color: 0x05070a,
+        roughness: 0.05,
+        metalness: 0.95,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.03
       }),
-      raisedDeckMat: new THREE.MeshStandardMaterial({
-        color: 0xf1f5f9,
-        roughness: 0.12,
-        metalness: 0.05
+      raisedDeckMat: new THREE.MeshPhysicalMaterial({
+        color: 0xf8fafc,
+        roughness: 0.08,
+        metalness: 0.05,
+        clearcoat: 0.9
       }),
       blackAcrylicMat: new THREE.MeshPhysicalMaterial({
-        color: 0x0a0c10,
-        roughness: 0.08,
-        metalness: 0.4,
+        color: 0x050608,
+        roughness: 0.05,
+        metalness: 0.5,
         clearcoat: 1.0
       }),
       woodWallMat: new THREE.MeshStandardMaterial({
-        color: 0x855428,
-        roughness: 0.35,
+        color: 0x925a2b,
+        roughness: 0.3,
         metalness: 0.05
       }),
       steelTrussMat: new THREE.MeshStandardMaterial({
@@ -100,7 +101,7 @@
       ledScreenMat: new THREE.MeshBasicMaterial({
         color: 0xa6ce39,
         transparent: true,
-        opacity: 0.92
+        opacity: 0.95
       }),
       neonSkirtingMat: new THREE.MeshBasicMaterial({
         color: 0xa6ce39
@@ -137,15 +138,10 @@
     floorMesh.receiveShadow = true;
     masterGroup.add(floorMesh);
 
-    // --- SCENE 1: CONCEPT BLUEPRINT GRID ---
+    // --- SCENE 1: PLAIN CLEAN DARK LUXURY STAGE ---
+    // Zero grid lines for a plain, clean, dark studio stage
     const conceptGroup = new THREE.Group();
     masterGroup.add(conceptGroup);
-
-    const gridHelper = new THREE.GridHelper(70, 46, 0xa6ce39, 0x334155);
-    gridHelper.position.y = 0.06;
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0;
-    conceptGroup.add(gridHelper);
 
     // --- SCENE 2 & 3: FULL EXHIBITION STAND ARCHITECTURE ---
     const boothGroup = new THREE.Group();
@@ -334,14 +330,13 @@
     // 6. 5-SCENE LIFECYCLE ANIMATION CONTROLLER
     function updateLifecycleStory(p) {
       // --- Scene 1: Concept Beginning (0.00 - 0.20) ---
+      // Plain, clean, dark studio stage
       if (p < 0.20) {
         const t = p / 0.20;
         camera.position.x = gsap.utils.interpolate(0, -10, t);
         camera.position.y = gsap.utils.interpolate(18, 14, t);
         camera.position.z = gsap.utils.interpolate(52, 42, t);
         camera.lookAt(0, 5, 0);
-
-        gridHelper.material.opacity = gsap.utils.interpolate(0, 0.95, t);
 
         pillars.forEach(col => col.scale.y = 0.001);
         deckMesh.scale.set(0.001, 0.001, 0.001);
@@ -365,7 +360,7 @@
 
         backWall.position.y = gsap.utils.interpolate(-10, 7, t);
         canopyHeader.position.y = gsap.utils.interpolate(30, 14.1, t);
-        ledScreen.material.opacity = gsap.utils.interpolate(0, 0.92, t);
+        ledScreen.material.opacity = gsap.utils.interpolate(0, 0.95, t);
       }
       // --- Scene 3: Exhibition Build Process (0.40 - 0.60) ---
       else if (p < 0.60) {

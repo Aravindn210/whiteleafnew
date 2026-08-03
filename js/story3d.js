@@ -138,10 +138,15 @@
     floorMesh.receiveShadow = true;
     masterGroup.add(floorMesh);
 
-    // --- SCENE 1: PLAIN CLEAN DARK LUXURY STAGE ---
-    // Zero grid lines for a plain, clean, dark studio stage
+    // --- SCENE 1: GLOWING ARCHITECTURAL BLUEPRINT GRID BASE ---
     const conceptGroup = new THREE.Group();
     masterGroup.add(conceptGroup);
+
+    const gridHelper = new THREE.GridHelper(60, 40, 0xa6ce39, 0x1e293b);
+    gridHelper.position.y = 0.08;
+    gridHelper.material.transparent = true;
+    gridHelper.material.opacity = 0.9;
+    conceptGroup.add(gridHelper);
 
     // --- SCENE 2 & 3: FULL EXHIBITION STAND ARCHITECTURE ---
     const boothGroup = new THREE.Group();
@@ -329,8 +334,8 @@
 
     // 6. 5-SCENE LIFECYCLE ANIMATION CONTROLLER
     function updateLifecycleStory(p) {
-      // --- Scene 1: Concept Beginning (0.00 - 0.20) ---
-      // Plain, clean, dark studio stage
+      // --- SCENE 1: CONCEPT BEGINNING (0.00 - 0.20) ---
+      // Clean, empty dark floor stage with glowing blueprint outline ONLY
       if (p < 0.20) {
         const t = p / 0.20;
         camera.position.x = gsap.utils.interpolate(0, -10, t);
@@ -338,11 +343,34 @@
         camera.position.z = gsap.utils.interpolate(52, 42, t);
         camera.lookAt(0, 5, 0);
 
-        pillars.forEach(col => col.scale.y = 0.001);
+        gridHelper.material.opacity = gsap.utils.interpolate(0.9, 0.2, t);
+
+        // Hide ALL 3D booth elements in Scene 1 so it is a clean blueprint base
         deckMesh.scale.set(0.001, 0.001, 0.001);
-        canopyHeader.position.y = 30;
+        deckNeon.scale.set(0.001, 0.001, 0.001);
+        pillars.forEach(col => col.scale.y = 0.001);
+
+        backWall.position.y = -30;
+        slatGroup.position.y = -30;
+        ledScreen.material.opacity = 0;
+
+        canopyHeader.position.y = 40;
+        headerStrip.position.y = 40;
+
+        vipSuiteGroup.position.y = -30;
+        receptionDesk.position.y = -30;
+        deskNeon.position.y = -30;
+        showcaseGroup.position.y = -30;
+
+        planter1.position.y = -30;
+        plant1.position.y = -30;
+        planter2.position.y = -30;
+        plant2.position.y = -30;
+
+        visitors.forEach(v => v.material.opacity = 0);
       }
-      // --- Scene 2: 3D Transformation (0.20 - 0.40) ---
+      // --- SCENE 2: 3D TRANSFORMATION (0.20 - 0.40) ---
+      // Floor platform expands, pillars erect, back wall and overhead canopy lock in
       else if (p < 0.40) {
         const t = (p - 0.20) / 0.20;
         camera.position.x = gsap.utils.interpolate(-10, 18, t);
@@ -350,19 +378,38 @@
         camera.position.z = gsap.utils.interpolate(42, 34, t);
         camera.lookAt(0, 6, 0);
 
+        gridHelper.material.opacity = 0;
+
         deckMesh.scale.set(1, 1, 1);
         deckMesh.position.y = gsap.utils.interpolate(-4, 0.2, t);
+        deckNeon.scale.set(1, 1, 1);
+        deckNeon.position.y = gsap.utils.interpolate(-4, 0.06, t);
 
         pillars.forEach((col, idx) => {
           const delayT = Math.max(0, Math.min(1, (t - idx * 0.08) / 0.35));
           col.scale.y = gsap.utils.interpolate(0.001, 1, delayT);
         });
 
-        backWall.position.y = gsap.utils.interpolate(-10, 7, t);
-        canopyHeader.position.y = gsap.utils.interpolate(30, 14.1, t);
+        backWall.position.y = gsap.utils.interpolate(-30, 7, t);
+        slatGroup.position.y = gsap.utils.interpolate(-30, 0, t);
         ledScreen.material.opacity = gsap.utils.interpolate(0, 0.95, t);
+
+        canopyHeader.position.y = gsap.utils.interpolate(40, 14.1, t);
+        headerStrip.position.y = gsap.utils.interpolate(40, 13, t);
+
+        vipSuiteGroup.position.y = -30;
+        receptionDesk.position.y = -30;
+        deskNeon.position.y = -30;
+        showcaseGroup.position.y = -30;
+
+        planter1.position.y = -30;
+        plant1.position.y = -30;
+        planter2.position.y = -30;
+        plant2.position.y = -30;
+        visitors.forEach(v => v.material.opacity = 0);
       }
-      // --- Scene 3: Exhibition Build Process (0.40 - 0.60) ---
+      // --- SCENE 3: EXHIBITION BUILD PROCESS (0.40 - 0.60) ---
+      // Reception counter, VIP glass suite, vertical showcase towers glide into place
       else if (p < 0.60) {
         const t = (p - 0.40) / 0.20;
         camera.position.x = gsap.utils.interpolate(18, 0, t);
@@ -370,12 +417,36 @@
         camera.position.z = gsap.utils.interpolate(34, 20, t);
         camera.lookAt(0, 5, 0);
 
+        gridHelper.material.opacity = 0;
+
+        deckMesh.scale.set(1, 1, 1);
+        deckMesh.position.y = 0.2;
+        deckNeon.scale.set(1, 1, 1);
+        deckNeon.position.y = 0.06;
+        pillars.forEach(col => col.scale.y = 1);
+        backWall.position.y = 7;
+        slatGroup.position.y = 0;
+        ledScreen.material.opacity = 0.95;
+        canopyHeader.position.y = 14.1;
+        headerStrip.position.y = 13;
+
+        receptionDesk.position.y = 1.5;
         receptionDesk.position.z = gsap.utils.interpolate(18, 5, t);
-        vipSuiteGroup.position.y = gsap.utils.interpolate(-6, 0, t);
-        showcaseGroup.position.y = gsap.utils.interpolate(-6, 0, t);
+        deskNeon.position.y = 0.3;
+        deskNeon.position.z = gsap.utils.interpolate(18, 5, t);
+
+        vipSuiteGroup.position.y = gsap.utils.interpolate(-20, 0, t);
+        showcaseGroup.position.y = gsap.utils.interpolate(-20, 0, t);
         warmLoungeLight.intensity = gsap.utils.interpolate(0, 3.5, t);
+
+        planter1.position.y = -30;
+        plant1.position.y = -30;
+        planter2.position.y = -30;
+        plant2.position.y = -30;
+        visitors.forEach(v => v.material.opacity = 0);
       }
-      // --- Scene 4: Final Exhibition Experience (0.60 - 0.80) ---
+      // --- SCENE 4: FINAL EXHIBITION EXPERIENCE (0.60 - 0.80) ---
+      // Planters, greenery, visitors populate, spotlights activate
       else if (p < 0.80) {
         const t = (p - 0.60) / 0.20;
         camera.position.x = gsap.utils.interpolate(0, -22, t);
@@ -383,17 +454,67 @@
         camera.position.z = gsap.utils.interpolate(20, 32, t);
         camera.lookAt(0, 6, 0);
 
+        gridHelper.material.opacity = 0;
+
+        deckMesh.scale.set(1, 1, 1);
+        deckMesh.position.y = 0.2;
+        deckNeon.scale.set(1, 1, 1);
+        deckNeon.position.y = 0.06;
+        pillars.forEach(col => col.scale.y = 1);
+        backWall.position.y = 7;
+        slatGroup.position.y = 0;
+        ledScreen.material.opacity = 0.95;
+        canopyHeader.position.y = 14.1;
+        headerStrip.position.y = 13;
+        receptionDesk.position.y = 1.5;
+        receptionDesk.position.z = 5;
+        deskNeon.position.y = 0.3;
+        deskNeon.position.z = 5;
+        vipSuiteGroup.position.y = 0;
+        showcaseGroup.position.y = 0;
+
+        planter1.position.y = 0.9;
+        plant1.position.y = 2.2;
+        planter2.position.y = 0.9;
+        plant2.position.y = 2.2;
+
         accentSpot.intensity = gsap.utils.interpolate(1, 5.5, t);
         showcaseSpot.intensity = gsap.utils.interpolate(0, 4.5, t);
         visitors.forEach(v => v.material.opacity = gsap.utils.interpolate(0, 0.85, t));
       }
-      // --- Scene 5: Premium Brand Showcase (0.80 - 1.00) ---
+      // --- SCENE 5: PREMIUM BRAND SHOWCASE (0.80 - 1.00) ---
+      // Wide cinematic camera rotation of completed booth
       else {
         const t = (p - 0.80) / 0.20;
         camera.position.x = gsap.utils.interpolate(-22, 0, t);
         camera.position.y = gsap.utils.interpolate(12, 26, t);
         camera.position.z = gsap.utils.interpolate(32, 56, t);
         camera.lookAt(0, 7, 0);
+
+        gridHelper.material.opacity = 0;
+
+        deckMesh.scale.set(1, 1, 1);
+        deckMesh.position.y = 0.2;
+        deckNeon.scale.set(1, 1, 1);
+        deckNeon.position.y = 0.06;
+        pillars.forEach(col => col.scale.y = 1);
+        backWall.position.y = 7;
+        slatGroup.position.y = 0;
+        ledScreen.material.opacity = 0.95;
+        canopyHeader.position.y = 14.1;
+        headerStrip.position.y = 13;
+        receptionDesk.position.y = 1.5;
+        receptionDesk.position.z = 5;
+        deskNeon.position.y = 0.3;
+        deskNeon.position.z = 5;
+        vipSuiteGroup.position.y = 0;
+        showcaseGroup.position.y = 0;
+
+        planter1.position.y = 0.9;
+        plant1.position.y = 2.2;
+        planter2.position.y = 0.9;
+        plant2.position.y = 2.2;
+        visitors.forEach(v => v.material.opacity = 0.85);
 
         masterGroup.rotation.y = gsap.utils.interpolate(0, 0.35, t);
       }

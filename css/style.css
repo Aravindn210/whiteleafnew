@@ -4484,6 +4484,10 @@ html[dir="rtl"] .btn-cta-large {
     padding: 4px;
   }
 
+  .hero-carousel-side-arrow {
+    display: none !important;
+  }
+
   .bsl-hero {
     padding: 100px 20px 40px;
   }

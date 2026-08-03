@@ -3,7 +3,34 @@
    ------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Whiteleaf Interiors - Infya Replica Experience Ready.');
+  console.log('Whiteleaf Interiors - Experience Ready.');
+
+  // Slide-Out Side Menu Drawer Logic
+  (function initSideMenu() {
+    const sideTrigger = document.getElementById('side-menu-trigger');
+    const sidePanel = document.getElementById('side-menu-panel');
+    const sideOverlay = document.getElementById('side-menu-overlay');
+    const sideClose = document.getElementById('side-menu-close');
+    const sideLinks = document.querySelectorAll('.side-nav-link');
+
+    function openSideMenu() {
+      if (sidePanel) sidePanel.classList.add('active');
+      if (sideOverlay) sideOverlay.classList.add('active');
+    }
+
+    function closeSideMenu() {
+      if (sidePanel) sidePanel.classList.remove('active');
+      if (sideOverlay) sideOverlay.classList.remove('active');
+    }
+
+    if (sideTrigger) sideTrigger.addEventListener('click', openSideMenu);
+    if (sideClose) sideClose.addEventListener('click', closeSideMenu);
+    if (sideOverlay) sideOverlay.addEventListener('click', closeSideMenu);
+
+    sideLinks.forEach((link) => {
+      link.addEventListener('click', closeSideMenu);
+    });
+  })();
 
   // Lenis Smooth Scroll Initialization & GSAP Ticker Sync
   let lenisInstance = null;
@@ -40,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetEl) {
           e.preventDefault();
           if (lenisInstance) {
-            lenisInstance.scrollTo(targetEl, { offset: -40, duration: 1.4 });
+            lenisInstance.scrollTo(targetEl, { offset: 0, duration: 1.2 });
           } else {
             targetEl.scrollIntoView({ behavior: 'smooth' });
           }
@@ -113,6 +140,122 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
     });
   });
+
+  // --- HERO BACKGROUND CAROUSEL LOGIC ---
+  (function initHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-bg-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('hero-carousel-prev');
+    const nextBtn = document.getElementById('hero-carousel-next');
+    const slideNumEl = document.getElementById('hero-slide-num');
+
+    if (!slides.length) return;
+
+    let currentSlideIndex = 0;
+    let autoSlideInterval = null;
+    const SLIDE_DURATION = 5500; // 5.5s per photo slide
+
+    function goToSlide(index) {
+      if (index < 0) {
+        index = slides.length - 1;
+      } else if (index >= slides.length) {
+        index = 0;
+      }
+
+      currentSlideIndex = index;
+
+      slides.forEach((slide, i) => {
+        if (i === currentSlideIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.remove('active');
+        const progress = dot.querySelector('.dot-progress');
+        if (progress) progress.style.width = '0%';
+
+        if (i === currentSlideIndex) {
+          void dot.offsetWidth; // Trigger reflow to restart CSS progress animation
+          dot.classList.add('active');
+        }
+      });
+
+      if (slideNumEl) {
+        slideNumEl.textContent = String(currentSlideIndex + 1).padStart(2, '0');
+      }
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      autoSlideInterval = setInterval(() => {
+        goToSlide(currentSlideIndex + 1);
+      }, SLIDE_DURATION);
+    }
+
+    function stopAutoSlide() {
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+      }
+    }
+
+    function resetAutoSlide() {
+      stopAutoSlide();
+      startAutoSlide();
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        goToSlide(currentSlideIndex + 1);
+        resetAutoSlide();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        goToSlide(currentSlideIndex - 1);
+        resetAutoSlide();
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', function () {
+        const slideIdx = parseInt(this.getAttribute('data-slide'), 10);
+        if (!isNaN(slideIdx)) {
+          goToSlide(slideIdx);
+          resetAutoSlide();
+        }
+      });
+    });
+
+    const heroSection = document.querySelector('.bsl-hero');
+    if (heroSection) {
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      heroSection.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      heroSection.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeThreshold = 40;
+        if (touchEndX < touchStartX - swipeThreshold) {
+          goToSlide(currentSlideIndex + 1);
+          resetAutoSlide();
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+          goToSlide(currentSlideIndex - 1);
+          resetAutoSlide();
+        }
+      }, { passive: true });
+    }
+
+    goToSlide(0);
+    startAutoSlide();
+  })();
 
   // Master 3D Kinetic Scroll Reveal Suite across all site sections
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {

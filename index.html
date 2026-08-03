@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css?v=20260801_v60">
 
@@ -22,8 +25,9 @@
   <!-- Lenis Smooth Scroll CDN -->
   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
-  <!-- Main JavaScript -->
+  <!-- Main JavaScript & 3D Storytelling Experience -->
   <script src="js/main.js?v=20260801_v60" defer></script>
+  <script src="js/story3d.js?v=20260803_v1" defer></script>
 </head>
 <body style="background:#050505; color:#FFFFFF;">
 
@@ -32,30 +36,71 @@
     <span class="cursor-text" id="cursor-text"></span>
   </div>
 
-  <!-- 1. NAVIGATION HEADER -->
+  <!-- 1. TRANSPARENT NAVIGATION HEADER -->
   <header>
-    <nav class="navbar" style="background:rgba(5,5,5,0.85); backdrop-filter:blur(15px); border-bottom:1px solid #141414;">
+    <nav class="navbar" style="background:transparent; border-bottom:none;">
       <a href="#home" class="navbar-brand">
         <img src="assets/logo.png" alt="Whiteleaf Interiors Logo" class="logo-img" style="filter: brightness(0) invert(1);">
       </a>
 
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link">About Us</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-
       <div class="navbar-actions">
-        <a href="#contact" class="infya-btn-link">Get in Touch →</a>
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">☰</button>
+        <a href="#contact" class="theme-text-link">CREATE WITH US</a>
+        
+        <!-- Bespoke Animated Staggered Bars Side Menu Toggle Button -->
+        <button class="side-menu-trigger icon-only" id="side-menu-trigger" aria-label="Open Navigation Menu">
+          <span class="staggered-menu-bars">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+          </span>
+        </button>
       </div>
     </nav>
   </header>
 
+  <!-- SLIDE-OUT SIDE MENU PANEL -->
+  <div class="side-menu-overlay" id="side-menu-overlay"></div>
+  <aside class="side-menu-panel" id="side-menu-panel">
+    <div class="side-menu-header">
+      <span class="side-menu-title">Menu</span>
+      <button class="side-menu-close" id="side-menu-close" aria-label="Close Menu">✕</button>
+    </div>
+
+    <div class="side-menu-body">
+      <ul class="side-nav-links">
+        <li><a href="#home" class="side-nav-link">Home</a></li>
+        <li><a href="#about" class="side-nav-link">About Us</a></li>
+        <li><a href="#services" class="side-nav-link">Services</a></li>
+        <li><a href="#projects" class="side-nav-link">Projects</a></li>
+        <li><a href="#contact" class="side-nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </aside>
+
   <!-- 2. WHITELEAF LUXURY MINIMALIST HERO SECTION -->
   <section class="bsl-hero" id="home">
+    <!-- Hero Background Carousel Slider -->
+    <div class="hero-bg-carousel" id="hero-bg-carousel">
+      <div class="hero-bg-slide active" style="background-image: url('assets/project photo/project_1.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_2.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_3.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_4.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_5.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_6.jpg');"></div>
+      
+      <!-- Overlay Vignette & Dark Contrast Gradients for Readability -->
+      <div class="hero-bg-overlay"></div>
+    </div>
+
+    <!-- Hero Carousel Side Navigation Arrows -->
+    <button class="hero-carousel-side-arrow prev" id="hero-carousel-prev" aria-label="Previous photo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    
+    <button class="hero-carousel-side-arrow next" id="hero-carousel-next" aria-label="Next photo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
     <div class="bsl-hero-container">
       <div class="bsl-hero-main gsap-reveal">
         <div class="whiteleaf-location-text">
@@ -102,7 +147,7 @@
     </div>
   </section>
 
-  <!-- 4. FULL-SCREEN PARALLAX FEATURED PROJECTS SHOWCASE -->
+  <!-- 4. FULL-SCREEN PARALLAX FEATURED PROJECTS SHOWCASE (WORKS) -->
   <section class="fullscreen-projects-section" id="projects">
     <div class="infya-section-header gsap-reveal" style="padding: 0 8% 40px;">
       <h2 style="font-size:clamp(2.5rem, 6vw, 4.5rem); font-weight:900; color:#FFFFFF; margin-top:0;">WORKS</h2>
@@ -111,69 +156,87 @@
     <div class="fullscreen-projects-container">
       <!-- Showcase 1: Exhibitions -->
       <div class="fullscreen-project-card gsap-reveal" data-category="exhibitions">
-        <img src="assets/gitex_pavilion.png" alt="GITEX Global Pavilion" class="parallax-img">
+        <img src="assets/project photo/project_1.jpg" alt="GITEX Global Pavilion" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">01 / SERVICE: EXHIBITIONS</span>
             <h3 class="fullscreen-title">GITEX GLOBAL — SECURITY CISO LOUNGE</h3>
-          </div>
-          <div class="infya-ticker-overlay">
-            <div class="ticker-track">
-              <span>View Exhibition Showcase – View Exhibition Showcase – View Exhibition Showcase – </span>
-              <span>View Exhibition Showcase – View Exhibition Showcase – View Exhibition Showcase – </span>
-            </div>
           </div>
         </div>
       </div>
 
       <!-- Showcase 2: Events -->
       <div class="fullscreen-project-card gsap-reveal" data-category="events">
-        <img src="assets/porsche_event.png" alt="Icons of Porsche" class="parallax-img">
+        <img src="assets/project photo/project_2.jpg" alt="LEAP Riyadh Stage" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">02 / SERVICE: EVENTS</span>
-            <h3 class="fullscreen-title">ICONS OF PORSCHE — LIVE EVENT STAGE</h3>
-          </div>
-          <div class="infya-ticker-overlay">
-            <div class="ticker-track">
-              <span>View Events Showcase – View Events Showcase – View Events Showcase – </span>
-              <span>View Events Showcase – View Events Showcase – View Events Showcase – </span>
-            </div>
+            <h3 class="fullscreen-title">LEAP RIYADH — FUTURE TECH STAGE</h3>
           </div>
         </div>
       </div>
 
-      <!-- Showcase 3: Interiors -->
+      <!-- Showcase 3: Interior Fit-out -->
       <div class="fullscreen-project-card gsap-reveal" data-category="interiors">
-        <img src="assets/fedex_office.png" alt="FedEx Headquarters" class="parallax-img">
+        <img src="assets/project photo/project_3.jpg" alt="Corporate Lounge Interior" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">03 / SERVICE: INTERIORS</span>
-            <h3 class="fullscreen-title">FEDEX REGIONAL HEADQUARTERS</h3>
-          </div>
-          <div class="infya-ticker-overlay">
-            <div class="ticker-track">
-              <span>View Fit-Out Showcase – View Fit-Out Showcase – View Fit-Out Showcase – </span>
-              <span>View Fit-Out Showcase – View Fit-Out Showcase – View Fit-Out Showcase – </span>
-            </div>
+            <h3 class="fullscreen-title">DIFC DUBAI — EXECUTIVE HQ INTERIOR</h3>
           </div>
         </div>
       </div>
 
       <!-- Showcase 4: Activations -->
       <div class="fullscreen-project-card gsap-reveal" data-category="activation">
-        <img src="assets/lexus_activation.png" alt="Crafted for Lexus" class="parallax-img">
+        <img src="assets/project photo/project_4.jpg" alt="Crafted for Lexus" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">04 / SERVICE: ACTIVATIONS</span>
             <h3 class="fullscreen-title">CRAFTED FOR LEXUS — EXPERIENTIAL CAMPAIGN</h3>
           </div>
-          <div class="infya-ticker-overlay">
-            <div class="ticker-track">
-              <span>View Activation Showcase – View Activation Showcase – View Activation Showcase – </span>
-              <span>View Activation Showcase – View Activation Showcase – View Activation Showcase – </span>
-            </div>
-          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WHITELEAF 3D SCROLL STORYTELLING EXPERIENCE SHOWCASE -->
+  <section class="bsl-about-story-section" id="storytelling">
+    <!-- Sticky WebGL Three.js Canvas -->
+    <canvas id="about-story-webgl"></canvas>
+
+    <!-- Overlay Story Text Container & 5 Story Cards -->
+    <div class="story-text-container">
+      <!-- Scene 01: Concept Beginning -->
+      <div class="story-scene-card active" data-scene="1">
+        <span class="story-scene-tag">SCENE 01 // CONCEPT BEGINNING</span>
+        <h2 class="story-scene-title">Every extraordinary experience begins with a <span class="accent-text">glowing concept blueprint</span>.</h2>
+      </div>
+
+      <!-- Scene 02: 3D Transformation -->
+      <div class="story-scene-card" data-scene="2">
+        <span class="story-scene-tag">SCENE 02 // 3D TRANSFORMATION</span>
+        <h2 class="story-scene-title">Walls, LED displays & counters assemble with <span class="accent-text">satisfying mechanical precision</span>.</h2>
+      </div>
+
+      <!-- Scene 03: Exhibition Build Process -->
+      <div class="story-scene-card" data-scene="3">
+        <span class="story-scene-tag">SCENE 03 // EXHIBITION BUILD</span>
+        <h2 class="story-scene-title">Inside the booth structure. From floor platforms to <span class="accent-text">illuminated brand graphics</span>.</h2>
+      </div>
+
+      <!-- Scene 04: Final Exhibition Experience -->
+      <div class="story-scene-card" data-scene="4">
+        <span class="story-scene-tag">SCENE 04 // FINAL EXPERIENCE</span>
+        <h2 class="story-scene-title">The completed booth comes alive with <span class="accent-text">visitors & interactive lounges</span>.</h2>
+      </div>
+
+      <!-- Scene 05: Premium Brand Showcase -->
+      <div class="story-scene-card" data-scene="5">
+        <span class="story-scene-tag">SCENE 05 // BRAND SHOWCASE</span>
+        <h2 class="story-scene-title">From Concept To Experience.<br><span class="accent-text">Design. Build. Inspire.</span></h2>
+        <div class="story-cta-wrap" style="margin-top:24px;">
+          <a href="#contact" class="theme-text-link" style="font-size:1.05rem;">CREATE WITH US →</a>
         </div>
       </div>
     </div>
@@ -276,6 +339,25 @@
     <p style="font-size:0.85rem; color:#666666;">© 2026 Whiteleaf Interiors LLC. All rights reserved.</p>
     <a href="#home" style="font-size:0.85rem; font-weight:800; color:var(--accent-green); text-decoration:none;">Back to top ↑</a>
   </footer>
+
+  <!-- FLOATING CONTACT ACTIONS (WHATSAPP & CALL) -->
+  <div class="floating-contact-actions" id="floating-contact-actions">
+    <!-- Call Action Button -->
+    <a href="tel:+971506570757" class="floating-btn btn-call" aria-label="Call Whiteleaf Interiors">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <span class="btn-tooltip">Call Us</span>
+    </a>
+
+    <!-- WhatsApp Action Button -->
+    <a href="https://wa.me/971506570757?text=Hello%20Whiteleaf%20Interiors,%20I%20would%20like%20to%20inquire%20about%20a%20project." target="_blank" rel="noopener noreferrer" class="floating-btn btn-whatsapp" aria-label="Chat on WhatsApp">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span class="btn-tooltip">WhatsApp</span>
+    </a>
+  </div>
 
   <script src="js/particles.js"></script>
   <script>

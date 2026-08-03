@@ -4436,4 +4436,147 @@ html[dir="rtl"] .btn-cta-large {
   }
 }
 
+/* =============================================================
+   COMPLETE RESPONSIVE MEDIA QUERIES (DESKTOP, LAPTOP, TABLET, MOBILE)
+   ============================================================= */
+
+/* --- Tablet / Medium Screens (< 1024px) --- */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 20px 32px;
+  }
+
+  .bsl-hero-title {
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+  }
+
+  .fullscreen-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .story-scene-card {
+    top: 75px;
+    left: 6%;
+    max-width: 440px;
+  }
+}
+
+/* --- Mobile & Tablet Portrait (< 768px) --- */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
+  .navbar-brand .logo-img {
+    height: 28px;
+  }
+
+  .navbar-actions {
+    gap: 12px;
+  }
+
+  .theme-text-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .side-menu-trigger {
+    padding: 4px;
+  }
+
+  .bsl-hero {
+    padding: 100px 20px 40px;
+  }
+
+  .bsl-hero-title {
+    font-size: clamp(2rem, 7.5vw, 3rem);
+    line-height: 1.15;
+  }
+
+  .bsl-hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .hero-cta-links {
+    gap: 16px;
+  }
+
+  .bsl-about-section {
+    padding: 60px 20px;
+  }
+
+  .bsl-about-statement {
+    font-size: clamp(1.25rem, 5vw, 1.85rem);
+    line-height: 1.4;
+  }
+
+  .fullscreen-projects-section {
+    padding-top: 60px;
+  }
+
+  .fullscreen-project-card {
+    min-height: 75vh;
+  }
+
+  .fullscreen-overlay {
+    padding: 0 20px 40px;
+  }
+
+  .fullscreen-title {
+    font-size: clamp(1.5rem, 6vw, 2.4rem);
+    line-height: 1.15;
+  }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+  }
+
+  .story-scene-card {
+    top: 75px;
+    left: 5%;
+    right: 5%;
+    max-width: 100%;
+  }
+
+  .story-scene-title {
+    font-size: clamp(1.05rem, 4.2vw, 1.4rem);
+    line-height: 1.35;
+  }
+
+  .story-scene-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+/* --- Small Mobile Phones (< 480px) --- */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 14px 16px;
+  }
+
+  .theme-text-link {
+    font-size: 0.68rem;
+  }
+
+  .bsl-hero-title {
+    font-size: 1.95rem;
+  }
+
+  .hero-text-link {
+    font-size: 0.92rem;
+  }
+
+  .bsl-about-statement {
+    font-size: 1.2rem;
+  }
+
+  .fullscreen-title {
+    font-size: 1.45rem;
+  }
+}
+
 

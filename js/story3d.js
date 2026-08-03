@@ -367,11 +367,14 @@
     }
     animate();
 
-    window.addEventListener('resize', () => {
+    function updateCameraAspect() {
       camera.aspect = window.innerWidth / window.innerHeight;
+      camera.fov = window.innerWidth < 768 ? 62 : 45;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    }
+    window.addEventListener('resize', updateCameraAspect);
+    updateCameraAspect();
 
     // Initial update
     updateLifecycleStory(0);

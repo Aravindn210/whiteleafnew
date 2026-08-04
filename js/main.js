@@ -34,12 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Lenis Smooth Scroll Initialization & GSAP Ticker Sync
   let lenisInstance = null;
-  if (typeof Lenis !== 'undefined') {
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 900);
+
+  if (typeof Lenis !== 'undefined' && !isTouchDevice) {
     lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      smoothTouch: false,
     });
 
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -2189,44 +2191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ====================================================
-
-  // --- 2. Lenis Scroll System ---
-      // ====================================================
-    let lenis;
-    if (typeof Lenis !== 'undefined') {
-        lenis = new Lenis({
-            duration: 1.5, // slightly longer for more premium feel
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-    }
-
-    // Sync GSAP ScrollTrigger with Lenis
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        
-        if (lenis) {
-            lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time) => {
-                lenis.raf(time * 1000);
-            });
-            gsap.ticker.lagSmoothing(0, 0);
-        }
-    }
-
-  // --- 3. Custom Mouse Cursor ---
+    // --- 2. Custom Mouse Cursor ---
       // 3. Custom Magnetic Cursor Loop
     // ====================================================
     const cursor = document.querySelector('.custom-cursor');

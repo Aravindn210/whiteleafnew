@@ -4583,4 +4583,23 @@ html[dir="rtl"] .btn-cta-large {
   }
 }
 
+/* ==========================================================================
+   ARABIC RTL & I18N SUPPORT
+   ========================================================================== */
+html[dir="rtl"] body {
+  font-family: 'Outfit', 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+  text-align: right;
+}
 
+html[dir="rtl"] .navbar-brand {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+html[dir="rtl"] .infya-contact-form button {
+  align-self: flex-end;
+}
+
+html[dir="rtl"] .lang-toggle-btn {
+  direction: ltr;
+}

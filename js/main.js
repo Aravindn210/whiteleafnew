@@ -2075,7 +2075,27 @@ document.addEventListener('DOMContentLoaded', () => {
         'footer-copy': {
             en: 'All Rights Reserved.',
             ar: 'جميع الحقوق محفوظة.'
-        }
+        },
+        'nav-home': { en: 'Home', ar: 'الرئيسية' },
+        'nav-about': { en: 'About Us', ar: 'من نحن' },
+        'nav-projects': { en: 'Projects', ar: 'المشاريع' },
+        'nav-contact': { en: 'Contact', ar: 'اتصل بنا' },
+        'nav-cta': { en: 'CREATE WITH US →', ar: 'صمم معنا ←' },
+        'hero-loc': { en: 'DUBAI • RIYADH • MIDDLE EAST', ar: 'دبي • الرياض • الشرق الأوسط' },
+        'hero-head-1': { en: 'ARCHITECTURE & LUXURY SPATIAL DESIGN', ar: 'العمارة والتصميم المكاني الفاخر' },
+        'hero-sub-1': { en: 'Crafting high-precision interior environments, brand activations, and bespoke exhibition pavilions across Dubai, Saudi Arabia, and globally.', ar: 'تصميم وتنفيذ بيئات داخلية عالية الدقة، وتجارب العلامات التجارية، وأجنحة المعارض الفاخرة في دبي والسعودية وحول العالم.' },
+        'hero-btn-1': { en: 'EXPLORE PROJECTS ↓', ar: 'استكشف المشاريع ↓' },
+        'hero-btn-2': { en: 'START DIALOGUE →', ar: 'ابدأ تواصلك معنا ←' },
+        'stat-years-txt': { en: 'YEARS OF EXPERIENCE', ar: 'سنوات من الخبرة' },
+        'stat-experts-txt': { en: 'EXPERTS', ar: 'خبراء متخصصون' },
+        'stat-projects-txt': { en: 'PROJECTS DELIVERED', ar: 'مشروعاً تم تسليمه' },
+        'contact-tag-txt': { en: 'GET IN TOUCH', ar: 'تواصل معنا' },
+        'contact-heading-txt': { en: 'get in touch', ar: 'تواصل معنا' },
+        'contact-submit-btn': { en: 'Submit Inquiry →', ar: 'إرسال الطلب ←' },
+        'footer-giant-txt': { en: 'DESIGN BEYOND DIMENSIONS', ar: 'تصميم يتجاوز الأبعاد' },
+        'ph-name': { en: 'Your Name', ar: 'اسمك الكامل' },
+        'ph-email': { en: 'Email Address', ar: 'عنوان البريد الإلكتروني' },
+        'ph-msg': { en: 'Tell us about your upcoming project...', ar: 'أخبرنا عن مشروعك القادم...' }
     };
 
     let currentLang = localStorage.getItem('lang') || 'en';
@@ -2092,13 +2112,21 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.setAttribute('dir', 'ltr');
         }
 
-        // Apply translations
+        // Apply text translations
         const translatableElements = document.querySelectorAll('[data-i18n]');
         translatableElements.forEach(elem => {
             const key = elem.getAttribute('data-i18n');
             if (translations[key] && translations[key][lang]) {
-                // If it is a form placeholder/label or just text
                 elem.textContent = translations[key][lang];
+            }
+        });
+
+        // Apply placeholder translations
+        const placeholderElements = document.querySelectorAll('[data-i18n-ph]');
+        placeholderElements.forEach(elem => {
+            const key = elem.getAttribute('data-i18n-ph');
+            if (translations[key] && translations[key][lang]) {
+                elem.setAttribute('placeholder', translations[key][lang]);
             }
         });
 

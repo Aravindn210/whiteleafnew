@@ -43,7 +43,17 @@
         <img src="assets/logo.png" alt="Whiteleaf Interiors Logo" class="logo-img" style="filter: brightness(0) invert(1);">
       </a>
 
-      <div class="navbar-actions">
+      <div class="navbar-actions" style="display:flex; align-items:center; gap:16px;">
+        <!-- Arabic Language Switcher Button -->
+        <button class="lang-toggle-btn" id="lang-toggle" aria-label="Switch Language" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#FFFFFF; padding:8px 18px; border-radius:30px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:8px; backdrop-filter:blur(10px); transition:all 0.3s ease;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="lang-label">العربية</span>
+        </button>
+
         <!-- Bespoke Animated Staggered Bars Side Menu Toggle Button -->
         <button class="side-menu-trigger icon-only" id="side-menu-trigger" aria-label="Open Navigation Menu">
           <span class="staggered-menu-bars">
@@ -66,16 +76,20 @@
 
     <div class="side-menu-body" style="flex:1; display:flex; align-items:center;">
       <ul class="side-nav-links" style="width:100%;">
-        <li><a href="#home" class="side-nav-link">Home</a></li>
-        <li><a href="about.html" class="side-nav-link">About Us</a></li>
-        <li><a href="#projects" class="side-nav-link">Projects</a></li>
-        <li><a href="#contact" class="side-nav-link">Contact</a></li>
+        <li><a href="#home" class="side-nav-link" data-i18n="nav-home">Home</a></li>
+        <li><a href="about.html" class="side-nav-link" data-i18n="nav-about">About Us</a></li>
+        <li><a href="#projects" class="side-nav-link" data-i18n="nav-projects">Projects</a></li>
+        <li><a href="#contact" class="side-nav-link" data-i18n="nav-contact">Contact</a></li>
       </ul>
     </div>
 
-    <!-- Down-side Menu CTA Button -->
-    <div class="side-menu-footer" style="padding-top:24px; border-top:1px solid rgba(255,255,255,0.1);">
-      <a href="#contact" class="side-menu-cta-btn" style="display:flex; align-items:center; justify-content:center; width:100%; padding:14px 20px; background:var(--accent-green); color:#050505; font-weight:800; font-size:0.85rem; letter-spacing:0.14em; text-decoration:none; border-radius:100px; text-transform:uppercase; transition:all 0.3s ease; box-shadow:0 4px 20px rgba(157, 203, 71, 0.3);">CREATE WITH US →</a>
+    <!-- Down-side Menu CTA Button & Mobile Lang Toggle -->
+    <div class="side-menu-footer" style="padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; gap:12px;">
+      <button class="lang-toggle-btn" id="lang-toggle-mobile" aria-label="Switch Language" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#FFFFFF; font-weight:700; font-size:0.85rem; border-radius:100px; cursor:pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <span class="lang-label">العربية</span>
+      </button>
+      <a href="#contact" class="side-menu-cta-btn" style="display:flex; align-items:center; justify-content:center; width:100%; padding:14px 20px; background:var(--accent-green); color:#050505; font-weight:800; font-size:0.85rem; letter-spacing:0.14em; text-decoration:none; border-radius:100px; text-transform:uppercase; transition:all 0.3s ease; box-shadow:0 4px 20px rgba(157, 203, 71, 0.3);" data-i18n="nav-cta">CREATE WITH US →</a>
     </div>
   </aside>
 
@@ -251,29 +265,29 @@
       <!-- Stat 1: Years of Experience -->
       <div class="minimal-stat-item">
         <div class="minimal-stat-number" data-target="5" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">5+</div>
-        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">YEARS OF EXPERIENCE</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;" data-i18n="stat-years-txt">YEARS OF EXPERIENCE</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
 
       <!-- Stat 2: Experts -->
       <div class="minimal-stat-item">
         <div class="minimal-stat-number" data-target="100" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">100+</div>
-        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">EXPERTS</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;" data-i18n="stat-experts-txt">EXPERTS</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
 
       <!-- Stat 3: Projects -->
       <div class="minimal-stat-item">
         <div class="minimal-stat-number" data-target="200" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">200+</div>
-        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">PROJECTS DELIVERED</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;" data-i18n="stat-projects-txt">PROJECTS DELIVERED</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
 
     </div>
     <div class="infya-contact-grid gsap-reveal">
       <div>
-        <span class="infya-tag">GET IN TOUCH</span>
-        <h2 class="infya-contact-heading">get in touch</h2>
+        <span class="infya-tag" data-i18n="contact-tag-txt">GET IN TOUCH</span>
+        <h2 class="infya-contact-heading" data-i18n="contact-heading-txt">get in touch</h2>
         <div class="infya-contact-info">
           <p><strong>REGIONAL OFFICES:</strong> Dubai, UAE • Riyadh, KSA</p>
           <p><strong>PHONE:</strong> +971 4 444 1000 / +971 50 657 0757</p>
@@ -282,14 +296,14 @@
       </div>
 
       <form class="infya-contact-form" id="blueprint-form">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Email Address" required>
-        <textarea placeholder="Tell us about your upcoming project..." rows="3" required></textarea>
-        <button type="submit">Submit Inquiry →</button>
+        <input type="text" placeholder="Your Name" data-i18n-ph="ph-name" required>
+        <input type="email" placeholder="Email Address" data-i18n-ph="ph-email" required>
+        <textarea placeholder="Tell us about your upcoming project..." data-i18n-ph="ph-msg" rows="3" required></textarea>
+        <button type="submit" data-i18n="contact-submit-btn">Submit Inquiry →</button>
       </form>
     </div>
 
-    <div class="infya-giant-footer-text gsap-reveal">
+    <div class="infya-giant-footer-text gsap-reveal" data-i18n="footer-giant-txt">
       DESIGN BEYOND DIMENSIONS
     </div>
   </section>

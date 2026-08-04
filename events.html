@@ -26,8 +26,18 @@
         <img src="assets/logo.png" alt="Whiteleaf Interiors Logo" class="logo-img" style="filter: brightness(0) invert(1);">
       </a>
 
-      <div class="navbar-actions">
-        <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border:1px solid rgba(255,255,255,0.18); border-radius:100px; color:#FFFFFF; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; transition:all 0.3s ease; margin-right:12px;" onmouseover="this.style.borderColor='var(--accent-green)'; this.style.color='var(--accent-green)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.18)'; this.style.color='#FFFFFF';">← BACK TO HOME</a>
+      <div class="navbar-actions" style="display:flex; align-items:center; gap:12px;">
+        <!-- Arabic Language Switcher Button -->
+        <button class="lang-toggle-btn" id="lang-toggle" aria-label="Switch Language" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#FFFFFF; padding:8px 16px; border-radius:30px; font-weight:700; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; gap:6px; backdrop-filter:blur(10px); transition:all 0.3s ease;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="lang-label">العربية</span>
+        </button>
+
+        <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border:1px solid rgba(255,255,255,0.18); border-radius:100px; color:#FFFFFF; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent-green)'; this.style.color='var(--accent-green)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.18)'; this.style.color='#FFFFFF';">← BACK TO HOME</a>
 
         <button class="side-menu-trigger icon-only" id="side-menu-trigger" aria-label="Open Navigation Menu">
           <span class="staggered-menu-bars">

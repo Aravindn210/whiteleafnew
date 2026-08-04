@@ -245,22 +245,37 @@
 
   <!-- 6. INFYA REPLICA CONTACT & GIANT FOOTER TEXT -->
   <section class="infya-section" id="contact">
-    <!-- Unboxed Minimalist Studio Track Record Strip -->
-    <div class="unboxed-stats-strip gsap-reveal">
-      <div class="unboxed-stat-item">
-        <span class="unboxed-stat-number" data-target="50" data-suffix="+">0+</span>
-        <span class="unboxed-stat-label">Projects Delivered</span>
+    <!-- Ultra-Minimalist 4-Column Stat Counter Strip (Matching Reference Image) -->
+    <div class="minimal-stats-strip gsap-reveal" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:40px; padding:40px 0 60px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:70px;">
+      
+      <!-- Stat 1: Years of Experience -->
+      <div class="minimal-stat-item">
+        <div class="minimal-stat-number" data-target="5" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">5+</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">YEARS OF EXPERIENCE</div>
+        <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
-      <div class="unboxed-stat-divider"></div>
-      <div class="unboxed-stat-item">
-        <span class="unboxed-stat-number" data-target="100" data-suffix="%">0%</span>
-        <span class="unboxed-stat-label">Turnkey In-House Build</span>
+
+      <!-- Stat 2: Offices & Still Growing -->
+      <div class="minimal-stat-item">
+        <div class="minimal-stat-number" data-target="2" data-suffix="" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">2</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">OFFICES & STILL GROWING</div>
+        <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
-      <div class="unboxed-stat-divider"></div>
-      <div class="unboxed-stat-item">
-        <span class="unboxed-stat-number text-stat">UAE & KSA</span>
-        <span class="unboxed-stat-label">Regional Presence</span>
+
+      <!-- Stat 3: Experts -->
+      <div class="minimal-stat-item">
+        <div class="minimal-stat-number" data-target="100" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">100+</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">EXPERTS</div>
+        <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
+
+      <!-- Stat 4: Projects -->
+      <div class="minimal-stat-item">
+        <div class="minimal-stat-number" data-target="200" data-suffix="+" style="font-family:'Outfit', 'Plus Jakarta Sans', sans-serif; font-size:clamp(3.5rem, 5.5vw, 5.2rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">200+</div>
+        <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">PROJECTS DELIVERED</div>
+        <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
+      </div>
+
     </div>
     <div class="infya-contact-grid gsap-reveal">
       <div>
@@ -316,7 +331,7 @@
     // Embedded 100% Reliable Stat Counter Scroll Animation
     (function() {
       function triggerStats() {
-        var statNums = document.querySelectorAll('.unboxed-stat-number');
+        var statNums = document.querySelectorAll('.minimal-stat-number');
         statNums.forEach(function(el) {
           if (el.dataset.inlineAnimated === 'true') return;
           var targetVal = parseInt(el.getAttribute('data-target'), 10);
@@ -344,7 +359,7 @@
       }
 
       function initObserver() {
-        var strip = document.querySelector('.unboxed-stats-strip');
+        var strip = document.querySelector('.minimal-stats-strip');
         if (!strip) return;
 
         var observer = new IntersectionObserver(function(entries) {

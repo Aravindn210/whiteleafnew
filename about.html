@@ -27,7 +27,7 @@
       </a>
 
       <div class="navbar-actions">
-        <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border:1px solid rgba(255,255,255,0.18); border-radius:100px; color:#FFFFFF; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; transition:all 0.3s ease; margin-right:12px;" onmouseover="this.style.borderColor='var(--accent-green)'; this.style.color='var(--accent-green)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.18)'; this.style.color='#FFFFFF';">← BACK TO HOME</a>
+        <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border:1px solid rgba(255,255,255,0.18); border-radius:100px; color:#FFFFFF; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent-green)'; this.style.color='var(--accent-green)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.18)'; this.style.color='#FFFFFF';">← BACK TO HOME</a>
 
         <button class="side-menu-trigger icon-only" id="side-menu-trigger" aria-label="Open Navigation Menu">
           <span class="staggered-menu-bars">
@@ -62,97 +62,121 @@
     </div>
   </aside>
 
-  <!-- HERO BANNER -->
-  <section style="padding:150px 8% 80px; background:#050505 !important; position:relative;">
-    <div style="max-width:1000px;">
-      <span style="font-size:0.8rem; font-weight:800; letter-spacing:0.25em; color:var(--accent-green); text-transform:uppercase;">ABOUT WHITELEAF INTERIORS</span>
-      <h1 style="font-size:clamp(2.6rem, 5.8vw, 5rem); font-weight:900; line-height:1.08; margin:20px 0 24px;">WE ENGINEER SPATIAL EXPERIENCES THAT <span style="color:var(--accent-green);">MOVE PEOPLE</span>.</h1>
-      <p style="font-size:clamp(1.1rem, 2vw, 1.35rem); color:#94A3B8; line-height:1.65; max-width:850px;">We are a premier spatial experience studio in Dubai & Riyadh. We push boundaries, architect environments, and shape change across exhibitions, live events, bespoke interiors, and experiential brand activations.</p>
+  <!-- 1. LUXURY HERO BANNER -->
+  <section style="padding:160px 8% 90px; background:#050505 !important; position:relative; overflow:hidden;">
+    <div style="max-width:1100px; position:relative; z-index:2;">
+      <div style="display:inline-flex; align-items:center; gap:10px; padding:6px 16px; background:rgba(157,203,71,0.1); border:1px solid rgba(157,203,71,0.25); border-radius:100px; margin-bottom:24px;">
+        <span style="width:8px; height:8px; background:var(--accent-green); border-radius:50%; display:inline-block; box-shadow:0 0 10px var(--accent-green);"></span>
+        <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.2em; color:var(--accent-green); text-transform:uppercase;">ABOUT WHITELEAF INTERIORS</span>
+      </div>
+
+      <h1 style="font-family:'Outfit', sans-serif; font-size:clamp(2.8rem, 6vw, 5.5rem); font-weight:900; line-height:1.05; letter-spacing:-0.03em; margin-bottom:28px;">
+        WE ARCHITECT SPACES.<br>
+        <span style="color:var(--accent-green);">WE SHAPE CHANGE.</span>
+      </h1>
+
+      <p style="font-size:clamp(1.15rem, 1.8vw, 1.35rem); color:#A1A1AA; line-height:1.65; max-width:850px; font-weight:400;">
+        We are a premier spatial experience studio in Dubai & Riyadh. We push boundaries, architect environments, and command presence across trade show pavilions, corporate interiors, live event stages, and brand activations.
+      </p>
     </div>
   </section>
 
-  <!-- CORE PHILOSOPHY & STORY SECTION -->
-  <section style="padding:80px 8%; background:#050505 !important; border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08);">
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:60px; align-items:center;">
+  <!-- 2. STUDIO STORY & VISION (2-COLUMN GRID) -->
+  <section style="padding:80px 8%; background:#050505 !important; border-top:1px solid rgba(255,255,255,0.08);">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:60px; align-items:center;">
+      
       <div>
-        <span style="font-size:0.78rem; font-weight:800; letter-spacing:0.22em; color:var(--accent-green); text-transform:uppercase;">OUR DESIGN PHILOSOPHY</span>
-        <h2 style="font-size:clamp(2rem, 4vw, 3.2rem); font-weight:900; margin:16px 0 24px; line-height:1.15;">PRECISION. CREATIVITY. <span style="color:var(--accent-green);">CRAFTSMANSHIP</span>.</h2>
-        <p style="font-size:1.05rem; color:#94A3B8; line-height:1.7; margin-bottom:20px;">Every movement, surface, and light beam in our architecture is intentional. We combine hyper-realistic 3D visualization, master joinery craftsmanship, and cutting-edge structural engineering to transform empty spaces into unforgettable brand environments.</p>
-        <p style="font-size:1.05rem; color:#94A3B8; line-height:1.7;">From double-deck trade show pavilions at GITEX Global to corporate HQ fit-outs in DIFC Dubai and live stages at LEAP Riyadh, our work delivers cinematic impact without friction.</p>
-      </div>
+        <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.22em; color:var(--accent-green); text-transform:uppercase;">CRAFTSMANSHIP & VISION</span>
+        <h2 style="font-family:'Outfit', sans-serif; font-size:clamp(2rem, 3.8vw, 3.2rem); font-weight:800; margin:16px 0 24px; line-height:1.15;">WHERE ARCHITECTURE MEETS <span style="color:var(--accent-green);">EMOTION</span>.</h2>
+        
+        <p style="font-size:1.05rem; color:#A1A1AA; line-height:1.7; margin-bottom:20px;">
+          At Whiteleaf Interiors, we believe spatial design isn't just about constructing physical structures—it's about creating immersive environments that command attention and drive real human connection.
+        </p>
 
-      <div style="position:relative; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 20px 50px rgba(0,0,0,0.8);">
-        <img src="assets/project photo/project_1.jpg" alt="Whiteleaf Interiors Architecture" style="width:100%; height:450px; object-fit:cover;">
-        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,5,5,0) 50%, rgba(5,5,5,0.9) 100%);"></div>
-        <div style="position:absolute; bottom:30px; left:30px; right:30px;">
-          <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.2em; color:var(--accent-green);">REGIONAL HQ</span>
-          <h3 style="font-size:1.4rem; font-weight:800; margin-top:6px;">DUBAI, UAE • RIYADH, KSA</h3>
+        <p style="font-size:1.05rem; color:#A1A1AA; line-height:1.7; margin-bottom:28px;">
+          From double-deck pavilions at GITEX Global and ADIPEC to luxury DIFC corporate interiors and LEAP Riyadh stages, our team handles every project turnkey—from initial 3D concept render to precision joinery manufacturing and live on-site execution.
+        </p>
+
+        <div style="padding:20px 24px; background:#0a0a0a; border-left:3px solid var(--accent-green); border-radius:0 12px 12px 0;">
+          <p style="font-size:0.95rem; color:#FFFFFF; font-weight:600; font-style:italic; line-height:1.6;">
+            "We don't build temporary booths. We engineer lasting brand landmarks across the Middle East."
+          </p>
         </div>
       </div>
+
+      <div style="position:relative; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 25px 60px rgba(0,0,0,0.9);">
+        <img src="assets/project photo/project_1.jpg" alt="Whiteleaf Interiors Exhibition Architecture" style="width:100%; height:480px; object-fit:cover; display:block;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,5,5,0) 50%, rgba(5,5,5,0.95) 100%);"></div>
+        <div style="position:absolute; bottom:30px; left:30px; right:30px;">
+          <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.2em; color:var(--accent-green); text-transform:uppercase;">REGIONAL HEADQUARTERS</span>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:1.5rem; font-weight:800; margin-top:6px; color:#FFFFFF;">DUBAI, UAE • RIYADH, KSA</h3>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- THE 4-STEP LIFECYCLE PROCESS -->
-  <section style="padding:100px 8%; background:#050505 !important;">
-    <div style="text-align:center; max-width:800px; margin:0 auto 60px;">
-      <span style="font-size:0.78rem; font-weight:800; letter-spacing:0.25em; color:var(--accent-green); text-transform:uppercase;">HOW WE WORK</span>
-      <h2 style="font-size:clamp(2.2rem, 4.5vw, 3.8rem); font-weight:900; margin-top:12px;">THE <span style="color:var(--accent-green);">LIFECYCLE</span> JOURNEY</h2>
+  <!-- 3. CORE PILLARS & EXPERTISE -->
+  <section style="padding:90px 8%; background:#050505 !important; border-top:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:800px; margin-bottom:50px;">
+      <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.22em; color:var(--accent-green); text-transform:uppercase;">CAPABILITIES</span>
+      <h2 style="font-family:'Outfit', sans-serif; font-size:clamp(2.2rem, 4vw, 3.5rem); font-weight:800; margin-top:12px;">OUR FOUR <span style="color:var(--accent-green);">PILLARS</span> OF EXCELLENCE</h2>
     </div>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:30px;">
       
-      <!-- Step 1 -->
-      <div style="background:#0a0a0a !important; border:1px solid rgba(255,255,255,0.08); padding:36px 28px; border-radius:16px;">
-        <span style="font-size:2rem; font-weight:900; color:var(--accent-green);">01</span>
-        <h3 style="font-size:1.3rem; font-weight:800; margin:16px 0 12px;">CONCEPT BLUEPRINT</h3>
-        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Early spatial planning, 3D architectural renders, floor plans, and material sampling tailored to your brand story.</p>
+      <!-- Pillar 1 -->
+      <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.08); padding:36px 30px; border-radius:18px; transition:transform 0.3s ease;">
+        <span style="font-size:0.8rem; font-weight:800; color:var(--accent-green); letter-spacing:0.18em;">01 // ARCHITECTURE</span>
+        <h3 style="font-size:1.35rem; font-weight:800; margin:16px 0 12px;">EXHIBITION STANDS</h3>
+        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Turnkey 3D trade show pavilions, double-deck structures, LED screens, and VIP lounges built for maximum footfall.</p>
       </div>
 
-      <!-- Step 2 -->
-      <div style="background:#0a0a0a !important; border:1px solid rgba(255,255,255,0.08); padding:36px 28px; border-radius:16px;">
-        <span style="font-size:2rem; font-weight:900; color:var(--accent-green);">02</span>
-        <h3 style="font-size:1.3rem; font-weight:800; margin:16px 0 12px;">IN-HOUSE FABRICATION</h3>
-        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Precision joinery, powder-coated steel frameworks, acrylic fascia branding, and LED screen integration in our production facilities.</p>
+      <!-- Pillar 2 -->
+      <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.08); padding:36px 30px; border-radius:18px; transition:transform 0.3s ease;">
+        <span style="font-size:0.8rem; font-weight:800; color:var(--accent-green); letter-spacing:0.18em;">02 // PRODUCTION</span>
+        <h3 style="font-size:1.35rem; font-weight:800; margin:16px 0 12px;">LIVE STAGING & EVENTS</h3>
+        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Keynote stages, corporate galas, awards ceremonies, and VIP arenas engineered with dynamic lighting and acoustics.</p>
       </div>
 
-      <!-- Step 3 -->
-      <div style="background:#0a0a0a !important; border:1px solid rgba(255,255,255,0.08); padding:36px 28px; border-radius:16px;">
-        <span style="font-size:2rem; font-weight:900; color:var(--accent-green);">03</span>
-        <h3 style="font-size:1.3rem; font-weight:800; margin:16px 0 12px;">TURNKEY ASSEMBLY</h3>
-        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">On-site installation, platform deck erection, glass partitions, theatrical lighting rigging, and acoustic calibration.</p>
+      <!-- Pillar 3 -->
+      <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.08); padding:36px 30px; border-radius:18px; transition:transform 0.3s ease;">
+        <span style="font-size:0.8rem; font-weight:800; color:var(--accent-green); letter-spacing:0.18em;">03 // FIT-OUTS</span>
+        <h3 style="font-size:1.35rem; font-weight:800; margin:16px 0 12px;">BESPOKE INTERIORS</h3>
+        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Corporate executive HQs, luxury retail showrooms, acoustic wall treatments, and custom architectural joinery.</p>
       </div>
 
-      <!-- Step 4 -->
-      <div style="background:#0a0a0a !important; border:1px solid rgba(255,255,255,0.08); padding:36px 28px; border-radius:16px;">
-        <span style="font-size:2rem; font-weight:900; color:var(--accent-green);">04</span>
-        <h3 style="font-size:1.3rem; font-weight:800; margin:16px 0 12px;">LIVE HANDOVER</h3>
-        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Completed brand environment, VIP lounge activation, visitor flow management, and full technical support.</p>
+      <!-- Pillar 4 -->
+      <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.08); padding:36px 30px; border-radius:18px; transition:transform 0.3s ease;">
+        <span style="font-size:0.8rem; font-weight:800; color:var(--accent-green); letter-spacing:0.18em;">04 // EXPERIENTIAL</span>
+        <h3 style="font-size:1.35rem; font-weight:800; margin:16px 0 12px;">BRAND ACTIVATIONS</h3>
+        <p style="font-size:0.92rem; color:#94A3B8; line-height:1.65;">Immersive pop-up retail experiences, automotive reveals, tactile material walls, and interactive customer journeys.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- TRACK RECORD STRIP (MATCHING NEW STATS) -->
-  <section style="padding:60px 8%; background:#050505 !important; border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08);">
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:40px;">
+  <!-- 4. LIVE STAT COUNTER STRIP -->
+  <section style="padding:70px 8%; background:#050505 !important; border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div class="minimal-stats-strip" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:40px;">
       
       <!-- Stat 1: Years of Experience -->
       <div>
-        <div style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">5+</div>
+        <div class="minimal-stat-number" data-target="5" data-suffix="+" style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">5+</div>
         <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">YEARS OF EXPERIENCE</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
 
       <!-- Stat 2: Experts -->
       <div>
-        <div style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">100+</div>
+        <div class="minimal-stat-number" data-target="100" data-suffix="+" style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">100+</div>
         <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">EXPERTS</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
 
       <!-- Stat 3: Projects -->
       <div>
-        <div style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5.5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">200+</div>
+        <div class="minimal-stat-number" data-target="200" data-suffix="+" style="font-family:'Outfit', sans-serif; font-size:clamp(3.2rem, 5.5vw, 4.8rem); font-weight:300; line-height:1; color:#FFFFFF; letter-spacing:-0.03em;">200+</div>
         <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.2em; color:#8E8E93; text-transform:uppercase; margin-top:14px; margin-bottom:20px;">PROJECTS DELIVERED</div>
         <div style="height:2px; width:100%; background:linear-gradient(90deg, #9DCB47 0%, rgba(157, 203, 71, 0.05) 100%); border-radius:2px;"></div>
       </div>
@@ -160,11 +184,15 @@
     </div>
   </section>
 
-  <!-- CTA FOOTER SECTION -->
-  <section style="padding:100px 8%; background:#050505 !important; text-align:center;">
-    <h2 style="font-size:clamp(2.2rem, 4.5vw, 3.8rem); font-weight:900; margin-bottom:16px;">LET'S CREATE SOMETHING <span style="color:var(--accent-green);">EXTRAORDINARY</span></h2>
-    <p style="font-size:1.1rem; color:#94A3B8; max-width:650px; margin:0 auto 36px;">Partner with Whiteleaf Interiors for your upcoming exhibition stand, interior fit-out, or brand event.</p>
-    <a href="index.html#contact" style="display:inline-block; padding:16px 38px; background:var(--accent-green); color:#050505; font-weight:800; font-size:0.95rem; letter-spacing:0.14em; text-decoration:none; border-radius:100px; text-transform:uppercase;">CREATE WITH US →</a>
+  <!-- 5. CALL TO ACTION FOOTER -->
+  <section style="padding:110px 8%; background:#050505 !important; text-align:center;">
+    <h2 style="font-family:'Outfit', sans-serif; font-size:clamp(2.4rem, 4.5vw, 4rem); font-weight:900; margin-bottom:18px;">
+      LET'S CREATE SOMETHING <span style="color:var(--accent-green);">EXTRAORDINARY</span>
+    </h2>
+    <p style="font-size:1.15rem; color:#94A3B8; max-width:650px; margin:0 auto 38px;">
+      Partner with Whiteleaf Interiors for your upcoming exhibition stand, interior fit-out, or brand stage in Dubai & Riyadh.
+    </p>
+    <a href="index.html#contact" style="display:inline-block; padding:16px 40px; background:var(--accent-green); color:#050505; font-weight:800; font-size:0.95rem; letter-spacing:0.14em; text-decoration:none; border-radius:100px; text-transform:uppercase;">CREATE WITH US →</a>
   </section>
 
   <!-- FOOTER COPYRIGHT -->
@@ -174,5 +202,58 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Embedded Stat Counter Logic for About Page
+    (function() {
+      function triggerStats() {
+        var statNums = document.querySelectorAll('.minimal-stat-number');
+        statNums.forEach(function(el) {
+          if (el.dataset.inlineAnimated === 'true') return;
+          var targetVal = parseInt(el.getAttribute('data-target'), 10);
+          var suffix = el.getAttribute('data-suffix') || '';
+          if (!isNaN(targetVal)) {
+            el.dataset.inlineAnimated = 'true';
+            var startTime = performance.now();
+            var duration = 900;
+            function animate(currentTime) {
+              var elapsed = currentTime - startTime;
+              var progress = Math.min(elapsed / duration, 1);
+              var ease = progress * (2 - progress);
+              var val = Math.round(targetVal * ease);
+              el.textContent = val + suffix;
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                el.textContent = targetVal + suffix;
+              }
+            }
+            el.textContent = '0' + suffix;
+            requestAnimationFrame(animate);
+          }
+        });
+      }
+
+      function initObserver() {
+        var strip = document.querySelector('.minimal-stats-strip');
+        if (!strip) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              triggerStats();
+            }
+          });
+        }, { threshold: 0 });
+
+        observer.observe(strip);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initObserver);
+      } else {
+        initObserver();
+      }
+    })();
+  </script>
 </body>
 </html>

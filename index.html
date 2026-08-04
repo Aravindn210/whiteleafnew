@@ -68,6 +68,10 @@
       <ul class="side-nav-links" style="width:100%;">
         <li><a href="#home" class="side-nav-link">Home</a></li>
         <li><a href="#about" class="side-nav-link">About Us</a></li>
+        <li><a href="exhibitions.html" class="side-nav-link">Exhibitions</a></li>
+        <li><a href="events.html" class="side-nav-link">Events</a></li>
+        <li><a href="interiors.html" class="side-nav-link">Interiors</a></li>
+        <li><a href="activations.html" class="side-nav-link">Activations</a></li>
         <li><a href="#projects" class="side-nav-link">Projects</a></li>
         <li><a href="#contact" class="side-nav-link">Contact</a></li>
       </ul>
@@ -90,62 +94,46 @@
       <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_5.jpg');"></div>
       <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_6.jpg');"></div>
       
-      <!-- Overlay Vignette & Dark Contrast Gradients for Readability -->
-      <div class="hero-bg-overlay"></div>
+      <!-- Overlay Gradient Protection -->
+      <div class="hero-overlay"></div>
     </div>
 
-    <!-- Hero Carousel Side Navigation Arrows -->
-    <button class="hero-carousel-side-arrow prev" id="hero-carousel-prev" aria-label="Previous photo">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    
-    <button class="hero-carousel-side-arrow next" id="hero-carousel-next" aria-label="Next photo">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-
-    <div class="bsl-hero-container">
-      <div class="bsl-hero-main gsap-reveal">
-        <div class="whiteleaf-location-text">
-          <svg class="globe-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="2" y1="12" x2="22" y2="12"></line>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg> UAE & KSA
-        </div>
-
-        <h1 class="bsl-hero-title">
-          <span class="title-solid">TURNING SPACE</span><br>
-          <span class="title-accent">INTO EXPERIENCE</span>
-        </h1>
+    <!-- Hero Content Overlay -->
+    <div class="bsl-hero-content gsap-reveal">
+      <div class="hero-subtitle">
+        <span class="pulse-dot"></span>
+        <span class="hero-subtitle-text">UAE & KSA</span>
       </div>
 
-      <div class="bsl-hero-footer gsap-reveal">
-        <div class="bsl-hero-footer-left">
-          <p class="bsl-hero-paragraph">
-            Where architecture meets emotion. We engineer high-stakes exhibition stands, bespoke interiors, and immersive brand stages across the Middle East.
-          </p>
-          <div class="hero-cta-links">
-            <a href="#contact" class="hero-text-link primary">Start a Project →</a>
-            <a href="#projects" class="hero-text-link secondary">Explore Portfolio ↓</a>
-          </div>
-        </div>
+      <h1 class="bsl-hero-title">
+        TURNING SPACE<br>
+        <span class="accent-text">INTO EXPERIENCE</span>
+      </h1>
 
-        <div class="bsl-hero-footer-right">
-          <span class="bsl-scroll-tag">SCROLL ↓</span>
+      <div class="bsl-hero-footer">
+        <p class="hero-description">
+          Where architecture meets emotion. We engineer high-stakes exhibition stands, bespoke interiors, and immersive brand stages across the Middle East.
+        </p>
+        <div class="hero-cta-links">
+          <a href="#contact" class="hero-text-link primary">Start a Project →</a>
+          <a href="#projects" class="hero-text-link secondary">Explore Portfolio ↓</a>
         </div>
       </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <span>SCROLL ↓</span>
     </div>
   </section>
 
-  <!-- 3. MINIMALIST CENTERED ABOUT SECTION (WHITELEAF THEME & FONTS) -->
+  <!-- 3. RESTORED CLEAN MINIMALIST ABOUT SECTION SHOWCASE -->
   <section class="bsl-about-section" id="about">
     <div class="bsl-about-container gsap-reveal">
       <span class="bsl-about-tag">ABOUT WHITELEAF</span>
       <h2 class="bsl-about-statement">
-        We are a premier spatial experience studio in Dubai & Riyadh. We push boundaries,<br>
-        architect environments, and <span class="accent-text">shape change</span>.
+        WE TRANSFORM EMPTY SPACES INTO <span class="accent-text">HIGH-STAKES BRAND EXPERIENCES</span>. OUR ARCHITECTURE DOESN'T JUST COMMAND ATTENTION — IT MOVES PEOPLE.
       </h2>
-      <a href="#projects" class="bsl-about-readmore">READ MORE ↓</a>
+      <a href="#storytelling" class="theme-text-link bsl-about-readmore">READ MORE ↓</a>
     </div>
   </section>
 
@@ -157,48 +145,52 @@
 
     <div class="fullscreen-projects-container">
       <!-- Showcase 1: Exhibitions -->
-      <div class="fullscreen-project-card gsap-reveal" data-category="exhibitions">
+      <a href="exhibitions.html" class="fullscreen-project-card gsap-reveal" data-category="exhibitions" style="text-decoration:none;">
         <img src="assets/project photo/project_1.jpg" alt="GITEX Global Pavilion" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">01 / SERVICE: EXHIBITIONS</span>
             <h3 class="fullscreen-title">GITEX GLOBAL — SECURITY CISO LOUNGE</h3>
+            <span style="display:inline-block; margin-top:12px; font-size:0.85rem; font-weight:800; color:var(--accent-green);">VIEW EXHIBITION PROJECTS →</span>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Showcase 2: Events -->
-      <div class="fullscreen-project-card gsap-reveal" data-category="events">
+      <a href="events.html" class="fullscreen-project-card gsap-reveal" data-category="events" style="text-decoration:none;">
         <img src="assets/project photo/project_2.jpg" alt="LEAP Riyadh Stage" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">02 / SERVICE: EVENTS</span>
             <h3 class="fullscreen-title">LEAP RIYADH — FUTURE TECH STAGE</h3>
+            <span style="display:inline-block; margin-top:12px; font-size:0.85rem; font-weight:800; color:var(--accent-green);">VIEW EVENT PROJECTS →</span>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Showcase 3: Interior Fit-out -->
-      <div class="fullscreen-project-card gsap-reveal" data-category="interiors">
+      <a href="interiors.html" class="fullscreen-project-card gsap-reveal" data-category="interiors" style="text-decoration:none;">
         <img src="assets/project photo/project_3.jpg" alt="Corporate Lounge Interior" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">03 / SERVICE: INTERIORS</span>
             <h3 class="fullscreen-title">DIFC DUBAI — EXECUTIVE HQ INTERIOR</h3>
+            <span style="display:inline-block; margin-top:12px; font-size:0.85rem; font-weight:800; color:var(--accent-green);">VIEW INTERIOR PROJECTS →</span>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Showcase 4: Activations -->
-      <div class="fullscreen-project-card gsap-reveal" data-category="activation">
+      <a href="activations.html" class="fullscreen-project-card gsap-reveal" data-category="activation" style="text-decoration:none;">
         <img src="assets/project photo/project_4.jpg" alt="Crafted for Lexus" class="parallax-img">
         <div class="fullscreen-overlay">
           <div class="fullscreen-caption">
             <span class="project-tag">04 / SERVICE: ACTIVATIONS</span>
             <h3 class="fullscreen-title">CRAFTED FOR LEXUS — EXPERIENTIAL CAMPAIGN</h3>
+            <span style="display:inline-block; margin-top:12px; font-size:0.85rem; font-weight:800; color:var(--accent-green);">VIEW ACTIVATION PROJECTS →</span>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 

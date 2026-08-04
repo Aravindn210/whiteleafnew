@@ -94,35 +94,50 @@
       <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_5.jpg');"></div>
       <div class="hero-bg-slide" style="background-image: url('assets/project photo/project_6.jpg');"></div>
       
-      <!-- Overlay Gradient Protection -->
-      <div class="hero-overlay"></div>
+      <!-- Overlay Vignette & Dark Contrast Gradients -->
+      <div class="hero-bg-overlay"></div>
     </div>
 
-    <!-- Hero Content Overlay -->
-    <div class="bsl-hero-content gsap-reveal">
-      <div class="hero-subtitle">
-        <span class="pulse-dot"></span>
-        <span class="hero-subtitle-text">UAE & KSA</span>
+    <!-- Hero Carousel Side Navigation Arrows -->
+    <button class="hero-carousel-side-arrow prev" id="hero-carousel-prev" aria-label="Previous photo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    
+    <button class="hero-carousel-side-arrow next" id="hero-carousel-next" aria-label="Next photo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <div class="bsl-hero-container">
+      <div class="bsl-hero-main gsap-reveal">
+        <div class="whiteleaf-location-text">
+          <svg class="globe-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg> UAE & KSA
+        </div>
+
+        <h1 class="bsl-hero-title">
+          <span class="title-solid">TURNING SPACE</span><br>
+          <span class="title-accent">INTO EXPERIENCE</span>
+        </h1>
       </div>
 
-      <h1 class="bsl-hero-title">
-        TURNING SPACE<br>
-        <span class="accent-text">INTO EXPERIENCE</span>
-      </h1>
+      <div class="bsl-hero-footer gsap-reveal">
+        <div class="bsl-hero-footer-left">
+          <p class="bsl-hero-paragraph">
+            Where architecture meets emotion. We engineer high-stakes exhibition stands, bespoke interiors, and immersive brand stages across the Middle East.
+          </p>
+          <div class="hero-cta-links">
+            <a href="#contact" class="hero-text-link primary">Start a Project →</a>
+            <a href="#projects" class="hero-text-link secondary">Explore Portfolio ↓</a>
+          </div>
+        </div>
 
-      <div class="bsl-hero-footer">
-        <p class="hero-description">
-          Where architecture meets emotion. We engineer high-stakes exhibition stands, bespoke interiors, and immersive brand stages across the Middle East.
-        </p>
-        <div class="hero-cta-links">
-          <a href="#contact" class="hero-text-link primary">Start a Project →</a>
-          <a href="#projects" class="hero-text-link secondary">Explore Portfolio ↓</a>
+        <div class="bsl-hero-footer-right">
+          <span class="bsl-scroll-tag">SCROLL ↓</span>
         </div>
       </div>
-    </div>
-
-    <div class="hero-scroll-indicator">
-      <span>SCROLL ↓</span>
     </div>
   </section>
 

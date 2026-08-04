@@ -3126,11 +3126,11 @@ html[dir="rtl"] .btn-cta-large {
 }
 
 .bsl-hero-title .title-accent {
-  color: var(--accent-green);
-  background: linear-gradient(135deg, #A8E048 0%, #E2FF82 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.7));
+  color: var(--accent-green) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 20px rgba(157, 203, 71, 0.5) !important;
 }
 
 .bsl-hero-footer {

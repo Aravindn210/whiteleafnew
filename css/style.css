@@ -4321,12 +4321,9 @@ html[dir="rtl"] .btn-cta-large {
   letter-spacing: -0.04em;
   color: #121212;
   text-align: center;
-  margin-top: 40px;
-  margin-bottom: 80px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  margin-top: 100px;
+  padding-top: 60px;
   border-top: 1px solid #141414;
-  border-bottom: 1px solid #141414;
 }
 
 @media (max-width: 900px) {

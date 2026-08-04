@@ -1675,11 +1675,7 @@ function initProcess3DModel() {
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Only execute on services.html (by checking if the main services container or services-specific selector exists)
-  const isServicesPage = document.querySelector('.services-hero') || document.querySelector('.services-detail-section');
-  if (!isServicesPage) return;
-
-  console.log('[Whiteleaf Restored] Initializing services page modules...');
+  console.log('[Whiteleaf] Initializing global i18n and modules...');
 
   // --- 1. Translations System ---
       // ====================================================

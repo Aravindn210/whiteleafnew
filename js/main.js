@@ -2131,9 +2131,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Update translation switch buttons label
-        const switchButtons = document.querySelectorAll('#lang-toggle, #lang-toggle-mobile');
+        const switchButtons = document.querySelectorAll('#lang-toggle, #lang-toggle-mobile, .lang-toggle-btn, .lang-switch-btn');
         switchButtons.forEach(btn => {
-            const label = btn.querySelector('.lang-label');
+            const label = btn.querySelector('.lang-label') || btn;
             if (label) {
                 label.textContent = lang === 'en' ? 'العربية' : 'English';
             }
@@ -2151,23 +2151,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Bind lang buttons
-    const langBtn = document.getElementById('lang-toggle');
-    const langBtnMobile = document.getElementById('lang-toggle-mobile');
-
-    if (langBtn) {
-        langBtn.addEventListener('click', () => {
-            setLanguage(currentLang === 'en' ? 'ar' : 'en');
+    function initLang() {
+        setLanguage(currentLang);
+        
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('#lang-toggle, #lang-toggle-mobile, .lang-toggle-btn, .lang-switch-btn');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetLang = currentLang === 'en' ? 'ar' : 'en';
+                setLanguage(targetLang);
+            }
         });
     }
-    if (langBtnMobile) {
-        langBtnMobile.addEventListener('click', () => {
-            setLanguage(currentLang === 'en' ? 'ar' : 'en');
-        });
-    }
 
-    // Initialize Language translation
-    setLanguage(currentLang);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLang);
+    } else {
+        initLang();
+    }
 
     // ====================================================
 

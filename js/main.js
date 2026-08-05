@@ -2121,14 +2121,24 @@ document.addEventListener('DOMContentLoaded', () => {
         'card-btn-2': { en: 'VIEW EXHIBITION PROJECTS →', ar: 'عرض مشاريع المعارض ←' },
         'card-btn-3': { en: 'VIEW INTERIOR PROJECTS →', ar: 'عرض مشاريع التصميم الداخلي ←' },
         'card-btn-4': { en: 'VIEW ACTIVATION PROJECTS →', ar: 'عرض مشاريع تجارب العلامات ←' },
-        'contact-offices-label': { en: 'REGIONAL OFFICES:', ar: 'المكاتب الإقليمية:' },
-        'contact-phone-label': { en: 'PHONE:', ar: 'الهاتف:' },
-        'contact-email-label': { en: 'EMAIL:', ar: 'البريد الإلكتروني:' },
+        'contact-tag-txt': { en: "LET'S BUILD SOMETHING EXTRAORDINARY", ar: 'فلنبنِ شيئاً استثنائياً' },
+        'contact-heading-txt': { en: 'START A CONVERSATION', ar: 'تواصل معنا الآن' },
+        'contact-heading-sub': { en: 'WITH WHITELEAF', ar: 'مع وايت ليف' },
+        'contact-offices-title': { en: 'REGIONAL HEADQUARTERS', ar: 'المقرات الإقليمية' },
+        'contact-offices-desc': { en: 'Dubai (Business Bay HQ) • Riyadh (Regional Office)', ar: 'دبي (مقر الخليج التجاري) • الرياض (المكتب الإقليمي)' },
+        'contact-direct-title': { en: 'DIRECT PHONE & WHATSAPP', ar: 'الهاتف المباشر والواتساب' },
+        'contact-email-title': { en: 'PROJECT INQUIRIES', ar: 'استفسارات المشاريع' },
+        'service-select-lbl': { en: 'PROJECT SCOPE', ar: 'نطاق المشروع' },
+        'opt-exhibitions': { en: 'Exhibition Stand / Pavilion', ar: 'جناح معارض' },
+        'opt-interiors': { en: 'Architectural Interior / Fit-Out', ar: 'تصميم داخلي وتجهيز' },
+        'opt-activations': { en: 'Brand Activation / Experience', ar: 'تنشيط علامة تجارية' },
+        'opt-events': { en: 'Experiential Event Stage', ar: 'مسرح فعالية تجريبية' },
+        'contact-submit-btn': { en: 'SEND INQUIRY BLUEPRINT →', ar: 'إرسال مخطط الطلب ←' },
         'map-tag': { en: 'OUR LOCATION', ar: 'موقعنا' },
         'map-title': { en: 'FIND US IN DUBAI & MIDDLE EAST', ar: 'موقعنا في دبي والشرق الأوسط' },
-        'ph-name': { en: 'Your Name', ar: 'اسمك الكامل' },
-        'ph-email': { en: 'Email Address', ar: 'عنوان البريد الإلكتروني' },
-        'ph-msg': { en: 'Tell us about your upcoming project...', ar: 'أخبرنا عن مشروعك القادم...' }
+        'ph-name': { en: 'Your Full Name', ar: 'اسمك الكامل' },
+        'ph-email': { en: 'Corporate Email Address', ar: 'البريد الإلكتروني للشركة' },
+        'ph-msg': { en: 'Describe your vision, timeline, or pavilion specs...', ar: 'أخبرنا عن رؤيتك والمخطط الزمني للمشروع...' }
     };
 
     let currentLang = localStorage.getItem('lang') || 'en';

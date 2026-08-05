@@ -4612,172 +4612,6 @@ html[dir="rtl"] .navbar-brand {
   transform: translateY(-50%) translateX(0);
 }
 
-@media (max-width: 768px) {
-  .floating-contact-actions {
-    bottom: 20px;
-    right: 20px;
-    gap: 10px;
-  }
-  .floating-btn {
-    width: 46px;
-    height: 46px;
-  }
-  .floating-btn svg {
-    width: 20px;
-    height: 20px;
-  }
-  .btn-tooltip {
-    display: none;
-  }
-}
-
-/* =============================================================
-   COMPLETE RESPONSIVE MEDIA QUERIES (DESKTOP, LAPTOP, TABLET, MOBILE)
-   ============================================================= */
-
-/* --- Tablet / Medium Screens (< 1024px) --- */
-@media (max-width: 1024px) {
-  .navbar {
-    padding: 20px 32px;
-  }
-
-  .bsl-hero-title {
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
-  }
-
-  .fullscreen-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-  }
-
-  .story-scene-card {
-    top: 75px;
-    left: 6%;
-    max-width: 440px;
-  }
-}
-
-/* --- Mobile & Tablet Portrait (< 768px) --- */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 16px 20px;
-  }
-
-  .navbar-brand .logo-img {
-    height: 28px;
-  }
-
-  .navbar-actions {
-    gap: 12px;
-  }
-
-  .theme-text-link {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-  }
-
-  .side-menu-trigger {
-    padding: 4px;
-  }
-
-  .hero-carousel-side-arrow {
-    display: none !important;
-  }
-
-  .bsl-hero {
-    padding: 100px 20px 40px;
-  }
-
-  .bsl-hero-title {
-    font-size: clamp(2rem, 7.5vw, 3rem);
-    line-height: 1.15;
-  }
-
-  .bsl-hero-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-  }
-
-  .hero-cta-links {
-    gap: 16px;
-  }
-
-  .bsl-about-section {
-    padding: 60px 20px;
-  }
-
-  .bsl-about-statement {
-    font-size: clamp(1.25rem, 5vw, 1.85rem);
-    line-height: 1.4;
-  }
-
-  .fullscreen-projects-section {
-    padding-top: 60px;
-  }
-
-  .fullscreen-project-card {
-    min-height: 75vh;
-  }
-
-  .fullscreen-overlay {
-    padding: 0 20px 40px;
-  }
-
-  .fullscreen-title {
-    font-size: clamp(1.5rem, 6vw, 2.4rem);
-    line-height: 1.15;
-  }
-
-  .project-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-  }
-
-  .story-scene-card {
-    top: 75px;
-    left: 5%;
-    right: 5%;
-    max-width: 100%;
-  }
-
-  .story-scene-title {
-    font-size: clamp(1.05rem, 4.2vw, 1.4rem);
-    line-height: 1.35;
-  }
-
-  .story-scene-tag {
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-  }
-}
-
-/* --- Small Mobile Phones (< 480px) --- */
-@media (max-width: 480px) {
-  .navbar {
-    padding: 14px 16px;
-  }
-
-  .theme-text-link {
-    font-size: 0.68rem;
-  }
-
-  .bsl-hero-title {
-    font-size: 1.95rem;
-  }
-
-  .hero-text-link {
-    font-size: 0.92rem;
-  }
-
-  .bsl-about-statement {
-    font-size: 1.2rem;
-  }
-
-  .fullscreen-title {
-    font-size: 1.45rem;
-  }
-}
-
 /* ==========================================================================
    ARABIC RTL & I18N SUPPORT
    ========================================================================== */
@@ -4792,7 +4626,7 @@ html[dir="rtl"] .navbar-brand {
 }
 
 html[dir="rtl"] .infya-contact-form button {
-  align-self: flex-end;
+  align-self: flex-start;
 }
 
 html[dir="rtl"] .lang-toggle-btn {
@@ -4800,13 +4634,202 @@ html[dir="rtl"] .lang-toggle-btn {
 }
 
 /* ==========================================================================
-   MOBILE TOUCH SCROLL OPTIMIZATION
+   COMPLETE RESPONSIVE MEDIA QUERIES (LAPTOP, TABLET, MOBILE, SMALL MOBILE)
    ========================================================================== */
-@media (max-width: 900px) {
+
+/* --- Medium / Tablet Landscape (< 1024px) --- */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 18px 28px;
+  }
+
+  .bsl-hero-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  }
+
+  .fullscreen-title {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+  }
+
+  .minimal-stats-strip {
+    gap: 24px !important;
+  }
+
+  .contact-details-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* --- Mobile & Tablet Portrait (< 768px) --- */
+@media (max-width: 768px) {
   html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
+  }
+
+  .navbar {
+    padding: 14px 16px;
+  }
+
+  .navbar-brand .logo-img {
+    height: 26px;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .lang-toggle-btn {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .side-menu-trigger {
+    padding: 6px;
+  }
+
+  .hero-carousel-side-arrow {
+    display: none !important;
+  }
+
+  .bsl-hero {
+    padding: 100px 16px 40px;
+    min-height: 85vh;
+  }
+
+  .bsl-hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    line-height: 1.15;
+  }
+
+  .whiteleaf-location-text {
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+  }
+
+  .bsl-hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .hero-cta-links {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .bsl-about-section {
+    padding: 50px 16px;
+  }
+
+  .bsl-about-statement {
+    font-size: clamp(1.15rem, 4.5vw, 1.6rem);
+    line-height: 1.4;
+  }
+
+  .fullscreen-projects-section {
+    padding-top: 40px;
+  }
+
+  .fullscreen-project-card {
+    min-height: 55vh;
+  }
+
+  .fullscreen-overlay {
+    padding: 0 16px 30px;
+  }
+
+  .fullscreen-title {
+    font-size: clamp(1.3rem, 5.5vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .project-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+  }
+
+  .minimal-stats-strip {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding: 30px 0 40px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .minimal-stat-number {
+    font-size: 3.2rem !important;
+  }
+
+  .whiteleaf-map-wrapper {
+    margin-bottom: 40px !important;
+  }
+
+  .whiteleaf-map-wrapper div[style*="height:400px"] {
+    height: 280px !important;
+    border-radius: 16px !important;
+  }
+
+  .contact-details-row {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 24px 0 !important;
+    margin-bottom: 32px !important;
+  }
+
+  .infya-giant-footer-text {
+    font-size: clamp(1.8rem, 6.5vw, 4rem);
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .floating-contact-actions {
+    bottom: 20px;
+    right: 16px;
+    gap: 10px;
+  }
+
+  .floating-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .btn-tooltip {
+    display: none !important;
+  }
+}
+
+/* --- Small Smartphones (< 480px) --- */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 14px;
+  }
+
+  .bsl-hero-title {
+    font-size: 1.7rem;
+  }
+
+  .hero-text-link {
+    font-size: 0.85rem;
+    padding: 10px 18px;
+  }
+
+  .bsl-about-statement {
+    font-size: 1.1rem;
+  }
+
+  .fullscreen-title {
+    font-size: 1.3rem;
+  }
+
+  .infya-contact-form input, 
+  .infya-contact-form textarea {
+    font-size: 0.88rem !important;
+  }
+
+  .infya-contact-form button {
+    width: 100% !important;
+    justify-content: center !important;
   }
 }

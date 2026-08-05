@@ -2124,6 +2124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'contact-offices-label': { en: 'REGIONAL OFFICES:', ar: 'المكاتب الإقليمية:' },
         'contact-phone-label': { en: 'PHONE:', ar: 'الهاتف:' },
         'contact-email-label': { en: 'EMAIL:', ar: 'البريد الإلكتروني:' },
+        'map-tag': { en: 'OUR LOCATION', ar: 'موقعنا' },
+        'map-title': { en: 'FIND US IN DUBAI & MIDDLE EAST', ar: 'موقعنا في دبي والشرق الأوسط' },
         'ph-name': { en: 'Your Name', ar: 'اسمك الكامل' },
         'ph-email': { en: 'Email Address', ar: 'عنوان البريد الإلكتروني' },
         'ph-msg': { en: 'Tell us about your upcoming project...', ar: 'أخبرنا عن مشروعك القادم...' }

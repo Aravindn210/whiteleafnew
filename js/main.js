@@ -418,13 +418,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initService3DModels();
   initProcess3DModel();
 
-  // 3. Contact Form Submission
+  // 3. Contact Form Submission & Admin Leads LocalStorage Integration
   const contactForm = document.getElementById('blueprint-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('form-name')?.value || '';
+      const name = document.getElementById('form-name')?.value || 'Valued Visitor';
+      const email = document.getElementById('form-email')?.value || '';
+      const message = document.getElementById('form-msg')?.value || '';
+
+      // Save inquiry to Admin Dashboard LocalStorage
+      try {
+        const existingLeads = JSON.parse(localStorage.getItem('whiteleaf_leads')) || [];
+        const newLead = {
+          id: 'lead-' + Date.now(),
+          name: name,
+          email: email,
+          phone: '',
+          company: 'Website Visitor',
+          service: 'Custom Exhibition / Interior Project',
+          budget: 'Undisclosed',
+          status: 'new',
+          date: new Date().toISOString(),
+          message: message
+        };
+        existingLeads.unshift(newLead);
+        localStorage.setItem('whiteleaf_leads', JSON.stringify(existingLeads));
+      } catch (err) {
+        console.warn('LocalStorage lead capture notice:', err);
+      }
 
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       if (submitBtn) {

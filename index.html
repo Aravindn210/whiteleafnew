@@ -80,6 +80,7 @@
         <li><a href="about.html" class="side-nav-link" data-i18n="nav-about">About Us</a></li>
         <li><a href="#projects" class="side-nav-link" data-i18n="nav-projects">Projects</a></li>
         <li><a href="#contact" class="side-nav-link" data-i18n="nav-contact">Contact</a></li>
+        <li><a href="login.html" class="side-nav-link" style="color:var(--accent-green);"><i class="fa-solid fa-lock" style="font-size:0.8em; margin-right:6px;"></i> Admin Portal</a></li>
       </ul>
     </div>
 
@@ -366,12 +367,12 @@
     <!-- Row 2: Clean Row Form -->
     <form class="infya-contact-form gsap-reveal" id="blueprint-form" style="display:flex; flex-direction:column; gap:24px; max-width:900px;">
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
-        <input type="text" placeholder="Your Name" data-i18n-ph="ph-name" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';">
+        <input type="text" id="form-name" placeholder="Your Name" data-i18n-ph="ph-name" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';">
         
-        <input type="email" placeholder="Email Address" data-i18n-ph="ph-email" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';">
+        <input type="email" id="form-email" placeholder="Email Address" data-i18n-ph="ph-email" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';">
       </div>
 
-      <textarea placeholder="Tell us about your upcoming project..." data-i18n-ph="ph-msg" rows="4" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease; resize:vertical;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';"></textarea>
+      <textarea id="form-msg" placeholder="Tell us about your upcoming project..." data-i18n-ph="ph-msg" rows="4" required style="width:100%; padding:16px 0; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.18); font-family:'Outfit', sans-serif; font-size:0.95rem; color:#FFFFFF; outline:none; transition:all 0.3s ease; resize:vertical;" onfocus="this.style.borderColor='var(--accent-green)';" onblur="this.style.borderColor='rgba(255,255,255,0.18)';"></textarea>
 
       <div style="margin-top:12px;">
         <button type="submit" data-i18n="contact-submit-btn" style="display:inline-flex; align-items:center; gap:8px; padding:14px 36px; background:var(--accent-green); color:#050505; border:none; border-radius:100px; font-weight:800; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(157,203,71,0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">SEND MESSAGE →</button>
@@ -386,7 +387,10 @@
   <!-- FOOTER COPYRIGHT -->
   <footer style="padding:32px 8%; background:#050505; border-top:1px dashed #262626; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
     <p style="font-size:0.85rem; color:#888888; margin:0;">© 2026 Whiteleaf Interiors LLC. All rights reserved.</p>
-    <p style="font-size:0.85rem; color:#888888; margin:0;">Website Designed by <span style="color:var(--accent-green); font-weight:700; letter-spacing:0.05em;">WHITELEAFINTERIORS</span></p>
+    <p style="font-size:0.85rem; color:#888888; margin:0;">
+      Website Designed by <span style="color:var(--accent-green); font-weight:700; letter-spacing:0.05em;">WHITELEAFINTERIORS</span> • 
+      <a href="login.html" style="color:#A0A0A0; text-decoration:none; margin-left:8px;" onmouseover="this.style.color='var(--accent-green)';" onmouseout="this.style.color='#A0A0A0';"><i class="fa-solid fa-user-gear"></i> Admin Login</a>
+    </p>
   </footer>
 
   <!-- FLOATING CONTACT ACTIONS (WHATSAPP & CALL) -->

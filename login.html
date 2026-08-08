@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Whiteleaf Interiors Portal</title>
+  <meta name="description" content="Secure Management Portal for Whiteleaf Interiors experience design, project portfolio, and client inquiries.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="login-wrapper">
+    <div class="login-bg-grid"></div>
+
+    <div class="login-card">
+      <div class="login-header">
+        <img src="assets/logo.png" alt="Whiteleaf Interiors" class="login-brand-logo">
+        <h1 class="login-title">Executive CMS Portal</h1>
+        <p class="login-subtitle">Sign in to manage projects and website contact leads</p>
+      </div>
+
+      <!-- Quick Demo Credentials Box -->
+      <div class="demo-credentials-badge">
+        <div class="demo-info">
+          <i class="fa-solid fa-key" style="color:var(--accent-green); margin-right:4px;"></i> 
+          Demo: <code>admin@whiteleaf.com</code>
+        </div>
+        <button type="button" class="demo-fill-btn" id="btn-fill-demo">Auto-Fill</button>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="email">Admin Email</label>
+          <div class="input-with-icon">
+            <i class="fa-regular fa-envelope input-icon"></i>
+            <input type="email" id="email" class="form-input" placeholder="admin@whiteleaf.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-with-icon">
+            <i class="fa-regular fa-lock input-icon"></i>
+            <input type="password" id="password" class="form-input" placeholder="••••••••••••" required autocomplete="current-password">
+            <button type="button" class="toggle-password" id="toggle-password" aria-label="Toggle password visibility">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; font-size:0.82rem; color:var(--text-muted);">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" checked style="accent-color:var(--accent-green);"> Remember session
+          </label>
+          <a href="#" onclick="alert('Demo Mode: Use the Auto-Fill button to populate admin credentials.'); return false;" style="color:var(--accent-green);">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Sign In to Dashboard</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="login-footer-link">
+        <a href="index.html"><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i> Back to Whiteleaf Main Website</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

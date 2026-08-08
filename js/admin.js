@@ -312,18 +312,25 @@
     const leads = getLeads();
 
     const totalProjectsEl = document.getElementById('stat-total-projects');
-    const activeExhibitionsEl = document.getElementById('stat-active-exhibitions');
-    const totalLeadsEl = document.getElementById('stat-total-leads');
-    const newLeadsEl = document.getElementById('stat-new-leads');
+    const exhibitionsEl = document.getElementById('stat-count-exhibitions');
+    const interiorsEl = document.getElementById('stat-count-interiors');
+    const eventsEl = document.getElementById('stat-count-events');
+    const activationsEl = document.getElementById('stat-count-activations');
     const leadsBadge = document.getElementById('nav-leads-badge');
 
     const exhibitionCount = projects.filter(p => p.category === 'exhibitions').length;
+    const interiorCount = projects.filter(p => p.category === 'interiors').length;
+    const eventCount = projects.filter(p => p.category === 'events').length;
+    const activationCount = projects.filter(p => p.category === 'activations').length;
+
     const newLeadsCount = leads.filter(l => l.status === 'new').length;
 
     if (totalProjectsEl) totalProjectsEl.textContent = projects.length;
-    if (activeExhibitionsEl) activeExhibitionsEl.textContent = exhibitionCount;
-    if (totalLeadsEl) totalLeadsEl.textContent = leads.length;
-    if (newLeadsEl) newLeadsEl.textContent = newLeadsCount;
+    if (exhibitionsEl) exhibitionsEl.textContent = exhibitionCount;
+    if (interiorsEl) interiorsEl.textContent = interiorCount;
+    if (eventsEl) eventsEl.textContent = eventCount;
+    if (activationsEl) activationsEl.textContent = activationCount;
+
     if (leadsBadge) leadsBadge.textContent = newLeadsCount;
 
     renderRecentLeads();

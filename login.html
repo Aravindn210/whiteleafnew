@@ -29,13 +29,21 @@
         <p class="login-subtitle">Sign in to manage projects and website contact leads</p>
       </div>
 
-      <!-- Quick Demo Credentials Box -->
-      <div class="demo-credentials-badge">
-        <div class="demo-info">
-          <i class="fa-solid fa-key" style="color:var(--accent-green); margin-right:4px;"></i> 
-          Demo: <code>admin@whiteleaf.com</code>
+      <!-- Quick Dual Role Login Selector -->
+      <div style="background:rgba(255,255,255,0.03); border:1px solid var(--card-border); border-radius:var(--radius-md); padding:16px; margin-bottom:24px;">
+        <span style="font-size:0.72rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:10px;">Select Role Quick-Fill Credentials:</span>
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <button type="button" class="demo-fill-btn" id="btn-fill-superadmin" style="display:flex; flex-direction:column; align-items:flex-start; padding:10px 12px; background:rgba(157,203,71,0.12); border:1px solid rgba(157,203,71,0.3); color:#fff; border-radius:var(--radius-sm); text-align:left; cursor:pointer;">
+            <span style="font-weight:800; font-size:0.78rem; color:var(--accent-green);"><i class="fa-solid fa-user-shield"></i> Super Admin</span>
+            <span style="font-size:0.68rem; color:var(--text-muted); margin-top:2px;">Full Access (CMS & Leads)</span>
+          </button>
+
+          <button type="button" class="demo-fill-btn" id="btn-fill-pm" style="display:flex; flex-direction:column; align-items:flex-start; padding:10px 12px; background:rgba(229,184,105,0.12); border:1px solid rgba(229,184,105,0.3); color:#fff; border-radius:var(--radius-sm); text-align:left; cursor:pointer;">
+            <span style="font-weight:800; font-size:0.78rem; color:var(--accent-gold);"><i class="fa-solid fa-user-gear"></i> Project Manager</span>
+            <span style="font-size:0.68rem; color:var(--text-muted); margin-top:2px;">Projects & Portfolio Only</span>
+          </button>
         </div>
-        <button type="button" class="demo-fill-btn" id="btn-fill-demo">Auto-Fill</button>
       </div>
 
       <form id="login-form">

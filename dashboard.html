@@ -27,7 +27,7 @@
         <a href="index.html">
           <img src="assets/logo.png" alt="Whiteleaf Interiors" class="sidebar-logo">
         </a>
-        <span class="sidebar-badge">ADMIN</span>
+        <span class="sidebar-badge" id="user-role-badge">SUPER ADMIN</span>
       </div>
 
       <nav class="sidebar-nav">
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="nav-item" data-tab="leads">
+        <div class="nav-item" data-tab="leads" id="nav-item-leads">
           <div class="nav-item-left">
             <i class="fa-solid fa-envelope-open-text"></i>
             <span>Contact Leads</span>
@@ -63,10 +63,10 @@
 
       <div class="sidebar-footer">
         <div class="user-profile">
-          <div class="avatar">WI</div>
+          <div class="avatar" id="user-avatar">WI</div>
           <div class="user-info">
-            <span class="user-name">Executive Admin</span>
-            <span class="user-role">Administrator</span>
+            <span class="user-name" id="user-display-name">Super Admin</span>
+            <span class="user-role" id="user-display-role">Administrator</span>
           </div>
         </div>
         <button type="button" class="btn-logout" id="btn-logout" title="Log Out">
@@ -160,8 +160,8 @@
             </div>
           </div>
 
-          <!-- RECENT CONTACT ENQUIRIES TABLE -->
-          <div class="section-card">
+          <!-- RECENT CONTACT ENQUIRIES TABLE (SUPER ADMIN ONLY) -->
+          <div class="section-card" id="recent-leads-section">
             <div class="card-header-flex">
               <h2 class="card-title"><i class="fa-solid fa-comment-dots"></i> Recent Website Enquiries</h2>
               <button class="btn-sec" onclick="document.querySelector('[data-tab=\'leads\']').click()">View All Leads →</button>

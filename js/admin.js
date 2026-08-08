@@ -163,16 +163,25 @@
   // --- 3. LOGIN PAGE CONTROLLER ---
   if (isLoginPage) {
     const loginForm = document.getElementById('login-form');
-    const demoBtn = document.getElementById('btn-fill-demo');
+    const fillSuperAdminBtn = document.getElementById('btn-fill-superadmin');
+    const fillPmBtn = document.getElementById('btn-fill-pm');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const togglePassBtn = document.getElementById('toggle-password');
 
-    if (demoBtn) {
-      demoBtn.addEventListener('click', function () {
-        emailInput.value = 'admin@whiteleaf.com';
-        passwordInput.value = 'whiteleaf2026';
-        showToast('Demo credentials pre-filled!', 'success');
+    if (fillSuperAdminBtn) {
+      fillSuperAdminBtn.addEventListener('click', function () {
+        emailInput.value = 'superadmin@whiteleaf.com';
+        passwordInput.value = 'superadmin2026';
+        showToast('Super Admin credentials pre-filled!', 'success');
+      });
+    }
+
+    if (fillPmBtn) {
+      fillPmBtn.addEventListener('click', function () {
+        emailInput.value = 'pm@whiteleaf.com';
+        passwordInput.value = 'pm2026';
+        showToast('Project Manager credentials pre-filled!', 'success');
       });
     }
 
@@ -187,7 +196,7 @@
     if (loginForm) {
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        const email = emailInput.value.trim();
+        const email = emailInput.value.trim().toLowerCase();
         const password = passwordInput.value.trim();
 
         if (!email || !password) {
@@ -195,20 +204,27 @@
           return;
         }
 
-        // Simulating login check
+        let role = 'superadmin';
+        let name = 'Super Administrator';
+
+        if (email.includes('pm') || email.includes('project') || password === 'pm2026') {
+          role = 'project_manager';
+          name = 'Project Manager';
+        }
+
         const user = {
-          name: 'Executive Admin',
+          name: name,
           email: email,
-          role: 'Administrator',
+          role: role,
           loginTime: new Date().toISOString()
         };
 
         localStorage.setItem('whiteleaf_auth_user', JSON.stringify(user));
-        showToast('Authentication successful! Redirecting...', 'success');
+        showToast(`Signed in as ${name}! Redirecting...`, 'success');
         
         setTimeout(() => {
           window.location.href = 'dashboard.html';
-        }, 800);
+        }, 700);
       });
     }
   }
@@ -216,6 +232,7 @@
   // --- 4. DASHBOARD CONTROLLER ---
   if (isDashboardPage) {
     document.addEventListener('DOMContentLoaded', function () {
+      applyRolePermissions();
       initClock();
       initSidebar();
       initTabs();
@@ -236,6 +253,49 @@
         });
       }
     });
+  }
+
+  function applyRolePermissions() {
+    const authUser = JSON.parse(localStorage.getItem('whiteleaf_auth_user')) || { role: 'superadmin', name: 'Super Administrator' };
+    const roleBadge = document.getElementById('user-role-badge');
+    const userNameEl = document.getElementById('user-display-name');
+    const userRoleTitleEl = document.getElementById('user-display-role');
+    const userAvatarEl = document.getElementById('user-avatar');
+    const navLeadsItem = document.getElementById('nav-item-leads');
+    const recentLeadsSection = document.getElementById('recent-leads-section');
+
+    if (userNameEl) userNameEl.textContent = authUser.name;
+
+    if (authUser.role === 'project_manager') {
+      if (userRoleTitleEl) userRoleTitleEl.textContent = 'Project Manager';
+      if (userAvatarEl) userAvatarEl.textContent = 'PM';
+
+      if (roleBadge) {
+        roleBadge.textContent = 'PROJECT MANAGER';
+        roleBadge.style.background = 'rgba(229,184,105,0.18)';
+        roleBadge.style.color = 'var(--accent-gold)';
+        roleBadge.style.border = '1px solid rgba(229,184,105,0.3)';
+      }
+
+      // Hide Contact Leads tab from PM
+      if (navLeadsItem) navLeadsItem.style.display = 'none';
+      if (recentLeadsSection) recentLeadsSection.style.display = 'none';
+      document.body.classList.add('role-pm');
+    } else {
+      if (userRoleTitleEl) userRoleTitleEl.textContent = 'Super Administrator';
+      if (userAvatarEl) userAvatarEl.textContent = 'SA';
+
+      if (roleBadge) {
+        roleBadge.textContent = 'SUPER ADMIN';
+        roleBadge.style.background = 'rgba(157,203,71,0.15)';
+        roleBadge.style.color = 'var(--accent-green)';
+        roleBadge.style.border = '1px solid rgba(157,203,71,0.3)';
+      }
+
+      if (navLeadsItem) navLeadsItem.style.display = 'flex';
+      if (recentLeadsSection) recentLeadsSection.style.display = 'block';
+      document.body.classList.remove('role-pm');
+    }
   }
 
   // Live Clock Header
@@ -465,6 +525,11 @@
   };
 
   window.deleteProject = function(id) {
+    const authUser = JSON.parse(localStorage.getItem('whiteleaf_auth_user')) || {};
+    if (authUser.role === 'project_manager') {
+      showToast('Action restricted: Only Super Admin can delete projects.', 'error');
+      return;
+    }
     if (confirm('Are you sure you want to remove this project?')) {
       let projects = getProjects();
       projects = projects.filter(p => p.id !== id);

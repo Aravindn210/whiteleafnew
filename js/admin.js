@@ -320,11 +320,24 @@
   function initSidebar() {
     const sidebar = document.getElementById('sidebar');
     const trigger = document.getElementById('mobile-menu-trigger');
-    if (trigger && sidebar) {
-      trigger.addEventListener('click', function () {
-        sidebar.classList.toggle('mobile-open');
-      });
+    const overlay = document.getElementById('sidebar-overlay');
+
+    function toggle() {
+      if (!sidebar) return;
+      const isOpen = sidebar.classList.toggle('mobile-open');
+      if (overlay) {
+        if (isOpen) overlay.classList.add('active');
+        else overlay.classList.remove('active');
+      }
     }
+
+    function close() {
+      if (sidebar) sidebar.classList.remove('mobile-open');
+      if (overlay) overlay.classList.remove('active');
+    }
+
+    if (trigger) trigger.addEventListener('click', toggle);
+    if (overlay) overlay.addEventListener('click', close);
   }
 
   // Tab Navigation
